@@ -1,5 +1,10 @@
 import Head from "next/head";
-import { Footer, Main } from "../components/custom-styles";
+import {
+  Footer,
+  Headline,
+  Main,
+  HeadlineMain,
+} from "../components/custom-styles";
 import Header from "../components/header";
 
 export default function Home() {
@@ -11,7 +16,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Main>
-        <Header />
+        <Header title="Drello" />
+        <Headline>Welcome to the future of Trello</Headline>
+        <HeadlineMain>Drello</HeadlineMain>
       </Main>
       <Footer>Setunas</Footer>
     </>

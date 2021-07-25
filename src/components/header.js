@@ -1,10 +1,10 @@
 import React from "react";
 import { HeaderBar, HeaderBrand } from "./custom-styles";
 
-const Header = () => {
+const Header = ({ title }) => {
   return (
     <HeaderBar>
-      <HeaderBrand>Drello</HeaderBrand>
+      <HeaderBrand>{title}</HeaderBrand>
     </HeaderBar>
   );
 };
