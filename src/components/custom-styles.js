@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 // Header styling
 export const HeaderBar = styled.header`
-  padding: 0.2em;
   margin: 3em;
   border-radius: 0.4rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -10,19 +9,24 @@ export const HeaderBar = styled.header`
 `;
 
 export const HeaderBrand = styled.h3`
-  font-size: 2em;
+  font-size: 3em;
+  font-family: "Arapey", serif;
   color: #707070;
-  margin-left: 2rem;
+  margin: 1rem 1rem 1rem 1.5rem;
 `;
 
 // Main body
 export const Main = styled.main`
-  min-height: 70vh;
+  min-height: 90vh;
   color: #707070;
+  font-family: "Fira Sans", sans-serif;
+  padding: 0.5rem 1.5rem;
 `;
 
 // Footer
 export const Footer = styled.footer`
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 100;
   text-align: center;
 `;
 
@@ -35,9 +39,14 @@ export const LandingSection = styled.section`
 `;
 
 export const Headline = styled.h2`
+  margin: 10% 0 4% 0;
   text-align: center;
+  font-size: 1.5em;
+  font-weight: 400;
 `;
 
 export const HeadlineMain = styled(Headline)`
-  font-size: 2em;
+  margin-top: 0%;
+  font-family: "Arapey", serif;
+  font-size: 3em;
 `;

@@ -20,7 +20,9 @@ export default function Home() {
         <Headline>Welcome to the future of Trello</Headline>
         <HeadlineMain>Drello</HeadlineMain>
       </Main>
-      <Footer>Setunas</Footer>
+      <Footer>
+        <p>&copy; 2021 Setunas Team</p>
+      </Footer>
     </>
   );
 }
