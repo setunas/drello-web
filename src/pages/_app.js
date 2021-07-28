@@ -1,10 +1,24 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  * {
+    box-sizing: border-box;
+  }
+  html, body, #__next {
+    height: 100%;
+    width: 100%;
+  }
+  body, #__next {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: "Trebuchet MS";
+  }
+  #__next {
+    padding: 1em;
+    display: grid;
+    grid-template-rows: 10em auto 3em;
+    grid-template-columns: repeat(12, fr);
+    grid-gap: 1em;
   }
 `;
 

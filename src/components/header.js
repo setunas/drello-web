@@ -1,11 +1,13 @@
 import React from "react";
-import { HeaderBar, HeaderBrand } from "./custom-styles";
+import { HeaderBar, HeaderBrand, HeaderContainer } from "./custom-styles";
 
 const Header = ({ title }) => {
   return (
-    <HeaderBar>
-      <HeaderBrand>{title}</HeaderBrand>
-    </HeaderBar>
+    <HeaderContainer>
+      <HeaderBar>
+        <HeaderBrand>{title}</HeaderBrand>
+      </HeaderBar>
+    </HeaderContainer>
   );
 };
 

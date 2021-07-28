@@ -1,52 +1,55 @@
 import styled from "styled-components";
 
 // Header styling
+export const HeaderContainer = styled.header`
+  grid-column-start: 1;
+  grid-column-end: 13;
+  padding: 3em;
+`;
 export const HeaderBar = styled.header`
-  margin: 3em;
-  border-radius: 0.4rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0.2rem 0.2rem 0.1rem 0.1rem rgba(0, 0, 0, 0.3);
+  padding: 0 0 0 2em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1em;
+  box-shadow: 0.1em 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.5);
 `;
 
 export const HeaderBrand = styled.h3`
-  font-size: 3em;
-  font-family: "Arapey", serif;
+  font-size: 1.7em;
   color: #707070;
-  margin: 1rem 1rem 1rem 1.5rem;
 `;
 
 // Main body
 export const Main = styled.main`
-  min-height: 90vh;
+  grid-column-start: 1;
+  grid-column-end: 13;
+  text-align: center;
+  display: grid;
+  align-content: center;
   color: #707070;
-  font-family: "Fira Sans", sans-serif;
-  padding: 0.5rem 1.5rem;
 `;
 
 // Footer
 export const Footer = styled.footer`
-  font-family: "Fira Sans", sans-serif;
-  font-weight: 100;
+  grid-column-start: 1;
+  grid-column-end: 13;
   text-align: center;
 `;
 
 // Landing page
 
-export const LandingSection = styled.section`
-  padding: 0.1rem;
+export const LandingSection = styled.section``;
+
+export const Headline = styled.article`
   display: grid;
-  grid-gap: 0.1rem;
+  align-content: space-evenly;
 `;
 
-export const Headline = styled.h2`
-  margin: 10% 0 4% 0;
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: 400;
+export const HeadlineMain = styled.h2`
+  font-size: 2rem;
+  font-weight: 100;
 `;
 
-export const HeadlineMain = styled(Headline)`
-  margin-top: 0%;
-  font-family: "Arapey", serif;
-  font-size: 3em;
+export const HeadlineSub = styled.h3`
+  font-size: 1.3rem;
+  font-weight: 100;
 `;
