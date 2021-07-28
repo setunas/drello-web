@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 // Header styling
 export const HeaderContainer = styled.header`
-  grid-column-start: 1;
-  grid-column-end: 13;
+  grid-column: 1 / 13;
   padding: 3em;
 `;
 export const HeaderBar = styled.header`
@@ -14,14 +13,14 @@ export const HeaderBar = styled.header`
 `;
 
 export const HeaderBrand = styled.h3`
+  font-family: "Arapey", serif;
   font-size: 1.7em;
   color: #707070;
 `;
 
 // Main body
 export const Main = styled.main`
-  grid-column-start: 1;
-  grid-column-end: 13;
+  grid-column: 1 / 13;
   text-align: center;
   display: grid;
   align-content: center;
@@ -30,8 +29,7 @@ export const Main = styled.main`
 
 // Footer
 export const Footer = styled.footer`
-  grid-column-start: 1;
-  grid-column-end: 13;
+  grid-column: 1 / 13;
   text-align: center;
 `;
 
@@ -45,8 +43,8 @@ export const Headline = styled.article`
 `;
 
 export const HeadlineMain = styled.h2`
-  font-size: 2rem;
-  font-weight: 100;
+  font-family: "Arapey", serif;
+  font-size: 2em;
 `;
 
 export const HeadlineSub = styled.h3`
