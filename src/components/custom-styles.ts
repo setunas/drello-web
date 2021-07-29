@@ -18,6 +18,7 @@ export const HeaderBrand = styled.h3`
   color: #707070;
 `;
 
+export const LeftNavItems = styled.div``;
 // Main body
 export const Main = styled.main`
   grid-column: 1 / 13;
