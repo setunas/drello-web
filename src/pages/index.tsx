@@ -2,7 +2,7 @@ import Head from "next/head";
 import {
   Footer,
   Headline,
-  Main,
+  LandingMain,
   HeadlineMain,
   HeadlineSub,
 } from "../components/custom-styles";
@@ -16,12 +16,12 @@ export default function Home() {
         <meta name="description" content="A Trello clone but better" />
       </Head>
       <Header title="Drello" />
-      <Main>
+      <LandingMain>
         <Headline>
           <HeadlineSub>Welcome to the future of Trello</HeadlineSub>
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
-      </Main>
+      </LandingMain>
       <Footer>&copy; 2021 Setunas Team</Footer>
     </>
   );

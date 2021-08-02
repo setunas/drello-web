@@ -30,6 +30,9 @@ const GlobalStyle = createGlobalStyle`
     grid-template-columns: repeat(12, fr);
     grid-gap: 1em;
   }
+  a {
+    text-decoration: none;
+  }
 `;
 
 const theme = {

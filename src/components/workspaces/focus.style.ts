@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { BdCard } from "../custom-components/board-card.style";
 
 export const FcBar = styled.div`
   text-align: left;
@@ -19,6 +18,20 @@ export const FcBdSummary = styled.div`
   padding: 1rem;
   justify-content: space-evenly;
   align-content: space-around;
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: 2fr repeat(2, 1fr);
+  }
 `;
 
-export const FcBdCard = styled(BdCard)``;
+export const FcBdList = styled.div`
+  padding: 0 3rem;
+  justify-content: center;
+  align-content: space-between;
+  h4 {
+    text-transform: uppercase;
+  }
+  li {
+    list-style-type: none;
+    text-align: left;
+  }
+`;
