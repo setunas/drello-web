@@ -23,9 +23,8 @@ export const LeftNavItems = styled.div``;
 export const Main = styled.main`
   grid-column: 1 / 13;
   text-align: center;
-  display: grid;
-  align-content: center;
   color: #707070;
+  padding: 0 3em;
 `;
 
 // Footer
