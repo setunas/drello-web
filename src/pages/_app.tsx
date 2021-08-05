@@ -26,8 +26,8 @@ const GlobalStyle = createGlobalStyle`
   #__next {
     padding: 1em;
     display: grid;
-    grid-template-rows: 10em auto 3em;
-    grid-template-columns: repeat(12, fr);
+    grid-template-rows: 1fr 9fr 2em;
+    grid-template-columns: repeat(12, 1fr);
     grid-gap: 1em;
   }
   a {
