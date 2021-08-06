@@ -77,8 +77,7 @@ const Workspaces = () => {
   const focusBoardList = drelloBoardsList.filter((item) => item.focus === true);
 
   const toggleFocus = () => {
-    const focusToggle = !focusView;
-    setFocusView(focusToggle);
+    setFocusView(!focusView);
   };
 
   return (
