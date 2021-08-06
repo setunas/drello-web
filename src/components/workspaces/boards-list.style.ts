@@ -26,4 +26,5 @@ export const MiniBdList = styled.ol`
   grid-template-columns: repeat(3, 1fr);
   list-style-type: "- ";
   text-transform: uppercase;
+  justify-items: center;
 `;
