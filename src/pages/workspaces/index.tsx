@@ -87,7 +87,7 @@ const Workspaces = () => {
       <Main>
         {focusView ? (
           <>
-            <FcBar onClick={() => toggleFocus()}>
+            <FcBar onClick={toggleFocus}>
               Focus
               <FcHr />
             </FcBar>
