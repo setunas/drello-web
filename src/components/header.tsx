@@ -6,6 +6,7 @@ import {
   HeaderContainer,
   LeftNavItems,
 } from "./custom-styles";
+import { path } from "../utils/url/drello-web";
 
 const Header = ({ title }) => {
   return (
@@ -17,7 +18,7 @@ const Header = ({ title }) => {
           </a>
         </Link>
         <LeftNavItems>
-          <Link href="/workspaces">
+          <Link href={path.workspaces()}>
             <a>
               <FontAwesomeIcon icon="sign-in-alt" /> Login to get started
             </a>
