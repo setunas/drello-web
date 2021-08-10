@@ -5,8 +5,10 @@ export const HeaderContainer = styled.header`
   grid-column: 1 / 13;
   padding: 3em;
 `;
-export const HeaderBar = styled.header`
-  padding: 0 0 0 2em;
+export const HeaderBar = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 0 2em;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1em;
   box-shadow: 0.1em 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.5);
@@ -18,14 +20,16 @@ export const HeaderBrand = styled.h3`
   color: #707070;
 `;
 
-export const LeftNavItems = styled.div``;
+export const LeftNavItems = styled.div`
+  display: grid;
+  align-content: center;
+`;
 // Main body
 export const Main = styled.main`
   grid-column: 1 / 13;
   text-align: center;
-  display: grid;
-  align-content: center;
   color: #707070;
+  padding: 0 3em;
 `;
 
 // Footer
@@ -36,7 +40,10 @@ export const Footer = styled.footer`
 
 // Landing page
 
-export const LandingSection = styled.section``;
+export const LandingMain = styled(Main)`
+  display: grid;
+  align-content: center;
+`;
 
 export const Headline = styled.article`
   display: grid;
