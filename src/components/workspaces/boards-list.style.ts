@@ -6,14 +6,17 @@ export const WsSection = styled.section`
   grid-template-columns: 1fr 8fr;
   padding: 3em 0;
 `;
-export const WsNav = styled.nav`
-  h3 {
-    font-size: 1.3em;
-  }
-  ul {
-    list-style-type: none;
-  }
+export const WsNav = styled.nav``;
+
+export const WsNavHeader = styled.h3`
+  font-size: 1.3em;
 `;
+
+export const WsNavList = styled.ul`
+  list-style-type: none;
+`;
+
+export const WsNavItem = styled.li``;
 
 export const BdList = styled(FcBoard)`
   display: grid;

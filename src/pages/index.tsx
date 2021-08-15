@@ -5,8 +5,8 @@ import {
   LandingMain,
   HeadlineMain,
   HeadlineSub,
-} from "../components/custom-styles";
-import Header from "../components/header";
+} from "../components/shared-styles";
+import { Header } from "../components/header";
 
 export default function Home() {
   return (

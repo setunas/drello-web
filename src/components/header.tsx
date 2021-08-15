@@ -5,10 +5,14 @@ import {
   HeaderBrand,
   HeaderContainer,
   LeftNavItems,
-} from "./custom-styles";
+} from "./shared-styles";
 import { path } from "../utils/url/drello-web";
 
-const Header = ({ title }) => {
+interface HeaderProps {
+  title: string;
+}
+
+export const Header = ({ title }: HeaderProps) => {
   return (
     <HeaderContainer>
       <HeaderBar>

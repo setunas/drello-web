@@ -1,43 +1,29 @@
-import React from "react";
-import BoardCard from "../custom-components/board-card";
-import { FcBdSummary, FcBoard, FcBdList } from "./focus.style";
+import { Board } from "../../types/inner/board.g";
+import { BoardCard } from "../custom-components/board-card";
+import { FocusListItem } from "./focus-list-item";
+import { FcBdSummary, FcBoard } from "./focus.style";
 
-const Focus = ({ drelloBoardsList }) => {
+interface FocusProps {
+  drelloBoardsList: Board[];
+}
+
+export const Focus = ({ drelloBoardsList }: FocusProps) => {
   return (
     <>
       <FcBoard>
         {drelloBoardsList.map((workspaceItem, idx) => (
           <FcBdSummary key={idx}>
             <BoardCard title={workspaceItem.title} />
-            <FcBdList>
-              <h4>Milestones</h4>
-              <ul>
-                {workspaceItem.stats.milestones.map((milestone, idx) => (
-                  <li key={idx}>{milestone}</li>
-                ))}
-              </ul>
-            </FcBdList>
-            <FcBdList>
-              <h4>Team Members</h4>
-              <ul>
-                {workspaceItem.stats.team_members.map((member, idx) => (
-                  <li key={idx}>{member}</li>
-                ))}
-              </ul>
-            </FcBdList>
-            <FcBdList>
-              <h4>Card Summary</h4>
-              <ul>
-                {workspaceItem.stats.card_summary.map((summary_item, idx) => (
-                  <li key={idx}>{summary_item}</li>
-                ))}
-              </ul>
-            </FcBdList>
+            {workspaceItem?.stats?.map(({ measure, content }, idx) => (
+              <FocusListItem
+                key={`wk-focus-item-${idx}`}
+                measure={measure}
+                content={content}
+              />
+            ))}
           </FcBdSummary>
         ))}
       </FcBoard>
     </>
   );
 };
-
-export default Focus;

@@ -1,12 +1,13 @@
-import React from "react";
 import { BdCard, BdTitle } from "./board-card.style";
 
-const BoardCard = ({ title }) => {
+interface BoardCardProps {
+  title: string;
+}
+
+export const BoardCard = ({ title }: BoardCardProps) => {
   return (
     <BdCard>
       <BdTitle>{title}</BdTitle>
     </BdCard>
   );
 };
-
-export default BoardCard;

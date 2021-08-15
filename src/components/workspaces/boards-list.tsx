@@ -1,22 +1,35 @@
-import React from "react";
-import BoardCard from "../custom-components/board-card";
-import { BdList, WsNav, WsSection } from "./boards-list.style";
+import { BoardCard } from "../custom-components/board-card";
+import { Board } from "../../types/inner/board.g";
+import { Workspace } from "../../types/inner/workspace.g";
+import {
+  BdList,
+  WsNavItem,
+  WsNav,
+  WsSection,
+  WsNavHeader,
+  WsNavList,
+} from "./boards-list.style";
 
-const workspaceList = [
+interface BoardsListProps {
+  drelloBoardsList: Board[];
+}
+
+const workspaceList: Workspace[] = [
   { id: "wk1", name: "Setunas", type: "Engineering - IT", description: "" },
   { id: "wk2", name: "Family", type: "Engineering - IT", description: "" },
 ];
 
-const BoardsList = ({ drelloBoardsList }) => {
+export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
   return (
     <WsSection>
       <WsNav>
-        <h3>Workspaces</h3>
-        <ul>
+        <WsNavHeader>Workspaces</WsNavHeader>
+        <WsNavList>
           {workspaceList.map((workspace) => (
-            <li key={workspace.id}>{workspace.name}</li>
+            <WsNavItem key={workspace.id}>{workspace.name}</WsNavItem>
           ))}
-        </ul>
+          <WsNavItem>+ Add Workspace</WsNavItem>
+        </WsNavList>
       </WsNav>
       <BdList>
         {drelloBoardsList.map((boardItem) => (
@@ -26,5 +39,3 @@ const BoardsList = ({ drelloBoardsList }) => {
     </WsSection>
   );
 };
-
-export default BoardsList;
