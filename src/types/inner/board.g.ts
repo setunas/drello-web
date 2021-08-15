@@ -1,13 +1,13 @@
 import { Workspace } from "./workspace.g";
 
 export interface Stats {
-  id?: string;
+  id?: number;
   measure: string;
   content: string[];
 }
 
 export interface Board {
-  id: string;
+  id: number;
   title: string;
   focus?: boolean;
   workspace?: Workspace;

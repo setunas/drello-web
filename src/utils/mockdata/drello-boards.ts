@@ -1,6 +1,6 @@
 export const drelloBoardsList = [
   {
-    id: "1",
+    id: 345345,
     title: "Dimsum",
     focus: true,
     workspace: {
@@ -22,7 +22,7 @@ export const drelloBoardsList = [
     ],
   },
   {
-    id: "2",
+    id: 346324,
     title: "Project Echo",
     focus: true,
     workspace: {
@@ -44,7 +44,7 @@ export const drelloBoardsList = [
     ],
   },
   {
-    id: "3",
+    id: 347645,
     title: "Drello",
     focus: false,
     workspace: {

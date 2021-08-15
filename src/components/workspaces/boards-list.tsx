@@ -15,8 +15,8 @@ interface BoardsListProps {
 }
 
 const workspaceList: Workspace[] = [
-  { id: "wk1", name: "Setunas", type: "Engineering - IT", description: "" },
-  { id: "wk2", name: "Family", type: "Engineering - IT", description: "" },
+  { id: 1232, name: "Setunas", type: "Engineering - IT", description: "" },
+  { id: 124123, name: "Family", type: "Engineering - IT", description: "" },
 ];
 
 export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
