@@ -4,7 +4,7 @@ export const drelloBoardsList = [
     title: "Dimsum",
     focus: true,
     workspace: {
-      id: "wk2",
+      id: 4864576,
       name: "Family",
       type: "Engineering - IT",
       description: "",
@@ -26,7 +26,7 @@ export const drelloBoardsList = [
     title: "Project Echo",
     focus: true,
     workspace: {
-      id: "wk2",
+      id: 8784657,
       name: "Family",
       type: "Engineering - IT",
       description: "",
@@ -48,7 +48,7 @@ export const drelloBoardsList = [
     title: "Drello",
     focus: false,
     workspace: {
-      id: "wk1",
+      id: 456856,
       name: "Setunas",
       type: "Engineering - IT",
       description: "",
