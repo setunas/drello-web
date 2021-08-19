@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+import { LinkItem } from "./custom-components/link-item";
 import {
   HeaderBar,
   HeaderBrand,
@@ -16,17 +16,13 @@ export const Header = ({ title }: HeaderProps) => {
   return (
     <HeaderContainer>
       <HeaderBar>
-        <Link href="/">
-          <a>
-            <HeaderBrand>{title}</HeaderBrand>
-          </a>
-        </Link>
+        <LinkItem path="/">
+          <HeaderBrand>{title}</HeaderBrand>
+        </LinkItem>
         <LeftNavItems>
-          <Link href={path.workspaces()}>
-            <a>
-              <FontAwesomeIcon icon="sign-in-alt" /> Login to get started
-            </a>
-          </Link>
+          <LinkItem path={path.workspaces()}>
+            <FontAwesomeIcon icon="sign-in-alt" /> Login to get started
+          </LinkItem>
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>
