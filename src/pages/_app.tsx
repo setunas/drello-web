@@ -24,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Trebuchet MS";
   }
   #__next {
-    padding: 1em;
     display: grid;
     grid-template-rows: 1fr 9fr 2em;
     grid-template-columns: repeat(12, 1fr);
