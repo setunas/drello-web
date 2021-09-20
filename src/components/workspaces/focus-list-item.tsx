@@ -1,4 +1,19 @@
-import { FcBdList } from "./focus.style";
+import styled from "styled-components";
+
+const FcBdList = styled.div`
+  padding: 0 3rem;
+  justify-content: center;
+  align-content: space-between;
+`;
+
+const FcBdHeader = styled.h4`
+  text-transform: uppercase;
+`;
+
+const FcBdItem = styled.li`
+  list-style-type: none;
+  text-align: left;
+`;
 
 interface FocusListItemProps {
   measure: string;
@@ -8,10 +23,10 @@ interface FocusListItemProps {
 export const FocusListItem = ({ measure, content }: FocusListItemProps) => {
   return (
     <FcBdList>
-      <h4>{measure}</h4>
+      <FcBdHeader>{measure}</FcBdHeader>
       <ul>
         {content.map((item, idx) => (
-          <li key={`focus-list-item-${idx}`}>{item}</li>
+          <FcBdItem key={`focus-list-item-${idx}`}>{item}</FcBdItem>
         ))}
       </ul>
     </FcBdList>

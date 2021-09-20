@@ -13,12 +13,12 @@ export default function Home() {
     <>
       <Head>
         <title>Drello</title>
-        <meta name="description" content="A Trello clone but better" />
+        <meta name="description" content="A Trello clone" />
       </Head>
       <Header title="Drello" />
       <LandingMain>
         <Headline>
-          <HeadlineSub>Welcome to the future of Trello</HeadlineSub>
+          <HeadlineSub>Welcome to the future of Trello...maybe</HeadlineSub>
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
       </LandingMain>

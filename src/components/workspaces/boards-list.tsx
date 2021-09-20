@@ -1,14 +1,28 @@
 import { BoardCard } from "../custom-components/board-card";
 import { Board } from "../../types/inner/board.g";
 import { Workspace } from "../../types/inner/workspace.g";
-import {
-  BdList,
-  WsNavItem,
-  WsNav,
-  WsSection,
-  WsNavHeader,
-  WsNavList,
-} from "./boards-list.style";
+import styled from "styled-components";
+
+const WsSection = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  padding: 3em 0;
+`;
+
+const WsNavHeader = styled.h3`
+  font-size: 1.3em;
+`;
+
+const WsNavList = styled.ul`
+  list-style-type: none;
+`;
+
+const BdList = styled.section`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2em;
+  padding: 1em;
+`;
 
 interface BoardsListProps {
   drelloBoardsList: Board[];
@@ -22,15 +36,15 @@ const workspaceList: Workspace[] = [
 export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
   return (
     <WsSection>
-      <WsNav>
+      <nav>
         <WsNavHeader>Workspaces</WsNavHeader>
         <WsNavList>
           {workspaceList.map((workspace) => (
-            <WsNavItem key={workspace.id}>{workspace.name}</WsNavItem>
+            <li key={workspace.id}>{workspace.name}</li>
           ))}
-          <WsNavItem>+ Add Workspace</WsNavItem>
+          <li>+ Add Workspace</li>
         </WsNavList>
-      </WsNav>
+      </nav>
       <BdList>
         {drelloBoardsList.map((boardItem) => (
           <BoardCard title={boardItem.title} key={boardItem.id} />
