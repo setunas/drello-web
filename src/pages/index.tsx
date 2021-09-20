@@ -5,20 +5,20 @@ import {
   LandingMain,
   HeadlineMain,
   HeadlineSub,
-} from "../components/custom-styles";
-import Header from "../components/header";
+} from "../components/shared-styles";
+import { Header } from "../components/header";
 
 export default function Home() {
   return (
     <>
       <Head>
         <title>Drello</title>
-        <meta name="description" content="A Trello clone but better" />
+        <meta name="description" content="A Trello clone" />
       </Head>
       <Header title="Drello" />
       <LandingMain>
         <Headline>
-          <HeadlineSub>Welcome to the future of Trello</HeadlineSub>
+          <HeadlineSub>Welcome to the future of Trello...maybe</HeadlineSub>
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
       </LandingMain>

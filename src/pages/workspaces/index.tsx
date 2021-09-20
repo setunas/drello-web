@@ -1,76 +1,26 @@
-import { useState, useEffect } from "react";
-import Header from "../../components/header";
-import Focus from "../../components/workspaces/focus";
-import { Main, Footer } from "../../components/custom-styles";
-import { FcBar, FcHr } from "../../components/workspaces/focus.style";
-import BoardsList from "../../components/workspaces/boards-list";
-import { MiniBdList } from "../../components/workspaces/boards-list.style";
+import { useState } from "react";
+import { Header } from "../../components/header";
+import { Focus } from "../../components/workspaces/focus";
+import { Main, Footer } from "../../components/shared-styles";
+import { BoardsList } from "../../components/workspaces/boards-list";
+import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
+import styled from "styled-components";
 
-const drelloBoardsList = [
-  {
-    id: 1,
-    title: "Dimsum",
-    focus: true,
-    workspace: {
-      id: "wk2",
-      name: "Family",
-      type: "Engineering - IT",
-      description: "",
-    },
-    stats: {
-      milestones: ["50% Completed", "23% In Progress", "27% Backlog"],
-      team_members: ["eddydev", "syndrome_123"],
-      card_summary: [
-        "34 total issues",
-        "18 closed",
-        "12 dropped",
-        "1 archived",
-      ],
-    },
-  },
-  {
-    id: 2,
-    title: "Project Echo",
-    focus: true,
-    workspace: {
-      id: "wk2",
-      name: "Family",
-      type: "Engineering - IT",
-      description: "",
-    },
-    stats: {
-      milestones: ["50% Completed", "23% In Progress", "27% Backlog"],
-      team_members: ["eddydev", "syndrome_123"],
-      card_summary: [
-        "34 total issues",
-        "18 closed",
-        "12 dropped",
-        "1 archived",
-      ],
-    },
-  },
-  {
-    id: 3,
-    title: "Drello",
-    focus: false,
-    workspace: {
-      id: "wk1",
-      name: "Setunas",
-      type: "Engineering - IT",
-      description: "",
-    },
-    stats: {
-      milestones: ["50% Completed", "23% In Progress", "27% Backlog"],
-      team_members: ["eddydev", "syndrome_123"],
-      card_summary: [
-        "34 total issues",
-        "18 closed",
-        "12 dropped",
-        "1 archived",
-      ],
-    },
-  },
-];
+const FcBar = styled.div`
+  text-align: left;
+`;
+
+const FcHr = styled.div`
+  border: 1px solid rgba(0, 0, 0, 0.8);
+`;
+
+const MiniBdList = styled.ol`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: "- ";
+  text-transform: uppercase;
+  justify-items: center;
+`;
 
 const Workspaces = () => {
   const [focusView, setFocusView] = useState(true);
