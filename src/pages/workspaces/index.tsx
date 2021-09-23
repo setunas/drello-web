@@ -2,10 +2,25 @@ import { useState } from "react";
 import { Header } from "../../components/header";
 import { Focus } from "../../components/workspaces/focus";
 import { Main, Footer } from "../../components/shared-styles";
-import { FcBar, FcHr } from "../../components/workspaces/focus.style";
 import { BoardsList } from "../../components/workspaces/boards-list";
-import { MiniBdList } from "../../components/workspaces/boards-list.style";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
+import styled from "styled-components";
+
+const FcBar = styled.div`
+  text-align: left;
+`;
+
+const FcHr = styled.div`
+  border: 1px solid rgba(0, 0, 0, 0.8);
+`;
+
+const MiniBdList = styled.ol`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: "- ";
+  text-transform: uppercase;
+  justify-items: center;
+`;
 
 const Workspaces = () => {
   const [focusView, setFocusView] = useState(true);
