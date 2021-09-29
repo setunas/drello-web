@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/dist/client/link";
 
 const BarMain = styled.nav`
   grid-column: 1 / 13;
@@ -11,7 +12,11 @@ const BarMain = styled.nav`
 export const BoardNavbar = () => {
   return (
     <BarMain>
-      <h3>Drello</h3>
+      <Link href="/">
+        <a>
+          <h3>Drello</h3>
+        </a>
+      </Link>
     </BarMain>
   );
 };

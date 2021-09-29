@@ -7,7 +7,6 @@ import { Column } from "../../types/inner/board.g";
 
 const BoardMain = styled.main`
   display: grid;
-  grid-column: 1 / 13;
   max-height: 100vh;
   z-index: 0;
 `;
@@ -18,7 +17,6 @@ const BoardImage = styled(Image)`
 `;
 
 const BoardContainer = styled.section`
-  grid-column: 1 / 13;
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1em;
@@ -42,6 +40,7 @@ const Board = () => {
           {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
             <BoardColumn key={id} id={id} title={title || ""} cards={cards} />
           ))}
+          <BoardColumn id={123124} title="Edit the title here..." />
         </BoardContainer>
       </BoardMain>
     </>
