@@ -59,3 +59,10 @@ export const HeadlineSub = styled.h3`
   font-size: 1.3rem;
   font-weight: 100;
 `;
+
+// Links
+
+export const AnchorLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+`;

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import Link from "next/dist/client/link";
 import { Header } from "../../components/header";
 import { Focus } from "../../components/workspaces/focus";
-import { Main, Footer } from "../../components/shared-styles";
+import { Main, Footer, AnchorLink } from "../../components/shared-styles";
 import { BoardsList } from "../../components/workspaces/boards-list";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import styled from "styled-components";
@@ -47,7 +48,14 @@ const Workspaces = () => {
             </FcBar>
             <MiniBdList>
               {drelloBoardsList.map((drelloBoardsItem) => (
-                <li key={drelloBoardsItem.id}>{drelloBoardsItem.title}</li>
+                <Link
+                  key={drelloBoardsItem.id}
+                  href={`/boards/${drelloBoardsItem.id}`}
+                >
+                  <AnchorLink>
+                    <li>{drelloBoardsItem.title}</li>
+                  </AnchorLink>
+                </Link>
               ))}
             </MiniBdList>
           </>
@@ -59,7 +67,14 @@ const Workspaces = () => {
             </FcBar>
             <MiniBdList>
               {focusBoardList.map((focusBoardItem) => (
-                <li key={focusBoardItem.id}>{focusBoardItem.title}</li>
+                <Link
+                  key={focusBoardItem.id}
+                  href={`/boards/${focusBoardItem.id}`}
+                >
+                  <AnchorLink>
+                    <li>{focusBoardItem.title}</li>
+                  </AnchorLink>
+                </Link>
               ))}
             </MiniBdList>
             <FcBar onClick={() => toggleFocus()}>

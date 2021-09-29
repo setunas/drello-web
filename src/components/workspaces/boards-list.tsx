@@ -1,7 +1,9 @@
+import Link from "next/dist/client/link";
 import { BoardCard } from "../custom-components/board-card";
 import { Board } from "../../types/inner/board.g";
 import { Workspace } from "../../types/inner/workspace.g";
 import styled from "styled-components";
+import { AnchorLink } from "../shared-styles";
 
 const WsSection = styled.section`
   display: grid;
@@ -47,7 +49,11 @@ export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
       </nav>
       <BdList>
         {drelloBoardsList.map((boardItem) => (
-          <BoardCard title={boardItem.title} key={boardItem.id} />
+          <Link key={boardItem.id} href={`/boards/${boardItem.id}`}>
+            <AnchorLink>
+              <BoardCard title={boardItem.title} />
+            </AnchorLink>
+          </Link>
         ))}
       </BdList>
     </WsSection>

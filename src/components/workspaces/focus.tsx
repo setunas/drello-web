@@ -1,7 +1,9 @@
+import Link from "next/dist/client/link";
 import { Board } from "../../types/inner/board.g";
 import { BoardCard } from "../custom-components/board-card";
 import { FocusListItem } from "./focus-list-item";
 import styled from "styled-components";
+import { AnchorLink } from "../shared-styles";
 
 const FcBoard = styled.section`
   padding: 1em;
@@ -28,7 +30,11 @@ export const Focus = ({ drelloBoardsList }: FocusProps) => {
       <FcBoard>
         {drelloBoardsList.map((workspaceItem, idx) => (
           <FcBdSummary key={idx}>
-            <BoardCard title={workspaceItem.title} />
+            <Link href={`/boards/${workspaceItem.id}`}>
+              <AnchorLink>
+                <BoardCard title={workspaceItem.title} />
+              </AnchorLink>
+            </Link>
             {workspaceItem?.stats?.map(({ measure, content }, idx) => (
               <FocusListItem
                 key={`wk-focus-item-${idx}`}
