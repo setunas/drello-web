@@ -29,5 +29,5 @@ export interface Board {
   image?: Image;
   workspace?: Workspace;
   stats?: Stats[];
-  columns: Column[];
+  columns?: Column[];
 }
