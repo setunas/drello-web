@@ -38,9 +38,9 @@ const Board = () => {
         <BoardNavbar />
         <BoardContainer>
           {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
-            <BoardColumn key={id} id={id} title={title || ""} cards={cards} />
+            <BoardColumn key={id} title={title || ""} cards={cards} />
           ))}
-          <BoardColumn id={123124} title="Edit the title here..." />
+          <BoardColumn title="Edit the title here..." newColumn />
         </BoardContainer>
       </BoardMain>
     </>

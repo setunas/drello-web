@@ -1,11 +1,14 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { Column } from "../../types/inner/board.g";
+import { Card, Column } from "../../types/inner/board.g";
 import { ColumnCard } from "../column-cards/column-card";
 
+// Styled Components
 const ColumnMain = styled.div`
   display: grid;
   grid-template-rows: min-content auto;
-  grid-gap: 1em;
+  height: fit-content;
+  gap: 1em;
   justify-content: stretch;
   align-items: start;
   background-color: rgba(220, 220, 220, 0.8);
@@ -17,11 +20,13 @@ const ColumnMain = styled.div`
   }
 `;
 
-const ColumnTitle = styled.h5`
-  margin: 0%;
-  padding: 0;
+const ColumnHeader = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
 `;
 
+const ColumnTitle = styled.h4``;
 const ColumnButton = styled.button`
   padding: 0.5em 1em;
   width: 100%;
@@ -29,14 +34,59 @@ const ColumnButton = styled.button`
   border-radius: 5px;
 `;
 
-export const BoardColumn = ({ id, title, cards }: Column) => {
+const ColumnInput = styled.input`
+  padding: 1em;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: rgba(220, 220, 220, 0.8);
+  height: fit-content;
+  width: 20vw;
+  text-transform: capitalize;
+  @media only screen and (min-width: 900px) {
+    width: 15vw;
+  }
+`;
+
+// Component Interfact Defination
+interface BoardColumnProps {
+  title: string;
+  cards?: Card[];
+  newColumn?: boolean;
+}
+
+// Board Column component responsible for each column with the board
+export const BoardColumn = ({ title, cards, newColumn }: BoardColumnProps) => {
+  const [columnTitle, setColumnTitle] = useState("");
+
+  const addColumn = (e) => {
+    /* TODO: Implement add Column function */
+    e.preventDefault();
+    console.log("Implement function to addColumn ideally with redux");
+  };
+
+  const addCard = (e) => {
+    /* TODO: Implement addCard function with redux */
+    console.log("Implement function to addCard ideally with redux");
+  };
+
   return (
-    <ColumnMain>
-      <ColumnTitle>{title}</ColumnTitle>
-      {cards?.map(({ id, title }) => (
-        <ColumnCard key={id} id={id} title={title} />
-      ))}
-      <ColumnButton>+ Add Card</ColumnButton>
-    </ColumnMain>
+    <>
+      {newColumn === true ? (
+        <form onSubmit={addColumn}>
+          <ColumnInput placeholder="Enter title here..." />
+        </form>
+      ) : (
+        <ColumnMain>
+          <ColumnHeader>
+            <ColumnTitle>{title}</ColumnTitle>
+            <span>...</span>
+          </ColumnHeader>
+          {cards?.map(({ id, title }) => (
+            <ColumnCard key={id} id={id} title={title} />
+          ))}
+          <ColumnButton onClick={addCard}>+ Add Card</ColumnButton>
+        </ColumnMain>
+      )}
+    </>
   );
 };
