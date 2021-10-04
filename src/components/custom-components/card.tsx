@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 const BdCard = styled.section`
   display: grid;
-  padding: 2rem;
   justify-items: center;
   align-items: center;
+  height: 8rem;
+  width: 15rem;
+  padding: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
 `;
@@ -19,7 +21,7 @@ interface BoardCardProps {
   title: string;
 }
 
-export const BoardCard = ({ title }: BoardCardProps) => {
+export const Card = ({ title }: BoardCardProps) => {
   return (
     <BdCard>
       <BdTitle>{title}</BdTitle>

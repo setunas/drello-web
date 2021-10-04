@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   }
   #__next {
     display: grid;
-    grid-template-rows: 1fr 9fr 2em;
+    grid-template-rows: 2fr 9fr 1fr;
     grid-gap: 1em;
   }
   a {
