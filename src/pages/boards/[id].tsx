@@ -4,24 +4,28 @@ import { BoardNavbar } from "../../components/boards/board-navbar";
 import { BoardColumn } from "../../components/boards/board-column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column } from "../../types/inner/board.g";
+import { NewBoardColumn } from "../../components/boards/new-board-column";
 
 const BoardMain = styled.main`
   display: grid;
-  max-height: 100vh;
+  grid-auto-rows: min-content;
+  gap: 1rem;
+  height: 100vh;
   z-index: 0;
 `;
 
 const BoardImage = styled(Image)`
-  max-height: 100vh;
+  height: 100vh;
   z-index: -99;
 `;
 
 const BoardContainer = styled.section`
   display: grid;
   grid-auto-flow: column;
-  grid-gap: 1em;
+  gap: 1rem;
   justify-content: start;
   padding: 1em;
+  overflow-x: auto;
 `;
 
 const Board = () => {
@@ -40,7 +44,7 @@ const Board = () => {
           {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
             <BoardColumn key={id} title={title || ""} cards={cards} />
           ))}
-          <BoardColumn title="Edit the title here..." newColumn />
+          <NewBoardColumn />
         </BoardContainer>
       </BoardMain>
     </>
