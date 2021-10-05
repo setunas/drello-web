@@ -5,7 +5,7 @@ export const NewBoardColumn = () => {
   const [columnTitle, setColumnTitle] = useState("");
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addColumn = (e) => {
+  const addColumn = (e: React.SyntheticEvent) => {
     /* TODO: Implement add Column function */
     e.preventDefault();
     setInputToggle(true);
