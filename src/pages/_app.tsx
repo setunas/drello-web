@@ -7,6 +7,7 @@ import {
   faPlus,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { AppProps } from "next/dist/next-server/lib/router/router";
 
 library.add(fab, fas, faHome, faPlus, faSignInAlt);
 
@@ -38,7 +39,7 @@ const theme = {
   },
 };
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
