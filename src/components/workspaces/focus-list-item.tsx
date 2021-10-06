@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 const FcBdList = styled.div`
-  padding: 0 3rem;
+  padding: 2rem 3rem;
   justify-content: center;
   align-content: space-between;
 `;
 
 const FcBdHeader = styled.h4`
   text-transform: uppercase;
+  margin-bottom: 1rem;
 `;
 
 const FcBdItem = styled.li`
