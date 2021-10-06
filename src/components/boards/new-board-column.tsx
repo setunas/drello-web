@@ -1,40 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export const NewBoardColumn = () => {
-  const [columnTitle, setColumnTitle] = useState("");
-  const [inputToggle, setInputToggle] = useState(true);
-
-  const addColumn = (e: React.SyntheticEvent) => {
-    /* TODO: Implement add Column function */
-    e.preventDefault();
-    setInputToggle(true);
-    console.log("Implement function to addColumn ideally with redux");
-  };
-  return (
-    <NewColumnContainer>
-      {inputToggle ? (
-        <InputToggle onClick={() => setInputToggle(false)}>
-          <span>+</span>
-          <span>Add new column</span>
-        </InputToggle>
-      ) : (
-        <ColumnForm onSubmit={addColumn}>
-          <ColumnInput
-            placeholder="Enter title here..."
-            value={columnTitle}
-            onChange={(e) => setColumnTitle(e.target.value)}
-          />
-          <FormActions>
-            <FormButton>Add Column</FormButton>
-            <span onClick={() => setInputToggle(true)}>X</span>
-          </FormActions>
-        </ColumnForm>
-      )}
-    </NewColumnContainer>
-  );
-};
-
 const NewColumnContainer = styled.div`
   display: grid;
   gap: 1rem;
@@ -82,3 +48,37 @@ const FormButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 0.2rem;
 `;
+
+export const NewBoardColumn = () => {
+  const [columnTitle, setColumnTitle] = useState("");
+  const [inputToggle, setInputToggle] = useState(true);
+
+  const addColumn = (e: React.SyntheticEvent) => {
+    /* TODO: Implement add Column function */
+    e.preventDefault();
+    setInputToggle(true);
+    console.log("Implement function to addColumn ideally with redux");
+  };
+  return (
+    <NewColumnContainer>
+      {inputToggle ? (
+        <InputToggle onClick={() => setInputToggle(false)}>
+          <span>+</span>
+          <span>Add new column</span>
+        </InputToggle>
+      ) : (
+        <ColumnForm onSubmit={addColumn}>
+          <ColumnInput
+            placeholder="Enter title here..."
+            value={columnTitle}
+            onChange={(e) => setColumnTitle(e.target.value)}
+          />
+          <FormActions>
+            <FormButton>Add Column</FormButton>
+            <span onClick={() => setInputToggle(true)}>X</span>
+          </FormActions>
+        </ColumnForm>
+      )}
+    </NewColumnContainer>
+  );
+};

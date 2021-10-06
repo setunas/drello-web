@@ -4,6 +4,7 @@ import { Board } from "../../types/inner/board.g";
 import { Workspace } from "../../types/inner/workspace.g";
 import styled from "styled-components";
 import { AnchorLink } from "../shared-styles";
+import { path } from "../../utils/url/drello-web";
 
 const WsSection = styled.section`
   display: grid;
@@ -50,7 +51,7 @@ export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
       </nav>
       <BdList>
         {drelloBoardsList.map((boardItem) => (
-          <Link key={boardItem.id} href={`/boards/${boardItem.id}`}>
+          <Link key={boardItem.id} href={path.boards(boardItem.id)}>
             <AnchorLink>
               <Card title={boardItem.title} />
             </AnchorLink>

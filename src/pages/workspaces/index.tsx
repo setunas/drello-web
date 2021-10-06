@@ -6,6 +6,7 @@ import { Main, Footer, AnchorLink } from "../../components/shared-styles";
 import { BoardsList } from "../../components/workspaces/boards-list";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import styled from "styled-components";
+import { path } from "../../utils/url/drello-web";
 
 const FcBar = styled.div`
   text-align: left;
@@ -50,7 +51,7 @@ const Workspaces = () => {
               {drelloBoardsList.map((drelloBoardsItem) => (
                 <Link
                   key={drelloBoardsItem.id}
-                  href={`/boards/${drelloBoardsItem.id}`}
+                  href={path.boards(drelloBoardsItem.id)}
                 >
                   <AnchorLink>
                     <li>{drelloBoardsItem.title}</li>
@@ -69,7 +70,7 @@ const Workspaces = () => {
               {focusBoardList.map((focusBoardItem) => (
                 <Link
                   key={focusBoardItem.id}
-                  href={`/boards/${focusBoardItem.id}`}
+                  href={path.boards(focusBoardItem.id)}
                 >
                   <AnchorLink>
                     <li>{focusBoardItem.title}</li>

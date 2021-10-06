@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/dist/client/link";
 import { AnchorLink } from "../shared-styles";
+import { path } from "../../utils/url/drello-web";
 
 const NavMain = styled.nav`
   display: grid;
@@ -18,7 +19,7 @@ const NavBrand = styled.h3`
 export const BoardNavbar = () => {
   return (
     <NavMain>
-      <Link href="/">
+      <Link href={path.landing()}>
         <AnchorLink>
           <NavBrand>Drello</NavBrand>
         </AnchorLink>

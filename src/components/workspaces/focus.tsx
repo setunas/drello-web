@@ -4,6 +4,7 @@ import { Card } from "../custom-components/card";
 import { FocusListItem } from "./focus-list-item";
 import styled from "styled-components";
 import { AnchorLink } from "../shared-styles";
+import { path } from "../../utils/url/drello-web";
 
 const FcBoard = styled.section`
   padding: 1em;
@@ -30,7 +31,7 @@ export const Focus = ({ drelloBoardsList }: FocusProps) => {
       <FcBoard>
         {drelloBoardsList.map((workspaceItem, idx) => (
           <FcBdSummary key={idx}>
-            <Link href={`/boards/${workspaceItem.id}`}>
+            <Link href={path.boards(workspaceItem.id)}>
               <AnchorLink>
                 <Card title={workspaceItem.title} />
               </AnchorLink>
