@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-type Inputs = {
+type FormFields = {
   email: string;
   password: string;
 };
@@ -12,7 +12,7 @@ const SignupPage = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<FormFields>();
 
   const onSubmit = () => {};
 
