@@ -1,16 +1,20 @@
-import { BoardCard } from "../custom-components/board-card";
+import Link from "next/dist/client/link";
+import { Card } from "../custom-components/card";
 import { Board } from "../../types/inner/board.g";
 import { Workspace } from "../../types/inner/workspace.g";
 import styled from "styled-components";
+import { AnchorLink } from "../shared-styles";
+import { path } from "../../utils/url/drello-web";
 
 const WsSection = styled.section`
   display: grid;
   grid-template-columns: 1fr 8fr;
-  padding: 3em 0;
+  padding: 2rem 3em;
 `;
 
 const WsNavHeader = styled.h3`
   font-size: 1.3em;
+  margin-bottom: 1rem;
 `;
 
 const WsNavList = styled.ul`
@@ -47,7 +51,11 @@ export const BoardsList = ({ drelloBoardsList }: BoardsListProps) => {
       </nav>
       <BdList>
         {drelloBoardsList.map((boardItem) => (
-          <BoardCard title={boardItem.title} key={boardItem.id} />
+          <Link key={boardItem.id} href={path.boards(boardItem.id)}>
+            <AnchorLink>
+              <Card title={boardItem.title} />
+            </AnchorLink>
+          </Link>
         ))}
       </BdList>
     </WsSection>

@@ -16,7 +16,7 @@ export const Header = ({ title }: HeaderProps) => {
   return (
     <HeaderContainer>
       <HeaderBar>
-        <Link href="/">
+        <Link href={path.landing()}>
           <a>
             <HeaderBrand>{title}</HeaderBrand>
           </a>

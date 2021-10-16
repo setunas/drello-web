@@ -53,6 +53,10 @@ export const drelloBoardsList = [
       type: "Engineering - IT",
       description: "",
     },
+    image: {
+      src: "/images/template-1.JPG",
+      alt: "Drello board image",
+    },
     stats: [
       {
         measure: "milestones",
@@ -62,6 +66,26 @@ export const drelloBoardsList = [
       {
         measure: "card_summary",
         content: ["34 total issues", "18 closed", "12 dropped", "1 archived"],
+      },
+    ],
+    columns: [
+      {
+        id: 123412341,
+        title: "Backlog",
+        cards: [
+          {
+            id: 1324123454136,
+            title: "Create Github repo",
+          },
+        ],
+      },
+      {
+        id: 32456345,
+        title: "In Progress",
+      },
+      {
+        id: 5425623456,
+        title: "Completed",
       },
     ],
   },
