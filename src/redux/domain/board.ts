@@ -48,8 +48,8 @@ export const slice = createSlice({
  * * * * * PLEASE READ! * * * * * * *
  * selectBoards returns boards list from BoardState of redux store.
  * This kind of functions that select proper data and return them are called `selector`.
- * Selector is often used when you want to extract data from redux store in a component file.
- * So you can reuse the code to extract them in many components.
+ * Selector is often used when you want to access redux store's data from a component file,
+ * so you can reuse the code to access them in many components.
  */
 export const selectBoards = (state: RootState) => state.boardState.boards;
 
