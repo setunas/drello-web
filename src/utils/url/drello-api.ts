@@ -14,6 +14,8 @@ export const domain = () => {
 };
 
 export const path = {
+  boards: (boardId?: number) =>
+    boardId ? `/api/boards/${boardId}` : `/api/boards`,
   signUp: (signUpId?: number) =>
     signUpId ? `/api/sign-up/${signUpId}` : `/api/sign-up`,
 };
