@@ -14,7 +14,7 @@ const SignupPage = () => {
     formState: { errors },
   } = useForm<FormFields>();
 
-  const onSubmit = () => {
+  const handleClick = () => {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     signInWithPopup(auth, provider)
@@ -38,16 +38,7 @@ const SignupPage = () => {
       });
   };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("email", { required: true })} />
-      {errors.email && <span>This field is required</span>}
-      <input {...register("password", { required: true })} />
-      {errors.password && <span>This field is required</span>}
-
-      <input type="submit" />
-    </form>
-  );
+  return <button onClick={handleClick}>Sign up with Google</button>;
 };
 
 export default SignupPage;
