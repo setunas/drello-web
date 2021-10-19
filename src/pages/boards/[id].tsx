@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Image from "next/image";
 import { BoardNavbar } from "../../components/boards/board-navbar";
@@ -5,6 +7,7 @@ import { BoardColumn } from "../../components/boards/board-column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column } from "../../types/inner/board.g";
 import { NewBoardColumn } from "../../components/boards/new-board-column";
+import { getBoardsThunk, selectBoards } from "src/redux/domain/board";
 
 const BoardMain = styled.main`
   display: grid;
@@ -29,6 +32,19 @@ const BoardContainer = styled.section`
 `;
 
 const Board = () => {
+  //******* Sample Code for Redux Toolkit *******//
+  const dispatch = useDispatch();
+
+  // This is how to get state from redux store.
+  const boards = useSelector(selectBoards);
+  console.log(boards);
+
+  useEffect(() => {
+    // This is how to dispatch actions.
+    dispatch(getBoardsThunk());
+  }, []);
+  //************************************************//
+
   return (
     <>
       <BoardImage

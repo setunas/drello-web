@@ -1,3 +1,5 @@
+import { Provider } from "react-redux";
+import { store } from "src/redux/store";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
@@ -41,11 +43,11 @@ const theme = {
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
-    </>
+    </Provider>
   );
 }
