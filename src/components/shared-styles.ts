@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const drelloColors = {
+  black: (opacity: number) => `rgba(0,0,0,${opacity})`,
+  white: (opacity: number) => `rgba(255,255,255,${opacity})`,
+};
+
 // Header styling
 export const HeaderContainer = styled.header`
   padding: 2em 5em;
