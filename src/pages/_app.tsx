@@ -8,10 +8,14 @@ import {
   faHome,
   faPlus,
   faSignInAlt,
+  faTimes,
+  faStar,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 
-library.add(fab, fas, faHome, faPlus, faSignInAlt);
+library.add(fab, fas, far, faHome, faPlus, faSignInAlt, faTimes, faStar, faCog);
 
 const GlobalStyle = createGlobalStyle`
   * {

@@ -8,11 +8,11 @@ import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column } from "../../types/inner/board.g";
 import { NewBoardColumn } from "../../components/boards/new-board-column";
 import { getBoardsThunk, selectBoards } from "src/redux/domain/board";
+import { BoardSubnav } from "src/components/boards/board-subnav";
 
 const BoardMain = styled.main`
   display: grid;
   grid-auto-rows: min-content;
-  gap: 1rem;
   height: 100vh;
   z-index: 0;
 `;
@@ -33,16 +33,16 @@ const BoardContainer = styled.section`
 
 const Board = () => {
   //******* Sample Code for Redux Toolkit *******//
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  // This is how to get state from redux store.
-  const boards = useSelector(selectBoards);
-  console.log(boards);
+  // // This is how to get state from redux store.
+  // const boards = useSelector(selectBoards);
+  // console.log(boards);
 
-  useEffect(() => {
-    // This is how to dispatch actions.
-    dispatch(getBoardsThunk());
-  }, []);
+  // useEffect(() => {
+  //   // This is how to dispatch actions.
+  //   dispatch(getBoardsThunk());
+  // }, []);
   //************************************************//
 
   return (
@@ -56,10 +56,11 @@ const Board = () => {
       />
       <BoardMain>
         <BoardNavbar />
+        <BoardSubnav name="Drello" />
         <BoardContainer>
-          {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
+          {/* {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
             <BoardColumn key={id} title={title || ""} cards={cards} />
-          ))}
+          ))} */}
           <NewBoardColumn />
         </BoardContainer>
       </BoardMain>
