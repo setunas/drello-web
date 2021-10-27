@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import { store } from "src/redux/store";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -14,30 +14,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { AppProps } from "next/dist/next-server/lib/router/router";
+import { initFirebase } from "src/utils/firbase";
+import { GlobalStyle } from "src/components/global-style";
 
 library.add(fab, fas, far, faHome, faPlus, faSignInAlt, faTimes, faStar, faCog);
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  html, body, #__next {
-    height: 100%;
-    width: 100%;
-  }
-  body, #__next {
-    font-family: "Trebuchet MS";
-  }
-  #__next {
-    display: grid;
-    grid-template-rows: 2fr 9fr 1fr;
-    grid-gap: 1em;
-  }
-  a {
-    text-decoration: none;
-  }
-`;
+initFirebase();
 
 const theme = {
   colors: {
