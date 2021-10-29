@@ -25,9 +25,12 @@ const BoardImage = styled(Image)`
 const BoardContainer = styled.section`
   display: grid;
   grid-auto-flow: column;
+  grid-auto-columns: max-content;
   gap: 1rem;
-  justify-content: start;
   padding: 1em;
+  justify-content: start;
+  justify-items: start;
+  align-items: flex-start;
   overflow-x: auto;
 `;
 
@@ -58,9 +61,9 @@ const Board = () => {
         <BoardNavbar />
         <BoardSubnav name="Drello" />
         <BoardContainer>
-          {/* {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
+          {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
             <BoardColumn key={id} title={title || ""} cards={cards} />
-          ))} */}
+          ))}
           <NewBoardColumn />
         </BoardContainer>
       </BoardMain>

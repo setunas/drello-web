@@ -6,6 +6,9 @@ import { drelloColors } from "../shared-styles";
 const NewColumnContainer = styled.div`
   display: grid;
   min-width: 15vw;
+  @media screen and (max-width: 720px) {
+    min-width: 20vw;
+  }
 `;
 
 const InnerContainer = styled.div`
@@ -19,6 +22,7 @@ const DisplayContainer = styled(InnerContainer)`
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
+  padding: 0.5rem 2rem;
   color: ${drelloColors.black(0.8)};
   background-color: ${drelloColors.greyish(0.6)};
   :hover {
@@ -54,7 +58,7 @@ const FormButton = styled.button`
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
-  color: ${drelloColors.black(0.7)};
+  color: ${drelloColors.black(0.6)};
 `;
 
 export const NewBoardColumn = () => {
