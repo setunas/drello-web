@@ -48,7 +48,7 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
-export const NewColumnCard = ({ title }: Card) => {
+export const NewColumnCard = () => {
   const [cardTitle, setCardTitle] = useState("");
   const [inputToggle, setInputToggle] = useState(true);
 
