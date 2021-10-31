@@ -16,6 +16,8 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import { initFirebase } from "src/utils/firbase";
 import { GlobalStyle } from "src/components/global-style";
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false; /* eslint-disable import/first */
 
 library.add(fab, fas, far, faHome, faPlus, faSignInAlt, faTimes, faStar, faCog);
 initFirebase();
