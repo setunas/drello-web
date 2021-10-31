@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Card } from "../../types/inner/board.g";
 import { ColumnCard } from "../columns/column-card";
 import { NewColumnCard } from "../columns/new-column-card";
-import { drelloColors } from "../shared-styles";
+import { drelloColors } from "../../constants/colors";
 
 // Styled Components
 const ColumnMain = styled.div`

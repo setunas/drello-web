@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "../shared-styles";
+import { drelloColors } from "../../constants/colors";
 
 const NewColumnContainer = styled.div`
   display: grid;

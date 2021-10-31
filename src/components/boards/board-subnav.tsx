@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "../shared-styles";
+import { drelloColors } from "../../constants/colors";
 
 const NavContainer = styled.nav`
   display: grid;
