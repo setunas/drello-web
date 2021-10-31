@@ -1,52 +1,64 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { drelloColors } from "../../constants/colors";
 
 const NewColumnContainer = styled.div`
   display: grid;
-  gap: 1rem;
-  height: fit-content;
-  min-width: 20vw;
-  width: fit-content;
-  border: none;
-  padding: 0.5rem 0;
-  border-radius: 0.3rem;
-  background-color: rgba(220, 220, 220, 0.8);
-  @media only screen and (min-width: 900px) {
-    min-width: 15vw;
+  min-width: 15vw;
+  @media screen and (max-width: 720px) {
+    min-width: 20vw;
   }
 `;
 
-const InputToggle = styled.div`
+const InnerContainer = styled.div`
   display: grid;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+`;
+
+const DisplayContainer = styled(InnerContainer)`
   grid-auto-flow: column;
-  justify-self: center;
-  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem 2rem;
+  color: ${drelloColors.black(0.8)};
+  background-color: ${drelloColors.greyish(0.6)};
+  :hover {
+    background-color: ${drelloColors.greyish(0.8)};
+  }
+`;
+
+const EditContainer = styled(InnerContainer)`
+  background-color: ${drelloColors.greyish()};
 `;
 
 const ColumnInput = styled.input`
   font-size: 0.8rem;
   padding: 0.5rem;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
   text-transform: capitalize;
-`;
-
-const ColumnForm = styled.form`
-  display: grid;
-  padding: 0.5rem;
-  gap: 0.5rem;
 `;
 
 const FormActions = styled.div`
   display: grid;
   grid-auto-flow: column;
-  gap: 0.3rem;
+  align-items: center;
+  gap: 1rem;
 `;
 
 const FormButton = styled.button`
-  padding: 0.2rem;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 0;
+  border: none;
   border-radius: 0.2rem;
+  color: ${drelloColors.white(0.8)};
+  background-color: ${drelloColors.black(0.4)};
+`;
+
+const FAIcon = styled(FontAwesomeIcon)`
+  color: ${drelloColors.black(0.6)};
 `;
 
 export const NewBoardColumn = () => {
@@ -62,12 +74,12 @@ export const NewBoardColumn = () => {
   return (
     <NewColumnContainer>
       {inputToggle ? (
-        <InputToggle onClick={() => setInputToggle(false)}>
-          <span>+</span>
+        <DisplayContainer onClick={() => setInputToggle(false)}>
+          <FAIcon icon="plus" />
           <span>Add new column</span>
-        </InputToggle>
+        </DisplayContainer>
       ) : (
-        <ColumnForm onSubmit={addColumn}>
+        <EditContainer onSubmit={addColumn}>
           <ColumnInput
             placeholder="Enter title here..."
             value={columnTitle}
@@ -75,9 +87,9 @@ export const NewBoardColumn = () => {
           />
           <FormActions>
             <FormButton>Add Column</FormButton>
-            <span onClick={() => setInputToggle(true)}>X</span>
+            <FAIcon icon="times" onClick={() => setInputToggle(true)} />
           </FormActions>
-        </ColumnForm>
+        </EditContainer>
       )}
     </NewColumnContainer>
   );

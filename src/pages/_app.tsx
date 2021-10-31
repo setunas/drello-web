@@ -8,13 +8,17 @@ import {
   faHome,
   faPlus,
   faSignInAlt,
+  faTimes,
+  faStar,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import { initFirebase } from "src/utils/firbase";
 import { GlobalStyle } from "src/components/global-style";
 
+library.add(fab, fas, far, faHome, faPlus, faSignInAlt, faTimes, faStar, faCog);
 initFirebase();
-library.add(fab, fas, faHome, faPlus, faSignInAlt);
 
 const theme = {
   colors: {

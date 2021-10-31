@@ -5,14 +5,12 @@ import { path } from "../../utils/url/drello-web";
 
 const NavMain = styled.nav`
   display: grid;
-  justify-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: white;
-  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem;
 `;
 
 const NavBrand = styled.h3`
-  color: rgba(187, 178, 178, 1);
   font-size: 1.4rem;
 `;
 
