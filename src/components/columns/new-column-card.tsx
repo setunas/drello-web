@@ -52,11 +52,15 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
+type FormInputs = {
+  cardTitle: string;
+};
+
 export const NewColumnCard = () => {
-  const { register, handleSubmit } = useForm<Card>();
+  const { register, handleSubmit } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addCard: SubmitHandler<Card> = (data) => {
+  const addCard: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Card function */
     console.log(data);
     setInputToggle(true);
