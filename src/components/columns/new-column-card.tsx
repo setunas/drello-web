@@ -2,15 +2,19 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "../../constants/colors";
-import { Card } from "../../types/inner/board.g";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Card } from "src/types/inner/board.g";
 
-const InnerContainer = styled.div`
+const FormContainer = styled.form`
   display: grid;
   gap: 0.5rem;
   border-radius: 0.2rem;
 `;
 
-const DisplayContainer = styled(InnerContainer)`
+const DisplayContainer = styled.div`
+  display: grid;
+  gap: 0.5rem;
+  border-radius: 0.2rem;
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
@@ -48,13 +52,17 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
+type FormInputs = {
+  cardTitle: string;
+};
+
 export const NewColumnCard = () => {
-  const [cardTitle, setCardTitle] = useState("");
+  const { register, handleSubmit } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addCard = (e: React.SyntheticEvent) => {
+  const addCard: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Card function */
-    e.preventDefault();
+    console.log(data);
     setInputToggle(true);
     console.log("Implement function to addCard ideally with redux");
   };
@@ -64,16 +72,12 @@ export const NewColumnCard = () => {
       <span>Add a Card</span>
     </DisplayContainer>
   ) : (
-    <InnerContainer onSubmit={addCard}>
-      <CardInput
-        placeholder="Enter title here..."
-        value={cardTitle}
-        onChange={(e) => setCardTitle(e.target.value)}
-      />
+    <FormContainer onSubmit={handleSubmit(addCard)}>
+      <CardInput placeholder="Enter title here..." {...register("cardTitle")} />
       <FormActions>
         <FormButton>Add Card</FormButton>
         <FAIcon icon="times" onClick={() => setInputToggle(true)} />
       </FormActions>
-    </InnerContainer>
+    </FormContainer>
   );
 };
