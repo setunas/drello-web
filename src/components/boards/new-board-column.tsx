@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "../../constants/colors";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const NewColumnContainer = styled.div`
   display: grid;
@@ -30,7 +31,11 @@ const DisplayContainer = styled(InnerContainer)`
   }
 `;
 
-const EditContainer = styled(InnerContainer)`
+const EditContainer = styled.form`
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
   background-color: ${drelloColors.greyish()};
 `;
 
@@ -61,13 +66,17 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
+type FormInputs = {
+  columnTitle: string;
+};
+
 export const NewBoardColumn = () => {
-  const [columnTitle, setColumnTitle] = useState("");
+  const { register, handleSubmit } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addColumn = (e: React.SyntheticEvent) => {
+  const addColumn: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Column function */
-    e.preventDefault();
+    console.log(data);
     setInputToggle(true);
     console.log("Implement function to addColumn ideally with redux");
   };
@@ -79,11 +88,10 @@ export const NewBoardColumn = () => {
           <span>Add new column</span>
         </DisplayContainer>
       ) : (
-        <EditContainer onSubmit={addColumn}>
+        <EditContainer onSubmit={handleSubmit(addColumn)}>
           <ColumnInput
             placeholder="Enter title here..."
-            value={columnTitle}
-            onChange={(e) => setColumnTitle(e.target.value)}
+            {...register("columnTitle")}
           />
           <FormActions>
             <FormButton>Add Column</FormButton>

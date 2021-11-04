@@ -53,7 +53,7 @@ export const drelloBoardsList = [
       type: "Engineering - IT",
       description: "",
     },
-    image: {
+    boardImage: {
       src: "/images/template-1.JPG",
       alt: "Drello board image",
     },

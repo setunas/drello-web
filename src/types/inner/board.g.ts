@@ -17,7 +17,7 @@ export interface Column {
   cards?: Card[];
 }
 
-export interface Image {
+export interface BoardImage {
   src: string;
   alt: string;
 }
@@ -26,7 +26,7 @@ export interface Board {
   id: number;
   title: string;
   focus?: boolean;
-  image?: Image;
+  boardImage?: BoardImage;
   workspace?: Workspace;
   stats?: Stats[];
   columns?: Column[];
