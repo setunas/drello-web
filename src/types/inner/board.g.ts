@@ -1,20 +1,10 @@
 import { Workspace } from "./workspace.g";
+import { Column } from "./column.g";
 
 export interface Stats {
   id?: number;
   measure: string;
   content: string[];
-}
-
-export interface Card {
-  id: number;
-  title: string;
-}
-
-export interface Column {
-  id: number;
-  title?: string;
-  cards?: Card[];
 }
 
 export interface BoardImage {
