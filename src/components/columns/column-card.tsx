@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from "../../types/inner/board.g";
+import { Card } from "src/types/inner/card.g";
 
 const CardMain = styled.div`
   display: grid;

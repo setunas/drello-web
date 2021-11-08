@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from "../../types/inner/board.g";
+import { Card } from "src/types/inner/card.g";
 import { ColumnCard } from "../columns/column-card";
 import { NewColumnCard } from "../columns/new-column-card";
 import { drelloColors } from "../../constants/colors";
