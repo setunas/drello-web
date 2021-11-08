@@ -1,5 +1,5 @@
-import { Workspace } from "./workspace.g";
-import { Column } from "./column.g";
+import { Workspace } from "src/types/inner/workspace.g";
+import { Column } from "src/types/inner/column.g";
 
 export interface Stats {
   id?: number;

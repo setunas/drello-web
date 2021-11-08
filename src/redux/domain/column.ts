@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getColumns } from "src/api/drello-api/column";
+import { getBoards } from "src/api/drello-api/board";
 import { Column as innerColumn } from "src/types/inner/column.g";
 import { Column as OuterColumn } from "src/types/outer/drello-api/column";
 import { RootState } from "src/redux/root";
@@ -25,15 +25,23 @@ const convertColumnToInnerType = (ob: OuterColumn): innerColumn => {
 export const getColumnsThunk = createAsyncThunk(
   "column/getColumnsThunk",
   async () => {
-    const res = await getColumns();
-    return res.data.columns.map((b) => convertColumnToInnerType(b));
+    const res = await getBoards();
+    return res.data.boards[0]?.columns?.map((b) => convertColumnToInnerType(b));
   }
 );
 
 export const slice = createSlice({
   name: "column",
   initialState,
-  reducers: {},
+  reducers: {
+    addColumn: (state, action) => {
+      const newItem = {
+        id: Math.floor(100000 + Math.random() * 900000),
+        title: action.payload,
+      };
+      state.columns.push(newItem);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getColumnsThunk.fulfilled, (state, action) => {
       state.columns = action.payload;
@@ -51,5 +59,6 @@ export const slice = createSlice({
  * so you can reuse the code to access them in many components.
  */
 export const selectColumns = (state: RootState) => state.columnState.columns;
+export const { addColumn } = slice.actions;
 
 export const columnReducer = slice.reducer;
