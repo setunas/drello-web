@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from "src/types/inner/card.g";
+import { Card } from "src/redux/domain/card.g";
 
 const CardMain = styled.div`
   display: grid;

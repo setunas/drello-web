@@ -1,5 +1,5 @@
-import { Workspace } from "src/types/inner/workspace.g";
-import { Column } from "src/types/inner/column.g";
+import { Workspace } from "src/redux/domain/workspace.g";
+import { Column } from "src/redux/domain/column.g";
 
 export interface Stats {
   id?: number;

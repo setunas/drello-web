@@ -1,7 +1,7 @@
 import Link from "next/dist/client/link";
 import { Card } from "../custom-components/card";
-import { Board } from "../../types/inner/board.g";
-import { Workspace } from "../../types/inner/workspace.g";
+import { Board } from "../../redux/domain/board.g";
+import { Workspace } from "../../redux/domain/workspace.g";
 import styled from "styled-components";
 import { AnchorLink } from "../shared-styles";
 import { path } from "../../utils/url/drello-web";

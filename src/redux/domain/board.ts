@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getBoards } from "src/api/drello-api/board";
-import { Board as innerBoard } from "src/types/inner/board.g";
+import { Board as innerBoard } from "src/redux/domain/board.g";
 import { Board as OuterBoard } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
 
