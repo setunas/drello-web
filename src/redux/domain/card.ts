@@ -44,12 +44,6 @@ export const slice = createSlice({
   },
 });
 
-/**
- * selectCards returns cards list from CardState of redux store.
- * This kind of functions that select proper data and return them are called `selector`.
- * Selector is often used when you want to access redux store's data from a component file,
- * so you can reuse the code to access them in many components.
- */
 export const selectCards = (state: RootState) => state.cardState.cards;
 export const { addCard } = slice.actions;
 
