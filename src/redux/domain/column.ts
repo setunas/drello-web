@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Column as innerColumn } from "src/types/inner/column.g";
-import { Column as OuterColumn } from "src/types/outer/drello-api/column";
+import { Column as OuterColumn } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
 import { getBoardsThunk } from "src/redux/domain/board";
 
