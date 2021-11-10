@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Card as innerCard } from "src/types/inner/card.g";
-import { Card as OuterCard } from "src/types/outer/drello-api/card";
+import { Card as innerCard } from "src/types/card.g";
+import { Card as OuterCard } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
 import { getBoardsThunk } from "src/redux/domain/board";
 

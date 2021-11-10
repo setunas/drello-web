@@ -15,6 +15,7 @@ export interface Column {
 export interface Card {
   id: number;
   title: string;
+  columnId: number;
 }
 
 export const getBoards = () =>
