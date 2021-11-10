@@ -20,6 +20,6 @@ export interface Board {
   boardImage?: BoardImage;
   workspace?: Workspace;
   stats?: Stats[];
-  columns: Column[] | [];
-  cards: Card[] | [];
+  columns?: Column[] | [];
+  cards?: Card[] | [];
 }

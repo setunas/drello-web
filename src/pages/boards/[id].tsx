@@ -39,8 +39,8 @@ const Board = () => {
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[2].boardImage?.src || "/images/template-1.JPG"}
-        alt={drelloBoardsList[2].boardImage?.alt}
+        src={drelloBoardsList[0].boardImage?.src || "/images/template-1.JPG"}
+        alt={drelloBoardsList[0].boardImage?.alt}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
