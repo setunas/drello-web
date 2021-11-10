@@ -1,5 +1,6 @@
 import { Workspace } from "src/types/inner/workspace.g";
 import { Column } from "src/types/inner/column.g";
+import { Card } from "src/types/inner/card.g";
 
 export interface Stats {
   id?: number;
@@ -19,5 +20,6 @@ export interface Board {
   boardImage?: BoardImage;
   workspace?: Workspace;
   stats?: Stats[];
-  columns?: Column[];
+  columns?: Column[] | [];
+  cards?: Card[] | [];
 }

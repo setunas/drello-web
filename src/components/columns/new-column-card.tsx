@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
-import { drelloColors } from "../../constants/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Card } from "src/types/inner/card.g";
+import styled from "styled-components";
+
+import { drelloColors } from "../../constants/colors";
+import { addCard } from "src/redux/domain/card";
 
 const FormContainer = styled.form`
   display: grid;
@@ -52,17 +54,24 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
+interface NewColumnCardProps {
+  columnId: number;
+}
+
 type FormInputs = {
   cardTitle: string;
 };
 
-export const NewColumnCard = () => {
-  const { register, handleSubmit } = useForm<FormInputs>();
+export const NewColumnCard = ({ columnId }: NewColumnCardProps) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addCard: SubmitHandler<FormInputs> = (data) => {
+  const addCardHandler: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Card function */
-    console.log(data);
+    data.cardTitle.length > 0 &&
+      dispatch(addCard({ title: data.cardTitle, columnId }));
+    reset();
     setInputToggle(true);
     console.log("Implement function to addCard ideally with redux");
   };
@@ -72,7 +81,7 @@ export const NewColumnCard = () => {
       <span>Add a Card</span>
     </DisplayContainer>
   ) : (
-    <FormContainer onSubmit={handleSubmit(addCard)}>
+    <FormContainer onSubmit={handleSubmit(addCardHandler)}>
       <CardInput placeholder="Enter title here..." {...register("cardTitle")} />
       <FormActions>
         <FormButton>Add Card</FormButton>
