@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card } from "src/redux/domain/card.g";
+import { Card } from "src/types/card.g";
 import { ColumnCard } from "../columns/column-card";
 import { NewColumnCard } from "../columns/new-column-card";
 import { drelloColors } from "src/utils/colors";

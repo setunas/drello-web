@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BoardNavbar } from "../../components/boards/board-navbar";
 import { BoardColumn } from "../../components/boards/board-column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
-import { Column } from "src/redux/domain/column.g";
+import { Column } from "src/types/column.g";
 import { NewBoardColumn } from "../../components/boards/new-board-column";
 import { BoardSubnav } from "src/components/boards/board-subnav";
 import { useSelector } from "react-redux";

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "src/utils/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Card } from "src/redux/domain/card.g";
+import { Card } from "src/types/card.g";
 
 const FormContainer = styled.form`
   display: grid;
