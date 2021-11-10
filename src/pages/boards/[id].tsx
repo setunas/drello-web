@@ -3,9 +3,11 @@ import Image from "next/image";
 import { BoardNavbar } from "../../components/boards/board-navbar";
 import { BoardColumn } from "../../components/boards/board-column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
-import { Column } from "../../types/inner/board.g";
+import { Column } from "src/types/inner/column.g";
 import { NewBoardColumn } from "../../components/boards/new-board-column";
 import { BoardSubnav } from "src/components/boards/board-subnav";
+import { useSelector } from "react-redux";
+import { selectColumns } from "src/redux/domain/column";
 
 const BoardMain = styled.main`
   display: grid;
@@ -32,6 +34,8 @@ const BoardContainer = styled.section`
 `;
 
 const Board = () => {
+  const columns = useSelector(selectColumns);
+
   return (
     <>
       <BoardImage
@@ -45,7 +49,7 @@ const Board = () => {
         <BoardNavbar />
         <BoardSubnav name="Drello" />
         <BoardContainer>
-          {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
+          {columns?.map(({ id, title, cards }: Column) => (
             <BoardColumn key={id} title={title || ""} cards={cards} />
           ))}
           <NewBoardColumn />

@@ -33,7 +33,11 @@ export const getBoardsThunk = createAsyncThunk(
 export const slice = createSlice({
   name: "board",
   initialState,
-  reducers: {},
+  reducers: {
+    addBoard: (state, action) => {
+      state.boards.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
       state.boards = action.payload;

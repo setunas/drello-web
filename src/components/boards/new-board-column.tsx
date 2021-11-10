@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "../../constants/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { addColumn } from "src/redux/domain/column";
 
 const NewColumnContainer = styled.div`
   display: grid;
@@ -71,12 +73,15 @@ type FormInputs = {
 };
 
 export const NewBoardColumn = () => {
-  const { register, handleSubmit } = useForm<FormInputs>();
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addColumn: SubmitHandler<FormInputs> = (data) => {
+  const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Column function */
     console.log(data);
+    data.columnTitle.length > 0 && dispatch(addColumn(data.columnTitle));
+    reset();
     setInputToggle(true);
     console.log("Implement function to addColumn ideally with redux");
   };
@@ -88,7 +93,7 @@ export const NewBoardColumn = () => {
           <span>Add new column</span>
         </DisplayContainer>
       ) : (
-        <EditContainer onSubmit={handleSubmit(addColumn)}>
+        <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
           <ColumnInput
             placeholder="Enter title here..."
             {...register("columnTitle")}
