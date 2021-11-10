@@ -8,6 +8,7 @@ import { NewBoardColumn } from "../../components/boards/new-board-column";
 import { BoardSubnav } from "src/components/boards/board-subnav";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/domain/column";
+import { imagePath } from "src/utils/image-paths";
 
 const BoardMain = styled.main`
   display: grid;
@@ -35,12 +36,11 @@ const BoardContainer = styled.section`
 
 const Board = () => {
   const columns = useSelector(selectColumns);
-  const template1 = "/images/template-1.JPG";
 
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[0].boardImage?.src || template1}
+        src={drelloBoardsList[0].boardImage?.src || imagePath.template1}
         alt={drelloBoardsList[0].boardImage?.alt}
         layout="fill"
         objectFit="cover"
