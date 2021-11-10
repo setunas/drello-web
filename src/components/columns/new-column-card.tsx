@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "../../constants/colors";
+import { drelloColors } from "src/utils/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Card } from "src/types/inner/card.g";
 

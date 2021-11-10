@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "../../constants/colors";
+import { drelloColors } from "src/utils/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addColumn } from "src/redux/domain/column";
 
