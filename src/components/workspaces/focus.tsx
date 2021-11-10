@@ -1,5 +1,5 @@
 import Link from "next/dist/client/link";
-import { Board } from "../../redux/domain/board.g";
+import { Board } from "../../types/board.g";
 import { Card } from "../custom-components/card";
 import { FocusListItem } from "./focus-list-item";
 import styled from "styled-components";

@@ -1,6 +1,6 @@
 import Link from "next/dist/client/link";
 import { Card } from "../custom-components/card";
-import { Board } from "../../redux/domain/board.g";
+import { Board } from "../../types/board.g";
 import { Workspace } from "../../redux/domain/workspace.g";
 import styled from "styled-components";
 import { AnchorLink } from "../shared-styles";

@@ -1,4 +1,4 @@
-import { Card } from "src/redux/domain/card.g";
+import { Card } from "src/types/card.g";
 
 export interface Column {
   id: number;
