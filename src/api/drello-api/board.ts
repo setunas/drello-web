@@ -4,7 +4,7 @@ import { path } from "src/utils/url/drello-api";
 export interface Board {
   id: number;
   title: string;
-  columns: Column[] | [];
+  columns: Column[];
 }
 
 export interface Column {
