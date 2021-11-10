@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getBoards } from "src/api/drello-api/board";
+import { createSlice } from "@reduxjs/toolkit";
 import { Column as innerColumn } from "src/types/inner/column.g";
 import { Column as OuterColumn } from "src/types/outer/drello-api/column";
 import { RootState } from "src/redux/root";
+import { getBoardsThunk } from "src/redux/domain/board";
 
 interface ColumnState {
   columns: innerColumn[];
@@ -19,17 +19,6 @@ const convertColumnToInnerType = (ob: OuterColumn): innerColumn => {
   };
 };
 
-/**
- * getColumnsThunk call the function to hit the API to fetch Column list data.
- */
-export const getColumnsThunk = createAsyncThunk(
-  "column/getColumnsThunk",
-  async () => {
-    const res = await getBoards();
-    return res.data.boards[0]?.columns?.map((b) => convertColumnToInnerType(b));
-  }
-);
-
 export const slice = createSlice({
   name: "column",
   initialState,
@@ -43,10 +32,10 @@ export const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getColumnsThunk.fulfilled, (state, action) => {
+    builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
       state.columns = action.payload;
     });
-    builder.addCase(getColumnsThunk.rejected, (state, action) => {
+    builder.addCase(getBoardsThunk.rejected, (state, action) => {
       // handle errors if needed.
     });
   },
