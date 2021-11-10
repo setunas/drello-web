@@ -39,7 +39,7 @@ const Board = () => {
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[0].boardImage?.src || "/images/template-1.JPG"}
+        src={drelloBoardsList[0].boardImage?.src || template1 }
         alt={drelloBoardsList[0].boardImage?.alt}
         layout="fill"
         objectFit="cover"
