@@ -49,8 +49,8 @@ const Board = () => {
         <BoardNavbar />
         <BoardSubnav name="Drello" />
         <BoardContainer>
-          {columns?.map(({ id, title, cards }: Column) => (
-            <BoardColumn key={id} title={title || ""} cards={cards} />
+          {columns?.map(({ id, title }: Column) => (
+            <BoardColumn key={id} title={title || ""} columnId={id} />
           ))}
           <NewBoardColumn />
         </BoardContainer>

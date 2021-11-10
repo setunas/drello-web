@@ -14,6 +14,10 @@ const CardMain = styled.div`
   }
 `;
 
-export const ColumnCard = ({ title }: Card) => {
+interface ColumnCardProps {
+  title: string;
+}
+
+export const ColumnCard = ({ title }: ColumnCardProps) => {
   return <CardMain>{title}</CardMain>;
 };

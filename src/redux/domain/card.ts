@@ -16,6 +16,7 @@ const convertCardToInnerType = (ob: OuterCard): innerCard => {
   return {
     id: ob.id,
     title: ob.title,
+    columnId: ob.columnId,
   };
 };
 
@@ -26,14 +27,16 @@ export const slice = createSlice({
     addCard: (state, action) => {
       const newItem = {
         id: Math.floor(100000 + Math.random() * 900000),
-        title: action.payload,
+        title: action.payload.title,
+        columnId: action.payload.columnId,
       };
       state.cards.push(newItem);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
-      state.cards = action.payload;
+      const board = action.payload;
+      state.cards = board[0].cards;
     });
     builder.addCase(getBoardsThunk.rejected, (state, action) => {
       // handle errors if needed.

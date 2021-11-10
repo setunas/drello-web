@@ -54,18 +54,23 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
+interface NewColumnCardProps {
+  columnId: number;
+}
+
 type FormInputs = {
   cardTitle: string;
 };
 
-export const NewColumnCard = () => {
+export const NewColumnCard = ({ columnId }: NewColumnCardProps) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
   const addCardHandler: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Card function */
-    data.cardTitle.length > 0 && dispatch(addCard(data.cardTitle));
+    data.cardTitle.length > 0 &&
+      dispatch(addCard({ title: data.cardTitle, columnId }));
     reset();
     setInputToggle(true);
     console.log("Implement function to addCard ideally with redux");
