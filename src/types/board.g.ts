@@ -1,5 +1,6 @@
 import { Workspace } from "src/redux/domain/workspace.g";
 import { Column } from "src/types/column.g";
+import { Card } from "src/types/card.g";
 
 export interface Stats {
   id?: number;
@@ -19,5 +20,6 @@ export interface Board {
   boardImage?: BoardImage;
   workspace?: Workspace;
   stats?: Stats[];
-  columns?: Column[];
+  columns?: Column[] | [];
+  cards?: Card[] | [];
 }

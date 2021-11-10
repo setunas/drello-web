@@ -35,12 +35,13 @@ const BoardContainer = styled.section`
 
 const Board = () => {
   const columns = useSelector(selectColumns);
+  const template1 = "/images/template-1.JPG";
 
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[2].boardImage?.src || "/images/template-1.JPG"}
-        alt={drelloBoardsList[2].boardImage?.alt}
+        src={drelloBoardsList[0].boardImage?.src || template1}
+        alt={drelloBoardsList[0].boardImage?.alt}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
@@ -49,8 +50,8 @@ const Board = () => {
         <BoardNavbar />
         <BoardSubnav name="Drello" />
         <BoardContainer>
-          {columns?.map(({ id, title, cards }: Column) => (
-            <BoardColumn key={id} title={title || ""} cards={cards} />
+          {columns?.map(({ id, title }: Column) => (
+            <BoardColumn key={id} title={title || ""} columnId={id} />
           ))}
           <NewBoardColumn />
         </BoardContainer>

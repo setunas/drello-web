@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { Card } from "src/types/card.g";
+import { useSelector } from "react-redux";
 import { ColumnCard } from "../columns/column-card";
 import { NewColumnCard } from "../columns/new-column-card";
 import { drelloColors } from "src/utils/colors";
+import { selectCards } from "src/redux/domain/card";
 
 // Styled Components
 const ColumnMain = styled.div`
@@ -32,15 +33,15 @@ const ColumnTitle = styled.h4`
   color: ${drelloColors.white()};
 `;
 
-// Component Interfact Defination
+// Component Interface Defination
 interface BoardColumnProps {
+  columnId: number;
   title: string;
-  cards?: Card[];
-  newColumn?: boolean;
 }
 
-// Board Column component responsible for each column with the board
-export const BoardColumn = ({ title, cards }: BoardColumnProps) => {
+// Board Column component responsible for each column within the board
+export const BoardColumn = ({ columnId, title }: BoardColumnProps) => {
+  const cards = useSelector(selectCards);
   return (
     <>
       <ColumnMain>
@@ -48,10 +49,13 @@ export const BoardColumn = ({ title, cards }: BoardColumnProps) => {
           <ColumnTitle>{title}</ColumnTitle>
           <span>...</span>
         </ColumnHeader>
-        {cards?.map(({ id, title }) => (
-          <ColumnCard key={id} id={id} title={title} />
-        ))}
-        <NewColumnCard />
+        {cards?.map(
+          (card) =>
+            columnId === card.columnId && (
+              <ColumnCard key={card.id} title={card.title} />
+            )
+        )}
+        <NewColumnCard columnId={columnId} />
       </ColumnMain>
     </>
   );

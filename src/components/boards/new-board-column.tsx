@@ -78,8 +78,6 @@ export const NewBoardColumn = () => {
   const [inputToggle, setInputToggle] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
-    /* TODO: Implement add Column function */
-    console.log(data);
     data.columnTitle.length > 0 && dispatch(addColumn(data.columnTitle));
     reset();
     setInputToggle(true);
