@@ -36,7 +36,7 @@ export const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
       const board = action.payload;
-      state.cards = board[0].cards;
+      board[0].cards ? (state.cards = board[0].cards) : (state.cards = []);
     });
     builder.addCase(getBoardsThunk.rejected, (state, action) => {
       // handle errors if needed.
