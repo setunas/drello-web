@@ -1,4 +1,4 @@
-import { Workspace } from "src/redux/domain/workspace.g";
+import { Workspace } from "src/types/workspace.g";
 import { Column } from "src/types/column.g";
 import { Card } from "src/types/card.g";
 
