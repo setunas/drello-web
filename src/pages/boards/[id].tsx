@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { Navbar } from "../../components/boards/navbar";
-import { Column } from "../../components/columns/column";
-import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
+import { Navbar } from "src/components/boards/navbar";
+import { Column } from "src/components/columns/column";
+import { drelloBoardsList } from "src/utils/mockdata/drello-boards";
 import { Column as ColumnType } from "src/types/column.g";
-import { NewColumn } from "../../components/columns/new-column";
+import { NewColumn } from "src/components/columns/new-column";
 import { Subnav } from "src/components/boards/subnav";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/domain/column";
 import { imagePath } from "src/utils/image-paths";
 
-const BoardMain = styled.main`
+const Main = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   height: 100vh;
@@ -22,7 +22,7 @@ const BoardImage = styled(Image)`
   z-index: -99;
 `;
 
-const BoardContainer = styled.section`
+const Container = styled.section`
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
@@ -46,16 +46,16 @@ const Board = () => {
         objectFit="cover"
         objectPosition="center"
       />
-      <BoardMain>
+      <Main>
         <Navbar />
         <Subnav name="Drello" />
-        <BoardContainer>
+        <Container>
           {columns?.map(({ id, title }: ColumnType) => (
             <Column key={id} title={title || ""} columnId={id} />
           ))}
           <NewColumn />
-        </BoardContainer>
-      </BoardMain>
+        </Container>
+      </Main>
     </>
   );
 };
