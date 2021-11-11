@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Card as innerCard } from "src/types/inner/card.g";
-import { Card as OuterCard } from "src/types/outer/drello-api/card";
+import { Card as innerCard } from "src/types/card.g";
+import { Card as OuterCard } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
 import { getBoardsThunk } from "src/redux/domain/board";
 
@@ -44,12 +44,6 @@ export const slice = createSlice({
   },
 });
 
-/**
- * selectCards returns cards list from CardState of redux store.
- * This kind of functions that select proper data and return them are called `selector`.
- * Selector is often used when you want to access redux store's data from a component file,
- * so you can reuse the code to access them in many components.
- */
 export const selectCards = (state: RootState) => state.cardState.cards;
 export const { addCard } = slice.actions;
 

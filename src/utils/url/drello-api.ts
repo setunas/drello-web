@@ -1,5 +1,4 @@
-import { serverEnv } from "src/constants/system";
-import { currentEnv } from "src/utils/server-env";
+import { currentEnv, serverEnv } from "src/utils/server-env";
 
 export const domain = () => {
   switch (currentEnv()) {

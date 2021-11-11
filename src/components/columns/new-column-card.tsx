@@ -3,8 +3,7 @@ import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-
-import { drelloColors } from "../../constants/colors";
+import { drelloColors } from "src/utils/colors";
 import { addCard } from "src/redux/domain/card";
 
 const FormContainer = styled.form`

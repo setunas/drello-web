@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
-import { Card } from "src/types/inner/card.g";
 import { ColumnCard } from "../columns/column-card";
 import { NewColumnCard } from "../columns/new-column-card";
-import { drelloColors } from "../../constants/colors";
+import { drelloColors } from "src/utils/colors";
 import { selectCards } from "src/redux/domain/card";
 
 // Styled Components
