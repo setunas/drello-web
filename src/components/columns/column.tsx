@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Card } from "../cards/card";
-import { NewCard } from "../cards/new-card";
+import { Card } from "src/components/cards/card";
+import { NewCard } from "src/components/cards/new-card";
 import { drelloColors } from "src/utils/colors";
 import { selectCards } from "src/redux/domain/card";
 
-// Styled Components
-const ColumnMain = styled.div`
+const Container = styled.div`
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
@@ -23,40 +22,38 @@ const ColumnMain = styled.div`
   }
 `;
 
-const ColumnHeader = styled.div`
+const Header = styled.div`
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
 `;
 
-const ColumnTitle = styled.h4`
+const Title = styled.h4`
   color: ${drelloColors.white()};
 `;
 
 // Component Interface Defination
-interface BoardColumnProps {
+interface ColumnProps {
   columnId: number;
   title: string;
 }
 
-// Board Column component responsible for each column within the board
-export const ColumnUI = ({ columnId, title }: BoardColumnProps) => {
+// Column component responsible for each column within the board
+export const Column = ({ columnId, title }: ColumnProps) => {
   const cards = useSelector(selectCards);
   return (
-    <>
-      <ColumnMain>
-        <ColumnHeader>
-          <ColumnTitle>{title}</ColumnTitle>
-          <span>...</span>
-        </ColumnHeader>
-        {cards?.map(
-          (card) =>
-            columnId === card.columnId && (
-              <Card key={card.id} title={card.title} />
-            )
-        )}
-        <NewCard columnId={columnId} />
-      </ColumnMain>
-    </>
+    <Container>
+      <Header>
+        <Title>{title}</Title>
+        <span>...</span>
+      </Header>
+      {cards?.map(
+        (card) =>
+          columnId === card.columnId && (
+            <Card key={card.id} title={card.title} />
+          )
+      )}
+      <NewCard columnId={columnId} />
+    </Container>
   );
 };
