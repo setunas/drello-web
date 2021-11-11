@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { BoardNavbar } from "../../components/boards/board-navbar";
+import { Navbar } from "../../components/boards/navbar";
 import { Column } from "../../components/columns/column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column as ColumnType } from "src/types/column.g";
@@ -47,7 +47,7 @@ const Board = () => {
         objectPosition="center"
       />
       <BoardMain>
-        <BoardNavbar />
+        <Navbar />
         <BoardSubnav name="Drello" />
         <BoardContainer>
           {columns?.map(({ id, title }: ColumnType) => (
