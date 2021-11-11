@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { ColumnCard } from "../columns/column-card";
-import { NewColumnCard } from "../columns/new-column-card";
+import { Card } from "../cards/card";
+import { NewCard } from "../cards/new-card";
 import { drelloColors } from "src/utils/colors";
 import { selectCards } from "src/redux/domain/card";
 
@@ -40,7 +40,7 @@ interface BoardColumnProps {
 }
 
 // Board Column component responsible for each column within the board
-export const BoardColumn = ({ columnId, title }: BoardColumnProps) => {
+export const ColumnUI = ({ columnId, title }: BoardColumnProps) => {
   const cards = useSelector(selectCards);
   return (
     <>
@@ -52,10 +52,10 @@ export const BoardColumn = ({ columnId, title }: BoardColumnProps) => {
         {cards?.map(
           (card) =>
             columnId === card.columnId && (
-              <ColumnCard key={card.id} title={card.title} />
+              <Card key={card.id} title={card.title} />
             )
         )}
-        <NewColumnCard columnId={columnId} />
+        <NewCard columnId={columnId} />
       </ColumnMain>
     </>
   );

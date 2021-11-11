@@ -53,7 +53,7 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
-interface NewColumnCardProps {
+interface NewCardProps {
   columnId: number;
 }
 
@@ -61,7 +61,7 @@ type FormInputs = {
   cardTitle: string;
 };
 
-export const NewColumnCard = ({ columnId }: NewColumnCardProps) => {
+export const NewCard = ({ columnId }: NewCardProps) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);

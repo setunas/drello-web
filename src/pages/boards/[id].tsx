@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { BoardNavbar } from "../../components/boards/board-navbar";
-import { BoardColumn } from "../../components/boards/board-column";
+import { ColumnUI } from "../../components/columns/column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column } from "src/types/column.g";
-import { NewBoardColumn } from "../../components/boards/new-board-column";
+import { NewBoardColumn } from "../../components/columns/new-board-column";
 import { BoardSubnav } from "src/components/boards/board-subnav";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/domain/column";
@@ -51,7 +51,7 @@ const Board = () => {
         <BoardSubnav name="Drello" />
         <BoardContainer>
           {columns?.map(({ id, title }: Column) => (
-            <BoardColumn key={id} title={title || ""} columnId={id} />
+            <ColumnUI key={id} title={title || ""} columnId={id} />
           ))}
           <NewBoardColumn />
         </BoardContainer>
