@@ -5,7 +5,7 @@ import { Column } from "../../components/columns/column";
 import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
 import { Column as ColumnType } from "src/types/column.g";
 import { NewColumn } from "../../components/columns/new-column";
-import { BoardSubnav } from "src/components/boards/board-subnav";
+import { Subnav } from "src/components/boards/subnav";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/domain/column";
 import { imagePath } from "src/utils/image-paths";
@@ -48,7 +48,7 @@ const Board = () => {
       />
       <BoardMain>
         <Navbar />
-        <BoardSubnav name="Drello" />
+        <Subnav name="Drello" />
         <BoardContainer>
           {columns?.map(({ id, title }: ColumnType) => (
             <Column key={id} title={title || ""} columnId={id} />
