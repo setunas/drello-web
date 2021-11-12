@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "src/utils/colors";
 
-const NavContainer = styled.nav`
+const Container = styled.nav`
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-end;
@@ -22,13 +22,13 @@ const BgNavItem = styled.div`
   padding: 0.5rem;
 `;
 
-interface BoardSubnavProps {
+interface SubnavProps {
   name: string;
 }
 
-export const BoardSubnav = ({ name }: BoardSubnavProps) => {
+export const Subnav = ({ name }: SubnavProps) => {
   return (
-    <NavContainer>
+    <Container>
       <BoardName>{name}</BoardName>
       {/* TODO: Add focus/starred state to toggle star */}
       <BgNavItem>
@@ -37,6 +37,6 @@ export const BoardSubnav = ({ name }: BoardSubnavProps) => {
       <BgNavItem>
         <FontAwesomeIcon icon="cog" />
       </BgNavItem>
-    </NavContainer>
+    </Container>
   );
 };

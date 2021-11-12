@@ -6,7 +6,7 @@ import { drelloColors } from "src/utils/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addColumn } from "src/redux/domain/column";
 
-const NewColumnContainer = styled.div`
+const MainContainer = styled.div`
   display: grid;
   min-width: 15vw;
   @media screen and (max-width: 720px) {
@@ -14,14 +14,9 @@ const NewColumnContainer = styled.div`
   }
 `;
 
-const InnerContainer = styled.div`
+const DisplayContainer = styled.div`
   display: grid;
   gap: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 0.2rem;
-`;
-
-const DisplayContainer = styled(InnerContainer)`
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
@@ -41,7 +36,7 @@ const EditContainer = styled.form`
   background-color: ${drelloColors.greyish()};
 `;
 
-const ColumnInput = styled.input`
+const Input = styled.input`
   font-size: 0.8rem;
   padding: 0.5rem;
   border: none;
@@ -69,22 +64,22 @@ const FAIcon = styled(FontAwesomeIcon)`
 `;
 
 type FormInputs = {
-  columnTitle: string;
+  title: string;
 };
 
-export const NewBoardColumn = () => {
+export const NewColumn = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
-    data.columnTitle.length > 0 && dispatch(addColumn(data.columnTitle));
+    data.title.length > 0 && dispatch(addColumn(data.title));
     reset();
     setInputToggle(true);
-    console.log("Implement function to addColumn ideally with redux");
   };
+
   return (
-    <NewColumnContainer>
+    <MainContainer>
       {inputToggle ? (
         <DisplayContainer onClick={() => setInputToggle(false)}>
           <FAIcon icon="plus" />
@@ -92,16 +87,13 @@ export const NewBoardColumn = () => {
         </DisplayContainer>
       ) : (
         <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
-          <ColumnInput
-            placeholder="Enter title here..."
-            {...register("columnTitle")}
-          />
+          <Input placeholder="Enter title here..." {...register("title")} />
           <FormActions>
             <FormButton>Add Column</FormButton>
             <FAIcon icon="times" onClick={() => setInputToggle(true)} />
           </FormActions>
         </EditContainer>
       )}
-    </NewColumnContainer>
+    </MainContainer>
   );
 };

@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { BoardNavbar } from "../../components/boards/board-navbar";
-import { BoardColumn } from "../../components/boards/board-column";
-import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
-import { Column } from "src/types/column.g";
-import { NewBoardColumn } from "../../components/boards/new-board-column";
-import { BoardSubnav } from "src/components/boards/board-subnav";
+import { Navbar } from "src/components/boards/navbar";
+import { Column } from "src/components/columns/column";
+import { drelloBoardsList } from "src/utils/mockdata/drello-boards";
+import { Column as ColumnType } from "src/types/column.g";
+import { NewColumn } from "src/components/columns/new-column";
+import { Subnav } from "src/components/boards/subnav";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/domain/column";
 import { imagePath } from "src/utils/image-paths";
 
-const BoardMain = styled.main`
+const Main = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   height: 100vh;
@@ -22,7 +22,7 @@ const BoardImage = styled(Image)`
   z-index: -99;
 `;
 
-const BoardContainer = styled.section`
+const Container = styled.section`
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
@@ -46,16 +46,16 @@ const Board = () => {
         objectFit="cover"
         objectPosition="center"
       />
-      <BoardMain>
-        <BoardNavbar />
-        <BoardSubnav name="Drello" />
-        <BoardContainer>
-          {columns?.map(({ id, title }: Column) => (
-            <BoardColumn key={id} title={title || ""} columnId={id} />
+      <Main>
+        <Navbar />
+        <Subnav name="Drello" />
+        <Container>
+          {columns?.map(({ id, title }: ColumnType) => (
+            <Column key={id} title={title || ""} columnId={id} />
           ))}
-          <NewBoardColumn />
-        </BoardContainer>
-      </BoardMain>
+          <NewColumn />
+        </Container>
+      </Main>
     </>
   );
 };
