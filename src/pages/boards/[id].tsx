@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/components/boards/navbar";
-import { Column } from "src/components/columns/column";
 import { drelloBoardsList } from "src/utils/mockdata/drello-boards";
-import { Column as ColumnType } from "src/types/column.g";
 import { NewColumn } from "src/components/columns/new-column";
+import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
-import { useSelector } from "react-redux";
-import { selectColumns } from "src/redux/domain/column";
 import { imagePath } from "src/utils/image-paths";
 
 const Main = styled.main`
@@ -35,8 +32,6 @@ const Container = styled.section`
 `;
 
 const Board = () => {
-  const columns = useSelector(selectColumns);
-
   return (
     <>
       <BoardImage
@@ -50,9 +45,7 @@ const Board = () => {
         <Navbar />
         <Subnav name="Drello" />
         <Container>
-          {columns?.map(({ id, title }: ColumnType) => (
-            <Column key={id} title={title || ""} columnId={id} />
-          ))}
+          <ColumnList />
           <NewColumn />
         </Container>
       </Main>
