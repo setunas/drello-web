@@ -74,6 +74,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
     setInputToggle(true);
     console.log("Implement function to addCard ideally with redux");
   };
+
   return inputToggle ? (
     <DisplayContainer onClick={() => setInputToggle(false)}>
       <FAIcon icon="plus" />

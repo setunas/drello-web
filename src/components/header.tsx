@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
-import { path } from "../utils/url/drello-web";
+import { path } from "src/utils/url/drello-web";
 import { drelloColors } from "src/utils/colors";
 
 const HeaderContainer = styled.header`

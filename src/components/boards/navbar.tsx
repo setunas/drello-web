@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/dist/client/link";
-import { AnchorLink } from "../shared-styles";
-import { path } from "../../utils/url/drello-web";
+import { AnchorLink } from "src/components/shared-styles";
+import { path } from "src/utils/url/drello-web";
 
 const Main = styled.nav`
   display: grid;
