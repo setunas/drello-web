@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Card } from "src/components/cards/card";
+import { CardList } from "src/components/cards/card-list";
 import { NewCard } from "src/components/cards/new-card";
 import { drelloColors } from "src/utils/colors";
 import { selectCards } from "src/redux/domain/card";
@@ -47,12 +47,7 @@ export const Column = ({ columnId, title }: ColumnProps) => {
         <Title>{title}</Title>
         <span>...</span>
       </Header>
-      {cards?.map(
-        (card) =>
-          columnId === card.columnId && (
-            <Card key={card.id} title={card.title} />
-          )
-      )}
+      <CardList columnId={columnId} />
       <NewCard columnId={columnId} />
     </Container>
   );
