@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import { CardList } from "src/components/cards/card-list";
 import { NewCard } from "src/components/cards/new-card";
 import { drelloColors } from "src/utils/colors";
-import { selectCards } from "src/redux/domain/card";
 
 const Container = styled.div`
   display: grid;
@@ -40,7 +38,6 @@ interface ColumnProps {
 
 // Column component responsible for each column within the board
 export const Column = ({ columnId, title }: ColumnProps) => {
-  const cards = useSelector(selectCards);
   return (
     <Container>
       <Header>
