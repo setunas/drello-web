@@ -30,7 +30,6 @@ const Title = styled.h4`
   color: ${drelloColors.white()};
 `;
 
-// Component Interface Defination
 interface ColumnProps {
   columnId: number;
   title: string;
