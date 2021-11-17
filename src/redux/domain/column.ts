@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Column as innerColumn } from "src/types/column.g";
 import { Column as OuterColumn } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
-import { getBoardsThunk } from "src/redux/domain/board";
+import { getBoardThunk } from "src/redux/domain/board";
 
 interface ColumnState {
   columns: innerColumn[];
@@ -32,10 +32,10 @@ export const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
-      state.columns = action.payload;
+    builder.addCase(getBoardThunk.fulfilled, (state, action) => {
+      state.columns = action.payload.coulmns;
     });
-    builder.addCase(getBoardsThunk.rejected, (state, action) => {
+    builder.addCase(getBoardThunk.rejected, (state, action) => {
       // handle errors if needed.
     });
   },

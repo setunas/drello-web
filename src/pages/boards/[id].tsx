@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/components/boards/navbar";
@@ -6,6 +9,7 @@ import { NewColumn } from "src/components/columns/new-column";
 import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
 import { imagePath } from "src/utils/image-paths";
+import { getBoardThunk } from "src/redux/domain/board";
 
 const Main = styled.main`
   display: grid;
@@ -32,6 +36,16 @@ const Container = styled.section`
 `;
 
 const Board = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const boardId = router?.query?.id ? Number(router.query.id) : null;
+
+  useEffect(() => {
+    if (boardId !== null) {
+      dispatch(getBoardThunk(boardId));
+    }
+  }, []);
+
   return (
     <>
       <BoardImage

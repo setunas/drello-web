@@ -17,5 +17,7 @@ export interface Card {
   columnId: number;
 }
 
-export const getBoards = () =>
-  drelloApiAxios.get<{ boards: Board[] }>(path.boards());
+export const getBoard = (boardId: number) =>
+  drelloApiAxios.get<{ board: Board; coulmns: Column[]; cards: Card[] }>(
+    path.boards(boardId)
+  );
