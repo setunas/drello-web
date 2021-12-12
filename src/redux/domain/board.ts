@@ -25,9 +25,7 @@ const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
 export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
   async (boardId: number) => {
-    const res = await getBoard(boardId);
-    return res.data;
-    // return res.data.boards.map((b) => convertBoardToInnerType(b));
+    return await getBoard(boardId);
   }
 );
 
@@ -41,10 +39,10 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      state.boards.push(action.payload);
+      state.boards = [convertBoardToInnerType(action.payload.data)];
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
-      // handle errors if needed.
+      console.error(action.error.message);
     });
   },
 });

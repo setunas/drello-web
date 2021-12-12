@@ -33,10 +33,12 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      // state.columns = action.payload.board?.columns;
+      state.columns = action.payload.data.columns.map((column) =>
+        convertColumnToInnerType(column)
+      );
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
-      // handle errors if needed.
+      console.error(action.error.message);
     });
   },
 });

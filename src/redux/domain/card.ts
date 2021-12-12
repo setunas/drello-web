@@ -35,11 +35,13 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      const data = action.payload;
-      data.cards ? (state.cards = data.cards) : (state.cards = []);
+      const { data } = action.payload;
+      data.cards
+        ? (state.cards = data.cards.map((card) => convertCardToInnerType(card)))
+        : (state.cards = []);
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
-      // handle errors if needed.
+      console.error(action.error.message);
     });
   },
 });
