@@ -9,7 +9,7 @@ import { NewColumn } from "src/components/columns/new-column";
 import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
 import { imagePath } from "src/utils/image-paths";
-import { getBoardThunk } from "src/redux/domain/board";
+import { getBoardThunk } from "src/redux/board.slice";
 
 const Main = styled.main`
   display: grid;
