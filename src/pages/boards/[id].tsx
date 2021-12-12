@@ -9,6 +9,7 @@ import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
 import { imagePath } from "src/utils/image-paths";
 import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
+import { getFirebaseIdToken, selectIdToken } from "src/redux/auth.slice";
 
 const Main = styled.main`
   display: grid;
@@ -40,6 +41,12 @@ const Board = () => {
   const boardId =
     typeof Number(router?.query?.id) === "number" ? Number(router.query.id) : 0;
   const board = useSelector(selectBoardById(boardId));
+  const idToken = useSelector(selectIdToken());
+
+  useEffect(() => {
+    console.log("idToken in effect", idToken);
+    dispatch(getFirebaseIdToken());
+  }, [idToken]);
 
   useEffect(() => {
     if (boardId !== 0) {
