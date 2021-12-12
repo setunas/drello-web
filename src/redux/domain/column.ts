@@ -33,7 +33,7 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      state.columns = action.payload.coulmns;
+      // state.columns = action.payload.board?.columns;
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       // handle errors if needed.

@@ -44,7 +44,7 @@ const Board = () => {
     if (boardId !== null) {
       dispatch(getBoardThunk(boardId));
     }
-  }, []);
+  }, [boardId]);
 
   return (
     <>

@@ -41,7 +41,7 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      state.boards.push(action.payload.board);
+      state.boards.push(action.payload);
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       // handle errors if needed.
