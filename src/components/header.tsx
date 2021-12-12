@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
-import { path } from "../utils/url/drello-web";
-import { drelloColors } from "../constants/colors";
+import { path } from "src/utils/url/drello-web";
+import { drelloColors } from "src/utils/colors";
 
 const HeaderContainer = styled.header`
   display: grid;
@@ -70,7 +70,7 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <Link href={path.workspaces()}>
+          <Link href={path.boards(347645)}>
             <a style={InlineAnchor}>
               <FontAwesomeIcon icon="sign-in-alt" />
               <LoginText>Login to get started</LoginText>

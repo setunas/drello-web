@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "../../constants/colors";
+import { drelloColors } from "src/utils/colors";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { addColumn } from "src/redux/column.slice";
 
-const NewColumnContainer = styled.div`
+const MainContainer = styled.div`
   display: grid;
   min-width: 15vw;
   @media screen and (max-width: 720px) {
@@ -11,14 +14,9 @@ const NewColumnContainer = styled.div`
   }
 `;
 
-const InnerContainer = styled.div`
+const DisplayContainer = styled.div`
   display: grid;
   gap: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 0.2rem;
-`;
-
-const DisplayContainer = styled(InnerContainer)`
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
@@ -30,11 +28,15 @@ const DisplayContainer = styled(InnerContainer)`
   }
 `;
 
-const EditContainer = styled(InnerContainer)`
+const EditContainer = styled.form`
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
   background-color: ${drelloColors.greyish()};
 `;
 
-const ColumnInput = styled.input`
+const Input = styled.input`
   font-size: 0.8rem;
   padding: 0.5rem;
   border: none;
@@ -61,36 +63,37 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
-export const NewBoardColumn = () => {
-  const [columnTitle, setColumnTitle] = useState("");
+type FormInputs = {
+  title: string;
+};
+
+export const NewColumn = () => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addColumn = (e: React.SyntheticEvent) => {
-    /* TODO: Implement add Column function */
-    e.preventDefault();
+  const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
+    data.title.length > 0 && dispatch(addColumn(data.title));
+    reset();
     setInputToggle(true);
-    console.log("Implement function to addColumn ideally with redux");
   };
+
   return (
-    <NewColumnContainer>
+    <MainContainer>
       {inputToggle ? (
         <DisplayContainer onClick={() => setInputToggle(false)}>
           <FAIcon icon="plus" />
           <span>Add new column</span>
         </DisplayContainer>
       ) : (
-        <EditContainer onSubmit={addColumn}>
-          <ColumnInput
-            placeholder="Enter title here..."
-            value={columnTitle}
-            onChange={(e) => setColumnTitle(e.target.value)}
-          />
+        <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
+          <Input placeholder="Enter title here..." {...register("title")} />
           <FormActions>
             <FormButton>Add Column</FormButton>
             <FAIcon icon="times" onClick={() => setInputToggle(true)} />
           </FormActions>
         </EditContainer>
       )}
-    </NewColumnContainer>
+    </MainContainer>
   );
 };

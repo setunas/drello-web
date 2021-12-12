@@ -1,11 +1,10 @@
-import { serverEnv } from "src/constants/system";
-import { currentEnv } from "src/utils/server-env";
+import { currentEnv, serverEnv } from "src/utils/server-env";
 
 export const domain = () => {
   switch (currentEnv()) {
     case serverEnv.development:
     case serverEnv.test:
-      return "http://localhost:3000";
+      return "http://localhost:8080";
     case serverEnv.staging:
     case serverEnv.production:
     default:

@@ -1,16 +1,21 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { drelloColors } from "../../constants/colors";
-import { Card } from "../../types/inner/board.g";
+import { drelloColors } from "src/utils/colors";
+import { addCard } from "src/redux/card.slice";
 
-const InnerContainer = styled.div`
+const FormContainer = styled.form`
   display: grid;
   gap: 0.5rem;
   border-radius: 0.2rem;
 `;
 
-const DisplayContainer = styled(InnerContainer)`
+const DisplayContainer = styled.div`
+  display: grid;
+  gap: 0.5rem;
+  border-radius: 0.2rem;
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
@@ -48,32 +53,40 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${drelloColors.black(0.6)};
 `;
 
-export const NewColumnCard = () => {
-  const [cardTitle, setCardTitle] = useState("");
+interface NewCardProps {
+  columnId: number;
+}
+
+type FormInputs = {
+  cardTitle: string;
+};
+
+export const NewCard = ({ columnId }: NewCardProps) => {
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addCard = (e: React.SyntheticEvent) => {
+  const addCardHandler: SubmitHandler<FormInputs> = (data) => {
     /* TODO: Implement add Card function */
-    e.preventDefault();
+    data.cardTitle.length > 0 &&
+      dispatch(addCard({ title: data.cardTitle, columnId }));
+    reset();
     setInputToggle(true);
     console.log("Implement function to addCard ideally with redux");
   };
+
   return inputToggle ? (
     <DisplayContainer onClick={() => setInputToggle(false)}>
       <FAIcon icon="plus" />
       <span>Add a Card</span>
     </DisplayContainer>
   ) : (
-    <InnerContainer onSubmit={addCard}>
-      <CardInput
-        placeholder="Enter title here..."
-        value={cardTitle}
-        onChange={(e) => setCardTitle(e.target.value)}
-      />
+    <FormContainer onSubmit={handleSubmit(addCardHandler)}>
+      <CardInput placeholder="Enter title here..." {...register("cardTitle")} />
       <FormActions>
         <FormButton>Add Card</FormButton>
         <FAIcon icon="times" onClick={() => setInputToggle(true)} />
       </FormActions>
-    </InnerContainer>
+    </FormContainer>
   );
 };

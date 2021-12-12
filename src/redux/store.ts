@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { rootReducer } from "src/redux/root";
 import { currentEnv } from "src/utils/server-env";
-import { serverEnv } from "src/constants/system";
+import { serverEnv } from "src/utils/server-env";
 
 export const makeConfiguredStore = (
   preloadedState?: Record<string, object>

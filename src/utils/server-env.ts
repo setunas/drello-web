@@ -1,4 +1,9 @@
-import { serverEnv } from "src/constants/system";
+export enum serverEnv {
+  development = "development",
+  test = "test",
+  staging = "staging",
+  production = "production",
+}
 
 export const currentEnv = (): serverEnv => {
   switch (process.env.NEXT_PUBLIC_SERVER_ENV) {

@@ -1,4 +1,6 @@
-import { Workspace } from "./workspace.g";
+import { Workspace } from "src/types/workspace.g";
+import { Column } from "src/types/column.g";
+import { Card } from "src/types/card.g";
 
 export interface Stats {
   id?: number;
@@ -6,18 +8,7 @@ export interface Stats {
   content: string[];
 }
 
-export interface Card {
-  id: number;
-  title: string;
-}
-
-export interface Column {
-  id: number;
-  title?: string;
-  cards?: Card[];
-}
-
-export interface Image {
+export interface BoardImage {
   src: string;
   alt: string;
 }
@@ -26,8 +17,9 @@ export interface Board {
   id: number;
   title: string;
   focus?: boolean;
-  image?: Image;
+  boardImage?: BoardImage;
   workspace?: Workspace;
   stats?: Stats[];
   columns?: Column[];
+  cards?: Card[];
 }

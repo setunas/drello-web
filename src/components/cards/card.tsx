@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Card } from "../../types/inner/board.g";
 
 const CardMain = styled.div`
   display: grid;
@@ -14,6 +13,10 @@ const CardMain = styled.div`
   }
 `;
 
-export const ColumnCard = ({ title }: Card) => {
+interface CardProps {
+  title: string;
+}
+
+export const Card = ({ title }: CardProps) => {
   return <CardMain>{title}</CardMain>;
 };

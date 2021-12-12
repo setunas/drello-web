@@ -1,6 +1,21 @@
 import { drelloApiAxios } from "src/utils/axios/drello-api-axios";
 import { path } from "src/utils/url/drello-api";
-import { Board } from "src/types/outer/drello-api/board";
 
-export const getBoards = () =>
-  drelloApiAxios.get<{ boards: Board[] }>(path.boards());
+export interface Board {
+  id: number;
+  title: string;
+  columns: Column[];
+  cards?: Card[];
+}
+export interface Column {
+  id: number;
+  title?: string;
+}
+export interface Card {
+  id: number;
+  title: string;
+  columnId: number;
+}
+
+export const getBoard = (boardId: number) =>
+  drelloApiAxios.get<Board>(path.boards(boardId));

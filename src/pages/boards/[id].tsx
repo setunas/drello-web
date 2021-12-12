@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
-import { BoardNavbar } from "../../components/boards/board-navbar";
-import { BoardColumn } from "../../components/boards/board-column";
-import { drelloBoardsList } from "../../utils/mockdata/drello-boards";
-import { Column } from "../../types/inner/board.g";
-import { NewBoardColumn } from "../../components/boards/new-board-column";
-import { getBoardsThunk, selectBoards } from "src/redux/domain/board";
-import { BoardSubnav } from "src/components/boards/board-subnav";
+import { Navbar } from "src/components/boards/navbar";
+import { NewColumn } from "src/components/columns/new-column";
+import { ColumnList } from "src/components/columns/column-list";
+import { Subnav } from "src/components/boards/subnav";
+import { imagePath } from "src/utils/image-paths";
+import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
 
-const BoardMain = styled.main`
+const Main = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   height: 100vh;
@@ -22,7 +22,7 @@ const BoardImage = styled(Image)`
   z-index: -99;
 `;
 
-const BoardContainer = styled.section`
+const Container = styled.section`
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
@@ -35,38 +35,36 @@ const BoardContainer = styled.section`
 `;
 
 const Board = () => {
-  //******* Sample Code for Redux Toolkit *******//
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const boardId =
+    typeof Number(router?.query?.id) === "number" ? Number(router.query.id) : 0;
+  const board = useSelector(selectBoardById(boardId));
 
-  // // This is how to get state from redux store.
-  // const boards = useSelector(selectBoards);
-  // console.log(boards);
+  useEffect(() => {
+    if (boardId !== 0) {
+      dispatch(getBoardThunk(boardId));
+    }
+  }, [boardId]);
 
-  // useEffect(() => {
-  //   // This is how to dispatch actions.
-  //   dispatch(getBoardsThunk());
-  // }, []);
-  //************************************************//
-
+  if (!board) return null;
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[2].image?.src || "/images/template-1.JPG"}
-        alt={drelloBoardsList[2].image?.alt}
+        src={board.boardImage?.src || imagePath.template1}
+        alt={board.boardImage?.alt}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
       />
-      <BoardMain>
-        <BoardNavbar />
-        <BoardSubnav name="Drello" />
-        <BoardContainer>
-          {drelloBoardsList[2].columns?.map(({ id, title, cards }: Column) => (
-            <BoardColumn key={id} title={title || ""} cards={cards} />
-          ))}
-          <NewBoardColumn />
-        </BoardContainer>
-      </BoardMain>
+      <Main>
+        <Navbar />
+        <Subnav name="Drello" />
+        <Container>
+          <ColumnList />
+          <NewColumn />
+        </Container>
+      </Main>
     </>
   );
 };
