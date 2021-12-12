@@ -37,11 +37,12 @@ const Container = styled.section`
 const Board = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const boardId = router?.query?.id ? Number(router.query.id) : null;
-  const board = useSelector(selectBoardById(boardId || 0));
+  const boardId =
+    typeof Number(router?.query?.id) === "number" ? Number(router.query.id) : 0;
+  const board = useSelector(selectBoardById(boardId));
 
   useEffect(() => {
-    if (boardId !== null) {
+    if (boardId !== 0) {
       dispatch(getBoardThunk(boardId));
     }
   }, [boardId]);
