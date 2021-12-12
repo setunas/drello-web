@@ -24,8 +24,13 @@ const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
  */
 export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
-  async (boardId: number) => {
-    return await getBoard(boardId);
+  async (boardId: number, { getState }) => {
+    const idToken = (getState() as RootState).authState.firebaseIdToken || "";
+    if (!idToken) {
+      throw "No idToken. Can't fetch Board";
+    }
+
+    return await getBoard({ boardId, idToken });
   }
 );
 
@@ -39,7 +44,9 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      state.boards = [convertBoardToInnerType(action.payload.data)];
+      state.boards = action.payload
+        ? [convertBoardToInnerType(action.payload.data)]
+        : [];
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
