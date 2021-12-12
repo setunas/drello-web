@@ -4,7 +4,7 @@ export const domain = () => {
   switch (currentEnv()) {
     case serverEnv.development:
     case serverEnv.test:
-      return "http://localhost:3000";
+      return "http://localhost:8080";
     case serverEnv.staging:
     case serverEnv.production:
     default:
