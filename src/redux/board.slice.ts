@@ -47,6 +47,7 @@ export const slice = createSlice({
   },
 });
 
-export const selectBoards = (state: RootState) => state.boardState.boards;
+export const selectBoardById = (boardId: number) => (state: RootState) =>
+  state.boardState.boards.find((board) => board.id === boardId);
 
 export const boardReducer = slice.reducer;

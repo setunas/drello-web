@@ -1,15 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/components/boards/navbar";
-import { drelloBoardsList } from "src/utils/mockdata/drello-boards";
 import { NewColumn } from "src/components/columns/new-column";
 import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
 import { imagePath } from "src/utils/image-paths";
-import { getBoardThunk } from "src/redux/board.slice";
+import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
 
 const Main = styled.main`
   display: grid;
@@ -39,6 +38,7 @@ const Board = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const boardId = router?.query?.id ? Number(router.query.id) : null;
+  const board = useSelector(selectBoardById(boardId || 0));
 
   useEffect(() => {
     if (boardId !== null) {
@@ -46,11 +46,12 @@ const Board = () => {
     }
   }, [boardId]);
 
+  if (!board) return null;
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[0].boardImage?.src || imagePath.template1}
-        alt={drelloBoardsList[0].boardImage?.alt}
+        src={board.boardImage?.src || imagePath.template1}
+        alt={board.boardImage?.alt}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
