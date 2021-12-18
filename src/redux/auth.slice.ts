@@ -9,12 +9,10 @@ import {
 
 interface AuthState {
   idToken: string | null;
-  accessToken: string | null;
 }
 
 const initialState: AuthState = {
   idToken: null,
-  accessToken: null,
 };
 
 export const signin = createAsyncThunk("auth/signUp", async () => {
@@ -40,7 +38,6 @@ export const slice = createSlice({
     builder.addCase(signin.fulfilled, (state, action) => {
       const cred = GoogleAuthProvider.credentialFromResult(action.payload);
       state.idToken = cred?.idToken || null;
-      state.accessToken = cred?.accessToken || null;
     });
     builder.addCase(signin.rejected, (state, action) => {
       console.error(action.error.message);
