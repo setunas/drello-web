@@ -24,12 +24,7 @@ const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
  */
 export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
-  async (boardId: number, { getState }) => {
-    const idToken = (getState() as RootState).authState.firebaseIdToken || "";
-    if (!idToken) {
-      throw "No idToken. Can't fetch Board";
-    }
-
+  async ({ boardId, idToken }: { boardId: number; idToken: string }) => {
     return await getBoard({ boardId, idToken });
   }
 );

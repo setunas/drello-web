@@ -1,59 +1,61 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/redux/root";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from "firebase/auth";
 
 interface AuthState {
-  firebaseIdToken: string | null;
-  firebaseAccessToken: string | null;
+  idToken: string | null;
+  accessToken: string | null;
 }
 
 const initialState: AuthState = {
-  firebaseIdToken: null,
-  firebaseAccessToken: null,
+  idToken: null,
+  accessToken: null,
 };
 
-export const signUp = createAsyncThunk("auth/signUp", async () => {
+export const signin = createAsyncThunk("auth/signUp", async () => {
   return await signInWithPopup(getAuth(), new GoogleAuthProvider());
 });
 
-export const getFirebaseIdToken = createAsyncThunk(
-  "auth/getFirebaseIdToken",
-  async () => {
-    const idToken = await getAuth().currentUser?.getIdToken(true);
-    // console.log("idToken", idToken);
-
-    if (!idToken) {
-      // window.location.replace("/signup");
-      return null;
-    }
-
-    return idToken;
+export const updateAuthedUser = createAsyncThunk(
+  "auth/updateAuthedUser",
+  async (user: User) => {
+    return await user.getIdToken();
   }
 );
 
 export const slice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    resetAuth: (state) => {
+      state = initialState;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(signUp.fulfilled, (state, action) => {
+    builder.addCase(signin.fulfilled, (state, action) => {
       const cred = GoogleAuthProvider.credentialFromResult(action.payload);
-      state.firebaseIdToken = cred?.idToken || null;
-      state.firebaseAccessToken = cred?.accessToken || null;
+      state.idToken = cred?.idToken || null;
+      state.accessToken = cred?.accessToken || null;
     });
-    builder.addCase(signUp.rejected, (state, action) => {
+    builder.addCase(signin.rejected, (state, action) => {
       console.error(action.error.message);
     });
-    builder.addCase(getFirebaseIdToken.fulfilled, (state, action) => {
-      state.firebaseIdToken = action.payload;
+    builder.addCase(updateAuthedUser.fulfilled, (state, action) => {
+      state.idToken = action.payload;
     });
-    builder.addCase(getFirebaseIdToken.rejected, (state, action) => {
+    builder.addCase(updateAuthedUser.rejected, (state, action) => {
       console.error(action.error.message);
     });
   },
 });
 
 export const selectIdToken = () => (state: RootState) =>
-  state.authState.firebaseIdToken;
+  state.authState.idToken;
 
+export const { resetAuth } = slice.actions;
 export const authReducer = slice.reducer;
