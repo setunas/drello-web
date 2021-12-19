@@ -19,6 +19,10 @@ export const postUser = ({
   idToken: string;
   boardId: number;
 }) =>
-  drelloApiAxios.post<User>(path.users(), {
-    headers: { Authorization: `Bearer ${idToken}` },
-  });
+  drelloApiAxios.post<User>(
+    path.users(),
+    { boardId },
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
