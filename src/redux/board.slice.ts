@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getBoard } from "src/api/drello-api/board";
+import { getBoard, postBoard } from "src/api/drello-api/board";
 import { Board as innerBoard } from "src/types/board.g";
 import { Board as OuterBoard } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
@@ -26,6 +26,13 @@ export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
   async ({ boardId, idToken }: { boardId: number; idToken: string }) => {
     return await getBoard({ boardId, idToken });
+  }
+);
+
+export const createBoardThunk = createAsyncThunk(
+  "board/createBoardsThunk",
+  async ({ idToken, title }: { idToken: string; title: string }) => {
+    return await postBoard({ idToken, title });
   }
 );
 

@@ -6,6 +6,10 @@ import {
   signInWithPopup,
   User,
 } from "firebase/auth";
+import { createBoardThunk } from "src/redux/board.slice";
+import { getUser, postUser } from "src/api/drello-api/user";
+import { getBoard, postBoard } from "src/api/drello-api/board";
+import { path } from "src/utils/url/drello-api";
 
 interface AuthState {
   idToken: string | null;
@@ -16,7 +20,27 @@ const initialState: AuthState = {
 };
 
 export const signin = createAsyncThunk("auth/signUp", async () => {
-  return await signInWithPopup(getAuth(), new GoogleAuthProvider());
+  const userCred = await signInWithPopup(getAuth(), new GoogleAuthProvider());
+  const oAuthCred = GoogleAuthProvider.credentialFromResult(userCred);
+  if (!oAuthCred || !oAuthCred.idToken) {
+    throw "Coudn't find valid ID token";
+  }
+  const { idToken } = oAuthCred;
+
+  const { data: currentUser } = await getUser({ idToken });
+  if (currentUser) {
+    return currentUser;
+  } else {
+    const { data: board } = await postBoard({
+      idToken,
+      title: userCred.user.displayName || "",
+    });
+    const { data: createdUser } = await postUser({
+      idToken,
+      boardId: board.id,
+    });
+    return createdUser;
+  }
 });
 
 export const updateAuthedUser = createAsyncThunk(
