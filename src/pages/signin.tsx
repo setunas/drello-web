@@ -9,7 +9,7 @@ const SigninPage = () => {
     dispatch(signin());
   };
 
-  return <button onClick={handleClick}>Sign up with Google</button>;
+  return <button onClick={handleClick}>Sign in with Google</button>;
 };
 
 export default SigninPage;
