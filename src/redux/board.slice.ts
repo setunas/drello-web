@@ -19,9 +19,6 @@ const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
   };
 };
 
-/**
- * getBoardsThunk call the function to hit the API to fetch Board list data.
- */
 export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
   async ({ boardId, idToken }: { boardId: number; idToken: string }) => {

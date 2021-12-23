@@ -7,7 +7,7 @@ import {
   User,
 } from "firebase/auth";
 import { createBoardThunk } from "src/redux/board.slice";
-import { getUser, postUser } from "src/api/drello-api/user";
+import { getUser, postUser, User as OuterUser } from "src/api/drello-api/user";
 import { getBoard, postBoard } from "src/api/drello-api/board";
 import { path } from "src/utils/url/drello-api";
 
@@ -19,28 +19,23 @@ const initialState: AuthState = {
   idToken: null,
 };
 
-export const signin = createAsyncThunk("auth/signUp", async () => {
+export const signin = createAsyncThunk("auth/signin", async () => {
   const userCred = await signInWithPopup(getAuth(), new GoogleAuthProvider());
-  const oAuthCred = GoogleAuthProvider.credentialFromResult(userCred);
-  if (!oAuthCred || !oAuthCred.idToken) {
-    throw "Coudn't find valid ID token";
-  }
-  const { idToken } = oAuthCred;
+  const idToken = await userCred.user.getIdToken(true);
 
-  const { data: currentUser } = await getUser({ idToken });
-  if (currentUser) {
-    return currentUser;
-  } else {
-    const { data: board } = await postBoard({
+  let currentUser: OuterUser;
+  try {
+    const { data } = await getUser({ idToken });
+    currentUser = data;
+  } catch (err) {
+    const { data } = await postUser({
       idToken,
-      title: userCred.user.displayName || "",
+      username: userCred.user.displayName || "",
     });
-    const { data: createdUser } = await postUser({
-      idToken,
-      boardId: board.id,
-    });
-    return createdUser;
+    currentUser = data;
   }
+
+  return { currentUser, idToken };
 });
 
 export const updateAuthedUser = createAsyncThunk(
@@ -60,8 +55,7 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signin.fulfilled, (state, action) => {
-      const cred = GoogleAuthProvider.credentialFromResult(action.payload);
-      state.idToken = cred?.idToken || null;
+      state.idToken = action.payload.idToken;
     });
     builder.addCase(signin.rejected, (state, action) => {
       console.error(action.error.message);
