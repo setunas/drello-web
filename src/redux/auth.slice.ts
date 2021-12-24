@@ -7,7 +7,8 @@ import {
   User,
   signOut,
 } from "firebase/auth";
-import { getUser, postUser, User as OuterUser } from "src/api/drello-api/user";
+import { getUser, postUser } from "src/api/drello-api/user";
+import { User as InnerUser } from "src/types/user.g";
 
 interface AuthState {
   idToken: string | null;
@@ -21,7 +22,7 @@ export const signin = createAsyncThunk("auth/signin", async () => {
   const userCred = await signInWithPopup(getAuth(), new GoogleAuthProvider());
   const idToken = await userCred.user.getIdToken(true);
 
-  let currentUser: OuterUser;
+  let currentUser: InnerUser;
   try {
     const { data } = await getUser({ idToken });
     currentUser = data;
