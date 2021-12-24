@@ -10,6 +10,7 @@ import { Subnav } from "src/components/boards/subnav";
 import { imagePath } from "src/utils/image-paths";
 import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
 import { useAuth } from "src/utils/use-auth";
+import { path } from "src/utils/url/drello-web";
 
 const Main = styled.main`
   display: grid;
@@ -36,7 +37,7 @@ const Container = styled.section`
 `;
 
 const Board = () => {
-  const { idToken } = useAuth();
+  const { idToken, currentUser } = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
   const boardId =
@@ -48,6 +49,12 @@ const Board = () => {
       dispatch(getBoardThunk({ boardId, idToken }));
     }
   }, [boardId, idToken]);
+
+  useEffect(() => {
+    if (currentUser && currentUser?.boardId !== boardId) {
+      window.location.href = path.landing();
+    }
+  }, [currentUser]);
 
   if (!board) return null;
   return (
