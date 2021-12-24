@@ -5,11 +5,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   User,
+  signOut,
 } from "firebase/auth";
-import { createBoardThunk } from "src/redux/board.slice";
 import { getUser, postUser, User as OuterUser } from "src/api/drello-api/user";
-import { getBoard, postBoard } from "src/api/drello-api/board";
-import { path } from "src/utils/url/drello-api";
 
 interface AuthState {
   idToken: string | null;
@@ -45,6 +43,14 @@ export const updateAuthedUser = createAsyncThunk(
   }
 );
 
+export const signout = createAsyncThunk(
+  "auth/signout",
+  async (_, { dispatch }) => {
+    await signOut(getAuth());
+    dispatch(resetAuth());
+  }
+);
+
 export const slice = createSlice({
   name: "auth",
   initialState,
@@ -64,6 +70,9 @@ export const slice = createSlice({
       state.idToken = action.payload;
     });
     builder.addCase(updateAuthedUser.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(signout.rejected, (state, action) => {
       console.error(action.error.message);
     });
   },

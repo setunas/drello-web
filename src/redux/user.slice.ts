@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/redux/root";
-import { signin } from "src/redux/auth.slice";
-import { getUser, postUser, User } from "src/api/drello-api/user";
-import { getBoard, postBoard } from "src/api/drello-api/board";
-import { path } from "src/utils/url/drello-api";
+import { signin, signout } from "src/redux/auth.slice";
+import { getUser, User } from "src/api/drello-api/user";
 
 interface UserState {
   currentUser: User | null;
@@ -24,8 +22,8 @@ export const slice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    resetUser: (state) => {
-      state = initialState;
+    resetCurrentUser: (state) => {
+      state.currentUser = null;
     },
   },
   extraReducers: (builder) => {
@@ -38,11 +36,14 @@ export const slice = createSlice({
     builder.addCase(signin.fulfilled, (state, action) => {
       state.currentUser = action.payload.currentUser;
     });
+    builder.addCase(signout.fulfilled, (state, action) => {
+      state.currentUser = null;
+    });
   },
 });
 
 export const selectCurrentUser = () => (state: RootState) =>
   state.userState.currentUser;
 
-export const { resetUser } = slice.actions;
+export const { resetCurrentUser } = slice.actions;
 export const userReducer = slice.reducer;
