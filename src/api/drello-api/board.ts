@@ -27,18 +27,3 @@ export const getBoard = ({
   drelloApiAxios.get<Board>(path.boards(boardId), {
     headers: { Authorization: `Bearer ${idToken}` },
   });
-
-export const postBoard = ({
-  idToken,
-  title,
-}: {
-  idToken: string;
-  title: string;
-}) =>
-  drelloApiAxios.post<Board>(
-    path.boards(),
-    { title },
-    {
-      headers: { Authorization: `Bearer ${idToken}` },
-    }
-  );

@@ -26,13 +26,6 @@ export const getBoardThunk = createAsyncThunk(
   }
 );
 
-export const createBoardThunk = createAsyncThunk(
-  "board/createBoardsThunk",
-  async ({ idToken, title }: { idToken: string; title: string }) => {
-    return await postBoard({ idToken, title });
-  }
-);
-
 export const slice = createSlice({
   name: "board",
   initialState,
