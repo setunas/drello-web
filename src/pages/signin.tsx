@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signin } from "src/redux/auth.slice";
-import { selectCurrentUser } from "src/redux/user.slice";
 import { path } from "src/utils/url/drello-api";
+import { useAuth } from "src/utils/use-auth";
 
 const SigninPage = () => {
   const dispatch = useDispatch();
-
-  const currentUser = useSelector(selectCurrentUser());
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (currentUser) {
