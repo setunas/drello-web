@@ -10,6 +10,14 @@ import {
 import { User } from "src/api/drello-api/user";
 import { AppThunkDispatch } from "src/redux/store";
 
+/**
+ * `useAuth` checks current auth state and does proper things when the state is changed.
+ *
+ * When user is signed in, `useAuth` will get auth data and store it in redux store and return it to the
+ * component where `useAuth` is used.
+ *
+ * When user is signed out, `useAuth` will clean up stored data and redirect to a proper page.
+ */
 export const useAuth = () => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const [idToken, setIdToken] = useState<string>("");
