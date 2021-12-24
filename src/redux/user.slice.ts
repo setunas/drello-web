@@ -13,6 +13,13 @@ const initialState: UserState = {
   currentUser: null,
 };
 
+export const getCurrentUserByIdToken = createAsyncThunk(
+  "user/getCurrentUserByIdToken",
+  async (idToken: string) => {
+    return await getUser({ idToken });
+  }
+);
+
 export const slice = createSlice({
   name: "user",
   initialState,
@@ -22,6 +29,12 @@ export const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getCurrentUserByIdToken.fulfilled, (state, action) => {
+      state.currentUser = action.payload.data;
+    });
+    builder.addCase(getCurrentUserByIdToken.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
     builder.addCase(signin.fulfilled, (state, action) => {
       state.currentUser = action.payload.currentUser;
     });
