@@ -18,19 +18,19 @@ export const useAuth = () => {
   useEffect(() => {
     onAuthStateChanged(getAuth(), async (user) => {
       if (user) {
-        // User is signed in
+        // When user is signed in
         dispatch(updateAuthedUser(user));
         const idToken = await user.getIdToken();
         const res = await dispatch(getCurrentUserByIdToken(idToken)).unwrap();
         setCurrentUser(res.data);
         setIdToken(idToken);
       } else {
-        // User is signed out
+        // When user is signed out
         dispatch(resetAuth());
         dispatch(resetCurrentUser());
         if (
-          typeof window !== "undefined" && // Client-side-only code
-          window.location.pathname !== path.signin() // Unless you are already at signin page
+          typeof window !== "undefined" && // Client-side only
+          window.location.pathname !== path.signin() // Unless user is already at signin page
         ) {
           window.location.href = path.signin();
         }
