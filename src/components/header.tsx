@@ -70,7 +70,7 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <Link href={path.boards(347645)}>
+          <Link href={path.signin()}>
             <a style={InlineAnchor}>
               <FontAwesomeIcon icon="sign-in-alt" />
               <LoginText>Login to get started</LoginText>
