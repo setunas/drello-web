@@ -1,11 +1,13 @@
 import { currentEnv, serverEnv } from "src/utils/server-env";
 
 export const domain = () => {
+  console.log("currentEnv()", currentEnv());
   switch (currentEnv()) {
     case serverEnv.development:
     case serverEnv.test:
       return "http://localhost:8080";
     case serverEnv.staging:
+      console.log("read staging URL");
       return "https://drello-api-dev.herokuapp.com";
     case serverEnv.production:
     default:
