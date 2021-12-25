@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/dist/client/link";
-import { AnchorLink } from "src/components/shared-styles";
+import { AnchorLink } from "src/features/shared-styles";
 import { path } from "src/utils/url/drello-web";
 import { useDispatch } from "react-redux";
 import { signout } from "src/redux/auth.slice";
