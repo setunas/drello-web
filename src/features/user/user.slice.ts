@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/utils/redux/root";
 import { signin, signout } from "src/features/auth/auth.slice";
 import { getUser } from "src/features/user/user.api";
-import { User } from "src/types/user.g";
+import { User } from "src/features/user/user.g";
 
 interface UserState {
   currentUser: User | null;

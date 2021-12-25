@@ -8,7 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getUser, postUser } from "src/features/user/user.api";
-import { User as InnerUser } from "src/types/user.g";
+import { User as InnerUser } from "src/features/user/user.g";
 
 interface AuthState {
   idToken: string | null;
