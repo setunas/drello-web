@@ -7,7 +7,7 @@ import {
   User,
   signOut,
 } from "firebase/auth";
-import { getUser, postUser } from "src/api/drello-api/user.api";
+import { getUser, postUser } from "src/features/user/user.api";
 import { User as InnerUser } from "src/types/user.g";
 
 interface AuthState {

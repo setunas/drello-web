@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/redux/root";
 import { signin, signout } from "src/redux/auth.slice";
-import { getUser } from "src/api/drello-api/user.api";
+import { getUser } from "src/features/user/user.api";
 import { User } from "src/types/user.g";
 
 interface UserState {

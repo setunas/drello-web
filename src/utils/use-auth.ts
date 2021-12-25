@@ -7,7 +7,7 @@ import {
   getCurrentUserByIdToken,
   resetCurrentUser,
 } from "src/redux/user.slice";
-import { User } from "src/api/drello-api/user.api";
+import { User } from "src/features/user/user.api";
 import { AppThunkDispatch } from "src/redux/store";
 
 /**
