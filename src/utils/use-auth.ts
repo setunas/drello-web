@@ -6,7 +6,7 @@ import { path } from "src/utils/url/drello-web";
 import {
   getCurrentUserByIdToken,
   resetCurrentUser,
-} from "src/redux/user.slice";
+} from "src/features/user/user.slice";
 import { User } from "src/features/user/user.api";
 import { AppThunkDispatch } from "src/redux/store";
 
