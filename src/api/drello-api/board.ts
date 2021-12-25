@@ -5,11 +5,11 @@ export interface Board {
   id: number;
   title: string;
   columns: Column[];
+  cards?: Card[];
 }
 export interface Column {
   id: number;
   title?: string;
-  cards?: Card[];
 }
 export interface Card {
   id: number;
@@ -17,5 +17,5 @@ export interface Card {
   columnId: number;
 }
 
-export const getBoards = () =>
-  drelloApiAxios.get<{ boards: Board[] }>(path.boards());
+export const getBoard = (boardId: number) =>
+  drelloApiAxios.get<Board>(path.boards(boardId));

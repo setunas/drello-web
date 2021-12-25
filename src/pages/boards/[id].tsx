@@ -1,14 +1,14 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/components/boards/navbar";
-import { Column } from "src/components/columns/column";
-import { drelloBoardsList } from "src/utils/mockdata/drello-boards";
-import { Column as ColumnType } from "src/types/column.g";
 import { NewColumn } from "src/components/columns/new-column";
+import { ColumnList } from "src/components/columns/column-list";
 import { Subnav } from "src/components/boards/subnav";
-import { useSelector } from "react-redux";
-import { selectColumns } from "src/redux/domain/column";
 import { imagePath } from "src/utils/image-paths";
+import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
 
 const Main = styled.main`
   display: grid;
@@ -35,13 +35,24 @@ const Container = styled.section`
 `;
 
 const Board = () => {
-  const columns = useSelector(selectColumns);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const boardId =
+    typeof Number(router?.query?.id) === "number" ? Number(router.query.id) : 0;
+  const board = useSelector(selectBoardById(boardId));
 
+  useEffect(() => {
+    if (boardId !== 0) {
+      dispatch(getBoardThunk(boardId));
+    }
+  }, [boardId]);
+
+  if (!board) return null;
   return (
     <>
       <BoardImage
-        src={drelloBoardsList[0].boardImage?.src || imagePath.template1}
-        alt={drelloBoardsList[0].boardImage?.alt}
+        src={board.boardImage?.src || imagePath.template1}
+        alt={board.boardImage?.alt}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
@@ -50,9 +61,7 @@ const Board = () => {
         <Navbar />
         <Subnav name="Drello" />
         <Container>
-          {columns?.map(({ id, title }: ColumnType) => (
-            <Column key={id} title={title || ""} columnId={id} />
-          ))}
+          <ColumnList />
           <NewColumn />
         </Container>
       </Main>

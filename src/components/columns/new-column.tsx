@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { drelloColors } from "src/utils/colors";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addColumn } from "src/redux/domain/column";
+import { addColumn } from "src/redux/column.slice";
 
 const MainContainer = styled.div`
   display: grid;

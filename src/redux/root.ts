@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { boardReducer } from "src/redux/domain/board";
-import { columnReducer } from "src/redux/domain/column";
-import { cardReducer } from "src/redux/domain/card";
+import { boardReducer } from "src/redux/board.slice";
+import { columnReducer } from "src/redux/column.slice";
+import { cardReducer } from "src/redux/card.slice";
 
 export const rootReducer = combineReducers({
   boardState: boardReducer,

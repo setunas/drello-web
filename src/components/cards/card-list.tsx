@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Card } from "src/components/cards/card";
-import { selectCards } from "src/redux/domain/card";
+import { selectCards } from "src/redux/card.slice";
 
 interface CardListProps {
   columnId: number;

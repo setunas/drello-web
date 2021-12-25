@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Card as innerCard } from "src/types/card.g";
 import { Card as OuterCard } from "src/api/drello-api/board";
 import { RootState } from "src/redux/root";
-import { getBoardsThunk } from "src/redux/domain/board";
+import { getBoardThunk } from "src/redux/board.slice";
 
 interface CardState {
   cards: innerCard[];
@@ -34,12 +34,14 @@ export const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getBoardsThunk.fulfilled, (state, action) => {
-      const board = action.payload;
-      board[0].cards ? (state.cards = board[0].cards) : (state.cards = []);
+    builder.addCase(getBoardThunk.fulfilled, (state, action) => {
+      const { data } = action.payload;
+      data.cards
+        ? (state.cards = data.cards.map((card) => convertCardToInnerType(card)))
+        : (state.cards = []);
     });
-    builder.addCase(getBoardsThunk.rejected, (state, action) => {
-      // handle errors if needed.
+    builder.addCase(getBoardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
     });
   },
 });
