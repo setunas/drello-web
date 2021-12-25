@@ -6,6 +6,7 @@ export const domain = () => {
     case serverEnv.test:
       return "http://localhost:8080";
     case serverEnv.staging:
+      return "https://drello-api-dev.herokuapp.com";
     case serverEnv.production:
     default:
       throw Error(`Invalid server env: ${currentEnv()}`);
