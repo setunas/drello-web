@@ -6,7 +6,8 @@ export enum serverEnv {
 }
 
 export const currentEnv = (): serverEnv => {
-  switch (process.env.NEXT_PUBLIC_SERVER_ENV) {
+  const env = process.env.NEXT_PUBLIC_SERVER_ENV;
+  switch (env) {
     case serverEnv.development:
       return serverEnv.development;
     case serverEnv.test:
@@ -16,7 +17,7 @@ export const currentEnv = (): serverEnv => {
     case serverEnv.production:
       return serverEnv.production;
     default:
-      return serverEnv.development;
+      throw Error(`Invalid value of NEXT_PUBLIC_SERVER_ENV: ${env}`);
   }
 };
 
