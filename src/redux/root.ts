@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { authReducer } from "src/redux/auth.slice";
+import { authReducer } from "src/features/auth/auth.slice";
 import { userReducer } from "src/redux/user.slice";
 import { boardReducer } from "src/redux/board.slice";
 import { columnReducer } from "src/redux/column.slice";
