@@ -1,4 +1,4 @@
-import { Column } from "src/components/columns/column";
+import { Column } from "src/features/column/column";
 import { Column as ColumnType } from "src/types/column.g";
 import { useSelector } from "react-redux";
 import { selectColumns } from "src/redux/column.slice";
