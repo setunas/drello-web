@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { drelloColors } from "src/utils/colors";
-import { addCard } from "src/redux/card.slice";
+import { addCard } from "src/features/card/card.slice";
 
 const FormContainer = styled.form`
   display: grid;
