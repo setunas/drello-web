@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "src/utils/colors";
+import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { addColumn } from "src/features/column/column.slice";
 
@@ -21,10 +21,10 @@ const DisplayContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   padding: 0.5rem 2rem;
-  color: ${drelloColors.black(0.8)};
-  background-color: ${drelloColors.greyish(0.6)};
+  color: ${colors.black(0.8)};
+  background-color: ${colors.greyish(0.6)};
   :hover {
-    background-color: ${drelloColors.greyish(0.8)};
+    background-color: ${colors.greyish(0.8)};
   }
 `;
 
@@ -33,7 +33,7 @@ const EditContainer = styled.form`
   gap: 0.5rem;
   padding: 0.5rem;
   border-radius: 0.2rem;
-  background-color: ${drelloColors.greyish()};
+  background-color: ${colors.greyish()};
 `;
 
 const Input = styled.input`
@@ -55,12 +55,12 @@ const FormButton = styled.button`
   padding: 0.5rem 0;
   border: none;
   border-radius: 0.2rem;
-  color: ${drelloColors.white(0.8)};
-  background-color: ${drelloColors.black(0.4)};
+  color: ${colors.white(0.8)};
+  background-color: ${colors.black(0.4)};
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
-  color: ${drelloColors.black(0.6)};
+  color: ${colors.black(0.6)};
 `;
 
 type FormInputs = {

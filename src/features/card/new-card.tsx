@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { drelloColors } from "src/utils/colors";
+import { colors } from "src/utils/styles";
 import { addCard } from "src/features/card/card.slice";
 
 const FormContainer = styled.form`
@@ -19,10 +19,10 @@ const DisplayContainer = styled.div`
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
-  color: ${drelloColors.black(0.8)};
+  color: ${colors.black(0.8)};
   padding: 0.5rem;
   :hover {
-    background-color: ${drelloColors.black(0.3)};
+    background-color: ${colors.black(0.3)};
   }
 `;
 
@@ -45,12 +45,12 @@ const FormButton = styled.button`
   padding: 0.5rem 0;
   border: none;
   border-radius: 0.2rem;
-  color: ${drelloColors.white(0.8)};
-  background-color: ${drelloColors.black(0.4)};
+  color: ${colors.white(0.8)};
+  background-color: ${colors.black(0.4)};
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
-  color: ${drelloColors.black(0.6)};
+  color: ${colors.black(0.6)};
 `;
 
 interface NewCardProps {

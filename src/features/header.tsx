@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { drelloColors } from "src/utils/colors";
+import { colors } from "src/utils/styles";
 
 const HeaderContainer = styled.header`
   display: grid;
@@ -20,7 +20,7 @@ const HeaderBar = styled.div`
   padding: 1em 1.5em;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1em;
-  box-shadow: 0.2em 0.2em 0.3em ${drelloColors.black(0.4)};
+  box-shadow: 0.2em 0.2em 0.3em ${colors.black(0.4)};
   @media screen and (min-width: 720px) {
     padding: 2em 5em;
   }
