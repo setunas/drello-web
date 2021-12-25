@@ -8,7 +8,7 @@ import {
 } from "src/components/shared-styles";
 import { Header } from "src/components/header";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -25,4 +25,6 @@ export default function Home() {
       <Footer>&copy; 2021 Setunas Team</Footer>
     </>
   );
-}
+};
+
+export default Home;
