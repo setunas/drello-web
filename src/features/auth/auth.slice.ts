@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "src/redux/root";
+import { RootState } from "src/utils/redux/root";
 import {
   getAuth,
   GoogleAuthProvider,

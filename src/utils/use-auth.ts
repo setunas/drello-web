@@ -8,7 +8,7 @@ import {
   resetCurrentUser,
 } from "src/features/user/user.slice";
 import { User } from "src/features/user/user.api";
-import { AppThunkDispatch } from "src/redux/store";
+import { AppThunkDispatch } from "src/utils/redux/store";
 
 /**
  * `useAuth` checks current auth state and does proper things when the state is changed.
