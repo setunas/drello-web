@@ -8,7 +8,7 @@ import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
 import { Subnav } from "src/features/board/subnav";
 import { imagePath } from "src/utils/image-paths";
-import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
+import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/utils/use-auth";
 import { path } from "src/utils/url/drello-web";
 

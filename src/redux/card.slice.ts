@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Card as innerCard } from "src/types/card.g";
 import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/redux/root";
-import { getBoardThunk } from "src/redux/board.slice";
+import { getBoardThunk } from "src/features/board/board.slice";
 
 interface CardState {
   cards: innerCard[];
