@@ -5,8 +5,8 @@ import {
   LandingMain,
   HeadlineMain,
   HeadlineSub,
-} from "src/components/shared-styles";
-import { Header } from "src/components/header";
+} from "src/features/shared-styles";
+import { Header } from "src/features/header";
 
 const Home = () => {
   return (

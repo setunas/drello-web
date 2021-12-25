@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "src/redux/root";
+import { RootState } from "src/utils/redux/root";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -7,8 +7,8 @@ import {
   User,
   signOut,
 } from "firebase/auth";
-import { getUser, postUser } from "src/api/drello-api/user";
-import { User as InnerUser } from "src/types/user.g";
+import { getUser, postUser } from "src/features/user/user.api";
+import { User as InnerUser } from "src/features/user/user.g";
 
 interface AuthState {
   idToken: string | null;

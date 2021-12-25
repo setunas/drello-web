@@ -1,4 +1,4 @@
-import { Card } from "src/types/card.g";
+import { Card } from "src/features/card/card.g";
 
 export interface Column {
   id: number;

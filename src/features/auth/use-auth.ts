@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { updateAuthedUser, resetAuth } from "src/redux/auth.slice";
+import { updateAuthedUser, resetAuth } from "src/features/auth/auth.slice";
 import { path } from "src/utils/url/drello-web";
 import {
   getCurrentUserByIdToken,
   resetCurrentUser,
-} from "src/redux/user.slice";
-import { User } from "src/api/drello-api/user";
-import { AppThunkDispatch } from "src/redux/store";
+} from "src/features/user/user.slice";
+import { User } from "src/features/user/user.api";
+import { AppThunkDispatch } from "src/utils/redux/store";
 
 /**
  * `useAuth` checks current auth state and does proper things when the state is changed.

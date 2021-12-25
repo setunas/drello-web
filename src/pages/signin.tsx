@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { signin } from "src/redux/auth.slice";
+import { signin } from "src/features/auth/auth.slice";
 import { path } from "src/utils/url/drello-api";
-import { useAuth } from "src/utils/use-auth";
+import { useAuth } from "src/features/auth/use-auth";
 
 const SigninPage = () => {
   const dispatch = useDispatch();
