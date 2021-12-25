@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { CardList } from "src/components/cards/card-list";
-import { NewCard } from "src/components/cards/new-card";
+import { CardList } from "src/features/card/card-list";
+import { NewCard } from "src/features/card/new-card";
 import { drelloColors } from "src/utils/colors";
 
 const Container = styled.div`

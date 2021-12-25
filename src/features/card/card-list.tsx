@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Card } from "src/components/cards/card";
+import { Card } from "src/features/card/card";
 import { selectCards } from "src/redux/card.slice";
 
 interface CardListProps {
