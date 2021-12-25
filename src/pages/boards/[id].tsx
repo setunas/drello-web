@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
-import { Navbar } from "src/components/boards/navbar";
-import { NewColumn } from "src/components/columns/new-column";
-import { ColumnList } from "src/components/columns/column-list";
-import { Subnav } from "src/components/boards/subnav";
-import { imagePath } from "src/utils/image-paths";
-import { getBoardThunk, selectBoardById } from "src/redux/board.slice";
+import { Navbar } from "src/features/board/navbar";
+import { NewColumn } from "src/features/column/new-column";
+import { ColumnList } from "src/features/column/column-list";
+import { Subnav } from "src/features/board/subnav";
+import { imagePath } from "src/utils/url/drello-web";
+import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
+import { useAuth } from "src/features/auth/use-auth";
+import { path } from "src/utils/url/drello-web";
 
 const Main = styled.main`
   display: grid;
@@ -35,6 +37,7 @@ const Container = styled.section`
 `;
 
 const Board = () => {
+  const { idToken, currentUser } = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
   const boardId =
@@ -42,10 +45,16 @@ const Board = () => {
   const board = useSelector(selectBoardById(boardId));
 
   useEffect(() => {
-    if (boardId !== 0) {
-      dispatch(getBoardThunk(boardId));
+    if (boardId !== 0 && idToken) {
+      dispatch(getBoardThunk({ boardId, idToken }));
     }
-  }, [boardId]);
+  }, [boardId, idToken]);
+
+  useEffect(() => {
+    if (currentUser && currentUser?.boardId !== boardId) {
+      window.location.href = path.landing();
+    }
+  }, [currentUser]);
 
   if (!board) return null;
   return (

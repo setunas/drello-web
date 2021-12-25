@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { drelloColors } from "src/utils/colors";
+import { colors } from "src/utils/styles";
 
 const Container = styled.nav`
   display: grid;
@@ -16,7 +16,7 @@ const BoardName = styled.h3`
 `;
 
 const BgNavItem = styled.div`
-  background-color: ${drelloColors.black(0.3)};
+  background-color: ${colors.black(0.3)};
   font-size: 0.8rem;
   border-radius: 0.3rem;
   padding: 0.5rem;

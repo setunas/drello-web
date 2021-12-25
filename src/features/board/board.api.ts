@@ -17,5 +17,13 @@ export interface Card {
   columnId: number;
 }
 
-export const getBoard = (boardId: number) =>
-  drelloApiAxios.get<Board>(path.boards(boardId));
+export const getBoard = ({
+  boardId,
+  idToken,
+}: {
+  boardId: number;
+  idToken: string;
+}) =>
+  drelloApiAxios.get<Board>(path.boards(boardId), {
+    headers: { Authorization: `Bearer ${idToken}` },
+  });

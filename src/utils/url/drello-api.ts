@@ -14,6 +14,5 @@ export const domain = () => {
 
 export const path = {
   boards: (boardId?: number) => (boardId ? `/boards/${boardId}` : `/boards`),
-  signUp: (signUpId?: number) =>
-    signUpId ? `/sign-up/${signUpId}` : `/sign-up`,
+  users: (userId?: number) => (userId ? `/users/${userId}` : `/users`),
 };

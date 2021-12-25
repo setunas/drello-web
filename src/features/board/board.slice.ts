@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getBoard } from "src/api/drello-api/board";
-import { Board as innerBoard } from "src/types/board.g";
-import { Board as OuterBoard } from "src/api/drello-api/board";
-import { RootState } from "src/redux/root";
+import { getBoard } from "src/features/board/board.api";
+import { Board as innerBoard } from "src/features/board/board.g";
+import { Board as OuterBoard } from "src/features/board/board.api";
+import { RootState } from "src/utils/redux/root";
 
 interface BoardState {
   boards: innerBoard[];
@@ -19,13 +19,10 @@ const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
   };
 };
 
-/**
- * getBoardsThunk call the function to hit the API to fetch Board list data.
- */
 export const getBoardThunk = createAsyncThunk(
   "board/getBoardsThunk",
-  async (boardId: number) => {
-    return await getBoard(boardId);
+  async ({ boardId, idToken }: { boardId: number; idToken: string }) => {
+    return await getBoard({ boardId, idToken });
   }
 );
 
@@ -39,7 +36,9 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      state.boards = [convertBoardToInnerType(action.payload.data)];
+      state.boards = action.payload
+        ? [convertBoardToInnerType(action.payload.data)]
+        : [];
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { CardList } from "src/components/cards/card-list";
-import { NewCard } from "src/components/cards/new-card";
-import { drelloColors } from "src/utils/colors";
+import { CardList } from "src/features/card/card-list";
+import { NewCard } from "src/features/card/new-card";
+import { colors } from "src/utils/styles";
 
 const Container = styled.div`
   display: grid;
@@ -13,8 +13,8 @@ const Container = styled.div`
   padding: 1em;
   min-width: 15vw;
   border-radius: 0.2em;
-  background-color: ${drelloColors.greyish(0.9)};
-  box-shadow: 0.2rem 0.2rem 0.2rem ${drelloColors.black(0.3)};
+  background-color: ${colors.greyish(0.9)};
+  box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
   @media only screen and (max-width: 720px) {
     min-width: 20vw;
   }
@@ -27,7 +27,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h4`
-  color: ${drelloColors.white()};
+  color: ${colors.white()};
 `;
 
 interface ColumnProps {
