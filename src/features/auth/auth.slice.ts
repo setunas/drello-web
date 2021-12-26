@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { getUser, postUser } from "src/features/user/user.api";
 import { User as InnerUser } from "src/features/user/user.g";
+import { getCurrentUserByIdToken } from "../user/user.slice";
 
 interface AuthState {
   idToken: string | null;
@@ -37,10 +38,12 @@ export const signin = createAsyncThunk("auth/signin", async () => {
   return { currentUser, idToken };
 });
 
-export const updateAuthedUser = createAsyncThunk(
-  "auth/updateAuthedUser",
-  async (user: User) => {
-    return await user.getIdToken();
+export const getIdTokenAndCurrentUser = createAsyncThunk(
+  "auth/getIdTokenAndCurrentUser",
+  async (user: User, { dispatch }) => {
+    const idToken = await user.getIdToken();
+    await dispatch(getCurrentUserByIdToken(idToken));
+    return idToken;
   }
 );
 
@@ -67,10 +70,10 @@ export const slice = createSlice({
     builder.addCase(signin.rejected, (state, action) => {
       console.error(action.error.message);
     });
-    builder.addCase(updateAuthedUser.fulfilled, (state, action) => {
+    builder.addCase(getIdTokenAndCurrentUser.fulfilled, (state, action) => {
       state.idToken = action.payload;
     });
-    builder.addCase(updateAuthedUser.rejected, (state, action) => {
+    builder.addCase(getIdTokenAndCurrentUser.rejected, (state, action) => {
       console.error(action.error.message);
     });
     builder.addCase(signout.rejected, (state, action) => {
