@@ -28,6 +28,7 @@ export const signin = createAsyncThunk("auth/signin", async () => {
     const { data } = await getUser({ idToken });
     currentUser = data;
   } catch (err) {
+    // Should fix this code later. Not good to use all errors of try-catch as a conjunction.
     const { data } = await postUser({
       idToken,
       username: userCred.user.displayName || "",
