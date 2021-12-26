@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { updateAuthedUser, resetAuth } from "src/features/auth/auth.slice";
+import {
+  getIdTokenAndCurrentUser,
+  resetAuth,
+  selectIdToken,
+} from "src/features/auth/auth.slice";
 import { path } from "src/utils/url/drello-web";
 import {
   getCurrentUserByIdToken,
   resetCurrentUser,
+  selectCurrentUser,
 } from "src/features/user/user.slice";
 import { User } from "src/features/user/user.api";
 import { AppThunkDispatch } from "src/utils/redux/store";
@@ -20,18 +25,14 @@ import { AppThunkDispatch } from "src/utils/redux/store";
  */
 export const useAuth = () => {
   const dispatch = useDispatch<AppThunkDispatch>();
-  const [idToken, setIdToken] = useState<string>("");
-  const [currentUser, setCurrentUser] = useState<User>();
+  const idToken = useSelector(selectIdToken());
+  const currentUser = useSelector(selectCurrentUser());
 
   useEffect(() => {
     onAuthStateChanged(getAuth(), async (user) => {
       if (user) {
         // When user is signed in
-        dispatch(updateAuthedUser(user));
-        const idToken = await user.getIdToken();
-        const res = await dispatch(getCurrentUserByIdToken(idToken)).unwrap();
-        setCurrentUser(res.data);
-        setIdToken(idToken);
+        dispatch(getIdTokenAndCurrentUser(user));
       } else {
         // When user is signed out
         dispatch(resetAuth());
@@ -41,6 +42,7 @@ export const useAuth = () => {
           window.location.pathname !== path.signin() // Unless user is already at signin page
         ) {
           window.location.href = path.signin();
+          window.alert("Please signin.");
         }
       }
     });
