@@ -46,7 +46,8 @@ export const slice = createSlice({
   },
 });
 
-export const selectColumns = (state: RootState) => state.columnState.columns;
+export const selectColumns = () => (state: RootState) =>
+  state.columnState.columns;
 export const { addColumn } = slice.actions;
 
 export const columnReducer = slice.reducer;
