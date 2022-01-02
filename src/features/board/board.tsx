@@ -16,12 +16,14 @@ const Container = styled.section`
 `;
 
 export const Board = () => {
+  const onDragEnd = () => {};
+
   return (
-    <>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Container>
         <ColumnList />
         <NewColumn />
       </Container>
-    </>
+    </DragDropContext>
   );
 };
