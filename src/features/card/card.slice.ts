@@ -1,18 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Card as innerCard } from "src/features/card/card.g";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Card as InnerCard } from "src/features/card/card.g";
 import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 
 interface CardState {
-  cards: innerCard[];
+  cards: InnerCard[];
 }
 
 const initialState: CardState = {
   cards: [],
 };
 
-const convertCardToInnerType = (ob: OuterCard): innerCard => {
+const convertCardToInnerType = (ob: OuterCard): InnerCard => {
   return {
     id: ob.id,
     title: ob.title,
@@ -31,6 +31,21 @@ export const slice = createSlice({
         columnId: action.payload.columnId,
       };
       state.cards.push(newItem);
+    },
+    reorderCards: (
+      state,
+      action: PayloadAction<{
+        cards: InnerCard[];
+        startIndex: number;
+        endIndex: number;
+      }>
+    ) => {
+      const { cards, startIndex, endIndex } = action.payload;
+      const newCardList = [...cards];
+      const [removed] = newCardList.splice(startIndex, 1);
+      newCardList.splice(endIndex, 0, removed);
+
+      state.cards = newCardList;
     },
   },
   extraReducers: (builder) => {
@@ -51,6 +66,6 @@ export const slice = createSlice({
 });
 
 export const selectCards = () => (state: RootState) => state.cardState.cards;
-export const { addCard } = slice.actions;
+export const { addCard, reorderCards } = slice.actions;
 
 export const cardReducer = slice.reducer;
