@@ -63,7 +63,11 @@ export const slice = createSlice({
   },
 });
 
+// Selectors
 export const selectCards = () => (state: RootState) => state.cardState.cards;
-export const { addCard, reorderCards } = slice.actions;
+export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
+  state.cardState.cards.filter((card) => card.columnId === columnId);
 
+// Reducer & Actions
+export const { addCard, reorderCards } = slice.actions;
 export const cardReducer = slice.reducer;
