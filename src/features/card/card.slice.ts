@@ -49,11 +49,24 @@ export const slice = createSlice({
 
       if (!state.cardsByColumnId) return state;
 
+      const checkCardIds = (
+        manipulatedCardId: number,
+        targetCardId: number
+      ) => {
+        if (manipulatedCardId !== targetCardId) {
+          // Unexpected card is chosen
+          window.alert("Failed moving the card. Please try again.");
+          return state;
+        }
+      };
+
       if (startColumnId === endColumnId) {
         // Reorder cards in the same column.
         const targetCardList = [...state.cardsByColumnId[startColumnId]];
         const [removedCard] = targetCardList.splice(startIndex, 1);
         targetCardList.splice(endIndex, 0, removedCard);
+
+        checkCardIds(removedCard.id, targetCardId);
 
         state.cardsByColumnId[startColumnId] = targetCardList;
         return state;
@@ -64,11 +77,7 @@ export const slice = createSlice({
         const destCardList = [...state.cardsByColumnId[endColumnId]];
         destCardList.splice(endIndex, 0, removedCard);
 
-        if (removedCard.id !== targetCardId) {
-          // Unexpected card is chosen
-          window.alert("Failed moving the card. Please try again.");
-          return state;
-        }
+        checkCardIds(removedCard.id, targetCardId);
 
         state.cardsByColumnId[startColumnId] = sourceCardList;
         state.cardsByColumnId[endColumnId] = destCardList;
