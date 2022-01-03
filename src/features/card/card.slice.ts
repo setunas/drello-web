@@ -71,10 +71,10 @@ export const slice = createSlice({
 
         const updateLinkedListPointers = () => {
           const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
-          const prevSourseCard = targetCardList[startIndex - 1];
 
           if (startIndex > 0) {
             // There is a previous card. Need to update next ID of previous card.
+            const prevSourseCard = targetCardList[startIndex - 1];
             prevSourseCard.nextCardId = nextSourseCardId;
           } else {
             // There is no previous card. Need to update head's card ID of target column.
