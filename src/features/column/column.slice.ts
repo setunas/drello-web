@@ -28,6 +28,7 @@ export const slice = createSlice({
       const newItem = {
         id: Math.floor(100000 + Math.random() * 900000),
         title: action.payload,
+        boardId: 0,
       };
       state.columns.push(newItem);
     },
