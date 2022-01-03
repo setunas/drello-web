@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import { reorderCards, selectCards } from "src/features/card/card.slice";
+import { useDispatch } from "react-redux";
+import { moveCards } from "src/features/card/card.slice";
 
 const Container = styled.section`
   display: grid;
@@ -23,19 +23,20 @@ interface BoardProps {
 
 export const Board = ({ boardId }: BoardProps) => {
   const dispatch = useDispatch();
-  const cards = useSelector(selectCards());
 
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) {
+  const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
+    if (!destination) {
       // dropped outside the list
       return;
     }
 
     dispatch(
-      reorderCards({
-        cards: cards,
-        startIndex: result.source.index,
-        endIndex: result.destination.index,
+      moveCards({
+        targetCardId: parseInt(draggableId),
+        startIndex: source.index,
+        endIndex: destination.index,
+        startColumnId: parseInt(source.droppableId),
+        endColumnId: parseInt(destination.droppableId),
       })
     );
   };

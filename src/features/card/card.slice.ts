@@ -6,10 +6,12 @@ import { getBoardThunk } from "src/features/board/board.slice";
 
 interface CardState {
   cards: InnerCard[];
+  cardsByColumnId: Record<number, InnerCard[]> | null;
 }
 
 const initialState: CardState = {
   cards: [],
+  cardsByColumnId: null,
 };
 
 const convertCardToInnerType = (ob: OuterCard): InnerCard => {
@@ -32,27 +34,61 @@ export const slice = createSlice({
       };
       state.cards.push(newItem);
     },
-    reorderCards: (
+    moveCards: (
       state,
       action: PayloadAction<{
-        cards: InnerCard[];
+        targetCardId: number;
         startIndex: number;
         endIndex: number;
+        startColumnId: number;
+        endColumnId: number;
       }>
     ) => {
-      const { cards, startIndex, endIndex } = action.payload;
-      const newCardList = [...cards];
-      const [removed] = newCardList.splice(startIndex, 1);
-      newCardList.splice(endIndex, 0, removed);
+      const { targetCardId, startIndex, endIndex, startColumnId, endColumnId } =
+        action.payload;
 
-      state.cards = newCardList;
+      if (!state.cardsByColumnId) return state;
+
+      if (startColumnId === endColumnId) {
+        const targetCardList = [...state.cardsByColumnId[startColumnId]];
+        const [removedCard] = targetCardList.splice(startIndex, 1);
+        targetCardList.splice(endIndex, 0, removedCard);
+
+        state.cardsByColumnId[startColumnId] = targetCardList;
+        return state;
+      } else {
+        const sourceCardList = [...state.cardsByColumnId[startColumnId]];
+        const [removedCard] = sourceCardList.splice(startIndex, 1);
+        const destCardList = [...state.cardsByColumnId[endColumnId]];
+        destCardList.splice(endIndex, 0, removedCard);
+
+        if (removedCard.id !== targetCardId) {
+          // Unexpected card is chosen
+          window.alert("Failed moving the card. Please try again.");
+          return state;
+        }
+
+        state.cardsByColumnId[startColumnId] = sourceCardList;
+        state.cardsByColumnId[endColumnId] = destCardList;
+      }
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (cards) {
-        state.cards = cards.map((card) => convertCardToInnerType(card));
+        // state.cards = cards.map((card) => convertCardToInnerType(card));
+        const cardsByColumnId: Record<number, InnerCard[]> = {};
+        cards
+          .map((card) => convertCardToInnerType(card))
+          .forEach((card) => {
+            if (cardsByColumnId[card.columnId]) {
+              cardsByColumnId[card.columnId].push(card);
+            } else {
+              cardsByColumnId[card.columnId] = [card];
+            }
+          });
+        state.cardsByColumnId = cardsByColumnId;
       } else {
         state.cards = [];
       }
@@ -64,10 +100,12 @@ export const slice = createSlice({
 });
 
 // Selectors
-export const selectCards = () => (state: RootState) => state.cardState.cards;
-export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
-  state.cardState.cards.filter((card) => card.columnId === columnId);
+export const selectCardsByColumnId =
+  (columnId: number) => (state: RootState) => {
+    if (!state.cardState.cardsByColumnId) return [];
+    return state.cardState.cardsByColumnId[columnId];
+  };
 
 // Reducer & Actions
-export const { addCard, reorderCards } = slice.actions;
+export const { addCard, moveCards } = slice.actions;
 export const cardReducer = slice.reducer;
