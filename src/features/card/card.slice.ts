@@ -35,6 +35,10 @@ export const slice = createSlice({
       };
       state.cardsByColumnId[action.payload.columnId].push(newItem);
     },
+    /**
+     * This reducer is temporary implemented.
+     * [TODO]: Use thunk later to connect to APIs
+     */
     moveCards: (
       state,
       action: PayloadAction<{
@@ -63,9 +67,23 @@ export const slice = createSlice({
         // Reorder cards in the same column.
         const targetCardList = [...state.cardsByColumnId[startColumnId]];
         const [removedCard] = targetCardList.splice(startIndex, 1);
+
+        const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
+        if (startIndex > 0) {
+          targetCardList[startIndex - 1].nextCardId = nextSourseCardId;
+        } else {
+          console.log("Should update headerCardId of column");
+          // [TODO]: Update headerCardId of column state
+        }
+
+        const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
+        removedCard.nextCardId = nextDestCardId;
+
         targetCardList.splice(endIndex, 0, removedCard);
 
         checkCardIds(removedCard.id, targetCardId);
+
+        // [TODO]: Update
 
         state.cardsByColumnId[startColumnId] = targetCardList;
         return state;
@@ -75,6 +93,8 @@ export const slice = createSlice({
         const [removedCard] = sourceCardList.splice(startIndex, 1);
         const destCardList = [...state.cardsByColumnId[endColumnId]];
         destCardList.splice(endIndex, 0, removedCard);
+
+        // [TODO]: Enable to change nextCardId and headCardID then hit API to update data in database.
 
         checkCardIds(removedCard.id, targetCardId);
 
