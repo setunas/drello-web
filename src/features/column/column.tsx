@@ -36,10 +36,12 @@ interface ColumnProps {
   title: string;
 }
 
-// Column component responsible for each column within the board
+/**
+ * Column component responsible for each column within the board
+ */
 export const Column = ({ columnId, title }: ColumnProps) => {
   return (
-    <Droppable droppableId="cards">
+    <Droppable droppableId={columnId.toString()}>
       {(provided, snapshot) => (
         <Container {...provided.droppableProps} ref={provided.innerRef}>
           <Header>
