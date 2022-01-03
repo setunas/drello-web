@@ -66,37 +66,42 @@ export const slice = createSlice({
       if (startColumnId === endColumnId) {
         // Reorder cards in the same column.
         const targetCardList = [...state.cardsByColumnId[startColumnId]];
-        const [removedCard] = targetCardList.splice(startIndex, 1);
+        const [targetCard] = targetCardList.splice(startIndex, 1);
+        targetCardList.splice(endIndex, 0, targetCard);
 
-        const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
-        if (startIndex > 0) {
-          targetCardList[startIndex - 1].nextCardId = nextSourseCardId;
-        } else {
-          console.log("Should update headerCardId of column");
-          // [TODO]: Update headerCardId of column state
-        }
+        const updateLinkedListPointers = () => {
+          const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
+          const prevSourseCard = targetCardList[startIndex - 1];
 
-        const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
-        removedCard.nextCardId = nextDestCardId;
+          if (startIndex > 0) {
+            // There is a previous card. Need to update next ID of previous card.
+            prevSourseCard.nextCardId = nextSourseCardId;
+          } else {
+            // There is no previous card. Need to update head's card ID of target column.
+            // [TODO]: Update headerCardId of column state
+          }
 
-        targetCardList.splice(endIndex, 0, removedCard);
+          const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
+          targetCard.nextCardId = nextDestCardId;
+        };
+        updateLinkedListPointers();
 
-        checkCardIds(removedCard.id, targetCardId);
+        checkCardIds(targetCard.id, targetCardId);
 
-        // [TODO]: Update
+        // [TODO]: Hit APIs to update data in database
 
         state.cardsByColumnId[startColumnId] = targetCardList;
         return state;
       } else {
         // Reorder cards across different columns.
         const sourceCardList = [...state.cardsByColumnId[startColumnId]];
-        const [removedCard] = sourceCardList.splice(startIndex, 1);
+        const [targetCard] = sourceCardList.splice(startIndex, 1);
         const destCardList = [...state.cardsByColumnId[endColumnId]];
-        destCardList.splice(endIndex, 0, removedCard);
+        destCardList.splice(endIndex, 0, targetCard);
 
         // [TODO]: Enable to change nextCardId and headCardID then hit API to update data in database.
 
-        checkCardIds(removedCard.id, targetCardId);
+        checkCardIds(targetCard.id, targetCardId);
 
         state.cardsByColumnId[startColumnId] = sourceCardList;
         state.cardsByColumnId[endColumnId] = destCardList;
