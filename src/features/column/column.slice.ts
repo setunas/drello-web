@@ -49,8 +49,6 @@ export const slice = createSlice({
 });
 
 // Selectors
-export const selectColumns = () => (state: RootState) =>
-  state.columnState.columns;
 export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
   state.columnState.columns.filter((column) => column.boardId === boardId);
 
