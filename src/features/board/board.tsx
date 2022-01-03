@@ -26,17 +26,27 @@ export const Board = ({ boardId }: BoardProps) => {
 
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
     if (!destination) {
-      // dropped outside the list
+      // Dropped outside the list
+      return;
+    }
+
+    const startIndex = source.index;
+    const endIndex = destination.index;
+    const startColumnId = parseInt(source.droppableId);
+    const endColumnId = parseInt(destination.droppableId);
+
+    if (startIndex === endIndex && startColumnId === endColumnId) {
+      // Dropped at the original position (= No change)
       return;
     }
 
     dispatch(
       moveCards({
         targetCardId: parseInt(draggableId),
-        startIndex: source.index,
-        endIndex: destination.index,
-        startColumnId: parseInt(source.droppableId),
-        endColumnId: parseInt(destination.droppableId),
+        startIndex,
+        endIndex,
+        startColumnId,
+        endColumnId,
       })
     );
   };
