@@ -5,13 +5,11 @@ import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 
 interface CardState {
-  cards: InnerCard[];
-  cardsByColumnId: Record<number, InnerCard[]> | null;
+  cardsByColumnId: Record<number, InnerCard[]>;
 }
 
 const initialState: CardState = {
-  cards: [],
-  cardsByColumnId: null,
+  cardsByColumnId: {},
 };
 
 const convertCardToInnerType = (ob: OuterCard): InnerCard => {
@@ -32,7 +30,7 @@ export const slice = createSlice({
         title: action.payload.title,
         columnId: action.payload.columnId,
       };
-      state.cards.push(newItem);
+      state.cardsByColumnId[action.payload.columnId].push(newItem);
     },
     moveCards: (
       state,
@@ -46,8 +44,6 @@ export const slice = createSlice({
     ) => {
       const { targetCardId, startIndex, endIndex, startColumnId, endColumnId } =
         action.payload;
-
-      if (!state.cardsByColumnId) return state;
 
       const checkCardIds = (
         manipulatedCardId: number,
@@ -88,7 +84,7 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (!cards) {
-        state.cards = [];
+        state.cardsByColumnId = [];
         return state;
       }
 
@@ -112,11 +108,8 @@ export const slice = createSlice({
 });
 
 // Selectors
-export const selectCardsByColumnId =
-  (columnId: number) => (state: RootState) => {
-    if (!state.cardState.cardsByColumnId) return [];
-    return state.cardState.cardsByColumnId[columnId];
-  };
+export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
+  state.cardState.cardsByColumnId[columnId];
 
 // Reducer & Actions
 export const { addCard, moveCards } = slice.actions;
