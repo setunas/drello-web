@@ -12,11 +12,12 @@ const initialState: CardState = {
   cardsByColumnId: {},
 };
 
-const convertCardToInnerType = (ob: OuterCard): InnerCard => {
+const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
   return {
-    id: ob.id,
-    title: ob.title,
-    columnId: ob.columnId,
+    id: outerCard.id,
+    title: outerCard.title,
+    columnId: outerCard.columnId,
+    nextCardId: outerCard.nextCardId,
   };
 };
 
@@ -24,11 +25,13 @@ export const slice = createSlice({
   name: "card",
   initialState,
   reducers: {
+    // [TODO] Set proper type to action
     addCard: (state, action) => {
       const newItem = {
         id: Math.floor(100000 + Math.random() * 900000),
         title: action.payload.title,
         columnId: action.payload.columnId,
+        nextCardId: action.payload.nextCardId,
       };
       state.cardsByColumnId[action.payload.columnId].push(newItem);
     },
