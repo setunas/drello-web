@@ -11,6 +11,7 @@ export interface Column {
   id: number;
   title: string;
   boardId: number;
+  headCardId?: number;
 }
 export interface Card {
   id: number;

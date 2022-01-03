@@ -12,11 +12,12 @@ const initialState: ColumnState = {
   columns: [],
 };
 
-const convertColumnToInnerType = (ob: OuterColumn): innerColumn => {
+const convertColumnToInnerType = (outerColumn: OuterColumn): innerColumn => {
   return {
-    id: ob.id,
-    title: ob.title,
-    boardId: ob.boardId,
+    id: outerColumn.id,
+    title: outerColumn.title,
+    boardId: outerColumn.boardId,
+    headCardId: outerColumn.headCardId,
   };
 };
 
