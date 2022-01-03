@@ -50,13 +50,11 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      const data = action.payload?.data;
-      if (data) {
-        data.cards
-          ? (state.cards = data.cards.map((card) =>
-              convertCardToInnerType(card)
-            ))
-          : (state.cards = []);
+      const cards = action.payload?.data?.cards;
+      if (cards) {
+        state.cards = cards.map((card) => convertCardToInnerType(card));
+      } else {
+        state.cards = [];
       }
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {

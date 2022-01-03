@@ -8,12 +8,13 @@ interface CardListProps {
 
 export const CardList = ({ columnId }: CardListProps) => {
   const cards = useSelector(selectCards());
+
   return (
     <>
       {cards?.map(
-        (card) =>
+        (card, index) =>
           columnId === card.columnId && (
-            <Card key={card.id} title={card.title} />
+            <Card key={card.id} card={card} index={index} />
           )
       )}
     </>
