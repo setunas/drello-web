@@ -56,7 +56,7 @@ const BoardPage = () => {
       <Main>
         <Navbar />
         <Subnav name="Drello" />
-        <Board />
+        <Board boardId={boardId} />
       </Main>
     </>
   );

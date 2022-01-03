@@ -16,6 +16,7 @@ const convertColumnToInnerType = (ob: OuterColumn): innerColumn => {
   return {
     id: ob.id,
     title: ob.title,
+    boardId: ob.boardId,
   };
 };
 
@@ -49,7 +50,9 @@ export const slice = createSlice({
 // Selectors
 export const selectColumns = () => (state: RootState) =>
   state.columnState.columns;
-export const { addColumn } = slice.actions;
+export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
+  state.columnState.columns.filter((column) => column.boardId === boardId);
 
 // Reducer & Actions
+export const { addColumn } = slice.actions;
 export const columnReducer = slice.reducer;

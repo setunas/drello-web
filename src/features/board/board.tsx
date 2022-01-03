@@ -17,7 +17,11 @@ const Container = styled.section`
   overflow-x: auto;
 `;
 
-export const Board = () => {
+interface BoardProps {
+  boardId: number;
+}
+
+export const Board = ({ boardId }: BoardProps) => {
   const dispatch = useDispatch();
   const cards = useSelector(selectCards());
 
@@ -39,7 +43,7 @@ export const Board = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
-        <ColumnList />
+        <ColumnList boardId={boardId} />
         <NewColumn />
       </Container>
     </DragDropContext>
