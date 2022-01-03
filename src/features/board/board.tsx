@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
-import {
-  DragDropContext,
-  DropResult,
-  Droppable,
-  Draggable,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { reorderCards, selectCards } from "src/features/card/card.slice";
 
