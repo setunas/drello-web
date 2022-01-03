@@ -50,6 +50,7 @@ export const slice = createSlice({
       if (!state.cardsByColumnId) return state;
 
       if (startColumnId === endColumnId) {
+        // Reorder cards in the same column.
         const targetCardList = [...state.cardsByColumnId[startColumnId]];
         const [removedCard] = targetCardList.splice(startIndex, 1);
         targetCardList.splice(endIndex, 0, removedCard);
@@ -57,6 +58,7 @@ export const slice = createSlice({
         state.cardsByColumnId[startColumnId] = targetCardList;
         return state;
       } else {
+        // Reorder cards across different columns.
         const sourceCardList = [...state.cardsByColumnId[startColumnId]];
         const [removedCard] = sourceCardList.splice(startIndex, 1);
         const destCardList = [...state.cardsByColumnId[endColumnId]];
