@@ -77,7 +77,6 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (cards) {
-        // state.cards = cards.map((card) => convertCardToInnerType(card));
         const cardsByColumnId: Record<number, InnerCard[]> = {};
         cards
           .map((card) => convertCardToInnerType(card))
