@@ -76,21 +76,23 @@ export const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
-      if (cards) {
-        const cardsByColumnId: Record<number, InnerCard[]> = {};
-        cards
-          .map((card) => convertCardToInnerType(card))
-          .forEach((card) => {
-            if (cardsByColumnId[card.columnId]) {
-              cardsByColumnId[card.columnId].push(card);
-            } else {
-              cardsByColumnId[card.columnId] = [card];
-            }
-          });
-        state.cardsByColumnId = cardsByColumnId;
-      } else {
+      if (!cards) {
         state.cards = [];
+        return state;
       }
+
+      const cardsByColumnId: Record<number, InnerCard[]> = {};
+      cards
+        .map((card) => convertCardToInnerType(card))
+        .forEach((card) => {
+          if (cardsByColumnId[card.columnId]) {
+            cardsByColumnId[card.columnId].push(card);
+          } else {
+            cardsByColumnId[card.columnId] = [card];
+          }
+        });
+
+      state.cardsByColumnId = cardsByColumnId;
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
