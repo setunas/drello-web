@@ -9,7 +9,8 @@ export interface Board {
 }
 export interface Column {
   id: number;
-  title?: string;
+  title: string;
+  boardId: number;
 }
 export interface Card {
   id: number;
