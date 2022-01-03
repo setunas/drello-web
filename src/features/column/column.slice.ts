@@ -35,9 +35,9 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      const data = action.payload?.data;
-      if (data) {
-        state.columns = data.columns.map((column) =>
+      const columns = action.payload?.data?.columns;
+      if (columns) {
+        state.columns = columns.map((column) =>
           convertColumnToInnerType(column)
         );
       }
