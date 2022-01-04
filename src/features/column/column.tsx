@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
 import { colors } from "src/utils/styles";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
+import { DropDisabledStatus } from "../board/board.g";
 
 const Container = styled.div`
   display: grid;
@@ -34,24 +35,48 @@ const Title = styled.h4`
 interface ColumnProps {
   columnId: number;
   title: string;
+  index: number;
+  isDropDisabled: DropDisabledStatus;
 }
 
 /**
  * Column component responsible for each column within the board
  */
-export const Column = ({ columnId, title }: ColumnProps) => {
+export const Column = ({
+  columnId,
+  title,
+  index,
+  isDropDisabled,
+}: ColumnProps) => {
   return (
-    <Droppable droppableId={columnId.toString()}>
-      {(provided, snapshot) => (
-        <Container {...provided.droppableProps} ref={provided.innerRef}>
-          <Header>
-            <Title>{title}</Title>
-            <span>...</span>
-          </Header>
-          <CardList columnId={columnId} />
-          <NewCard columnId={columnId} />
-        </Container>
+    <Draggable
+      draggableId={`column-${columnId.toString()}`}
+      index={index}
+      isDragDisabled={isDropDisabled.columns}
+    >
+      {(columnProvided) => (
+        <div
+          ref={columnProvided.innerRef}
+          {...columnProvided.draggableProps}
+          {...columnProvided.dragHandleProps}
+        >
+          <Droppable
+            droppableId={columnId.toString()}
+            isDropDisabled={isDropDisabled.cards}
+          >
+            {(provided, snapshot) => (
+              <Container ref={provided.innerRef} {...provided.droppableProps}>
+                <Header>
+                  <Title>{title}</Title>
+                  <span>...</span>
+                </Header>
+                <CardList columnId={columnId} isDropDisabled={isDropDisabled} />
+                <NewCard columnId={columnId} />
+              </Container>
+            )}
+          </Droppable>
+        </div>
       )}
-    </Droppable>
+    </Draggable>
   );
 };
