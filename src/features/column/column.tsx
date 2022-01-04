@@ -3,7 +3,6 @@ import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
 import { colors } from "src/utils/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
-import { DropDisabledStatus } from "../board/board.g";
 
 const Container = styled.div`
   display: grid;
@@ -36,41 +35,28 @@ interface ColumnProps {
   columnId: number;
   title: string;
   index: number;
-  isDropDisabled: DropDisabledStatus;
 }
 
 /**
  * Column component responsible for each column within the board
  */
-export const Column = ({
-  columnId,
-  title,
-  index,
-  isDropDisabled,
-}: ColumnProps) => {
+export const Column = ({ columnId, title, index }: ColumnProps) => {
   return (
-    <Draggable
-      draggableId={`column-${columnId.toString()}`}
-      index={index}
-      isDragDisabled={isDropDisabled.columns}
-    >
+    <Draggable draggableId={`column-${columnId.toString()}`} index={index}>
       {(columnProvided) => (
         <div
           ref={columnProvided.innerRef}
           {...columnProvided.draggableProps}
           {...columnProvided.dragHandleProps}
         >
-          <Droppable
-            droppableId={columnId.toString()}
-            isDropDisabled={isDropDisabled.cards}
-          >
-            {(provided, snapshot) => (
+          <Droppable droppableId={columnId.toString()} type="cards">
+            {(provided) => (
               <Container ref={provided.innerRef} {...provided.droppableProps}>
                 <Header>
                   <Title>{title}</Title>
                   <span>...</span>
                 </Header>
-                <CardList columnId={columnId} isDropDisabled={isDropDisabled} />
+                <CardList columnId={columnId} />
                 {provided.placeholder}
                 <NewCard columnId={columnId} />
               </Container>

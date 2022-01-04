@@ -1,17 +1,9 @@
 import styled from "styled-components";
 import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
-import {
-  DragDropContext,
-  DropResult,
-  Droppable,
-  DragStart,
-  ResponderProvided,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { moveCards } from "src/features/card/card.slice";
-import { useState } from "react";
-import { DropDisabledStatus } from "./board.g";
 import { reorderColumns } from "../column/column.slice";
 
 const Container = styled.section`
@@ -32,26 +24,8 @@ interface BoardProps {
 
 export const Board = ({ boardId }: BoardProps) => {
   const dispatch = useDispatch();
-  const [isDropDisabled, setIsDropDisabled] = useState<DropDisabledStatus>({
-    cards: false,
-    columns: false,
-  });
-  const columnDraggablIdRegex = /column-(\d+)/i;
-
-  const onDragStart = (initial: DragStart, provided: ResponderProvided) => {
-    const found = initial.draggableId.match(columnDraggablIdRegex);
-    if (found?.length) {
-      // a column is being dragging
-      setIsDropDisabled((prev) => ({ ...prev, cards: true }));
-    } else {
-      // a card is being dragging
-      setIsDropDisabled((prev) => ({ ...prev, columns: true }));
-    }
-  };
 
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
-    setIsDropDisabled({ cards: false, columns: false });
-
     if (!destination) {
       // Dropped outside the list
       return;
@@ -60,7 +34,8 @@ export const Board = ({ boardId }: BoardProps) => {
     const startIndex = source.index;
     const endIndex = destination.index;
 
-    const found = draggableId.match(columnDraggablIdRegex);
+    const regex = /column-(\d+)/i;
+    const found = draggableId.match(regex);
     if (found?.length) {
       // a column is being dragging
       if (startIndex === endIndex) return; // Dropped at the original position (= No change)
@@ -88,15 +63,15 @@ export const Board = ({ boardId }: BoardProps) => {
   };
 
   return (
-    <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Droppable
         droppableId="column-droppable"
         direction="horizontal"
-        isDropDisabled={isDropDisabled.columns}
+        type="column"
       >
         {(provided) => (
           <Container ref={provided.innerRef} {...provided.droppableProps}>
-            <ColumnList boardId={boardId} isDropDisabled={isDropDisabled} />
+            <ColumnList boardId={boardId} />
             {provided.placeholder}
             <NewColumn />
           </Container>

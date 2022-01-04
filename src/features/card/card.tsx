@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { Card as CardType } from "./card.g";
-import { DropDisabledStatus } from "../board/board.g";
 
 const CardMain = styled.div`
   display: grid;
@@ -19,17 +18,12 @@ const CardMain = styled.div`
 interface CardProps {
   index: number;
   card: CardType;
-  isDropDisabled: DropDisabledStatus;
 }
 
-export const Card = ({ index, card, isDropDisabled }: CardProps) => {
+export const Card = ({ index, card }: CardProps) => {
   return (
-    <Draggable
-      draggableId={card.id.toString()}
-      index={index}
-      isDragDisabled={isDropDisabled.cards}
-    >
-      {(provided, snapshot) => (
+    <Draggable draggableId={card.id.toString()} index={index}>
+      {(provided) => (
         <CardMain
           ref={provided.innerRef}
           {...provided.draggableProps}
