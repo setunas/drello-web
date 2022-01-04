@@ -41,8 +41,10 @@ export const Board = ({ boardId }: BoardProps) => {
   const onDragStart = (initial: DragStart, provided: ResponderProvided) => {
     const found = initial.draggableId.match(columnDraggablIdRegex);
     if (found?.length) {
+      // a column is being dragging
       setIsDropDisabled((prev) => ({ ...prev, cards: true }));
     } else {
+      // a card is being dragging
       setIsDropDisabled((prev) => ({ ...prev, columns: true }));
     }
   };
@@ -60,9 +62,11 @@ export const Board = ({ boardId }: BoardProps) => {
 
     const found = draggableId.match(columnDraggablIdRegex);
     if (found?.length) {
+      // a column is being dragging
       if (startIndex === endIndex) return; // Dropped at the original position (= No change)
       dispatch(reorderColumns({ startIndex, endIndex }));
     } else {
+      // a card is being dragging
       const startColumnId = parseInt(source.droppableId);
       const endColumnId = parseInt(destination.droppableId);
 
