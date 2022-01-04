@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Column as innerColumn } from "src/features/column/column.g";
 import { Column as OuterColumn } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
@@ -33,6 +33,21 @@ export const slice = createSlice({
       };
       state.columns.push(newItem);
     },
+    reorderColumns: (
+      state,
+      action: PayloadAction<{
+        startIndex: number;
+        endIndex: number;
+      }>
+    ) => {
+      const { startIndex, endIndex } = action.payload;
+
+      const columnList = [...state.columns];
+      const [targetColumn] = columnList.splice(startIndex, 1);
+      columnList.splice(endIndex, 0, targetColumn);
+
+      state.columns = columnList;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
@@ -54,5 +69,5 @@ export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
   state.columnState.columns.filter((column) => column.boardId === boardId);
 
 // Reducer & Actions
-export const { addColumn } = slice.actions;
+export const { addColumn, reorderColumns } = slice.actions;
 export const columnReducer = slice.reducer;

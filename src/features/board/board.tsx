@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { moveCards } from "src/features/card/card.slice";
 import { useState } from "react";
 import { DropDisabledStatus } from "./board.g";
+import { reorderColumns } from "../column/column.slice";
 
 const Container = styled.section`
   display: grid;
@@ -54,11 +55,14 @@ export const Board = ({ boardId }: BoardProps) => {
       return;
     }
 
+    const startIndex = source.index;
+    const endIndex = destination.index;
+
     const found = draggableId.match(columnDraggablIdRegex);
     if (found?.length) {
+      if (startIndex === endIndex) return; // Dropped at the original position (= No change)
+      dispatch(reorderColumns({ startIndex, endIndex }));
     } else {
-      const startIndex = source.index;
-      const endIndex = destination.index;
       const startColumnId = parseInt(source.droppableId);
       const endColumnId = parseInt(destination.droppableId);
 
