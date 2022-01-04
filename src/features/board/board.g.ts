@@ -21,3 +21,8 @@ export interface Board {
   columns?: Column[];
   cards?: Card[];
 }
+
+export interface DropDisabledStatus {
+  cards: boolean;
+  columns: boolean;
+}
