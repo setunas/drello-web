@@ -93,6 +93,7 @@ export const Board = ({ boardId }: BoardProps) => {
         {(provided) => (
           <Container ref={provided.innerRef} {...provided.droppableProps}>
             <ColumnList boardId={boardId} isDropDisabled={isDropDisabled} />
+            {provided.placeholder}
             <NewColumn />
           </Container>
         )}

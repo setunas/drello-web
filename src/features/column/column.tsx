@@ -71,6 +71,7 @@ export const Column = ({
                   <span>...</span>
                 </Header>
                 <CardList columnId={columnId} isDropDisabled={isDropDisabled} />
+                {provided.placeholder}
                 <NewCard columnId={columnId} />
               </Container>
             )}
