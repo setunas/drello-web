@@ -26,10 +26,7 @@ export const Board = ({ boardId }: BoardProps) => {
   const dispatch = useDispatch();
 
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
-    if (!destination) {
-      // Dropped outside the list
-      return;
-    }
+    if (!destination) return; // Dropped outside the list
 
     const startIndex = source.index;
     const endIndex = destination.index;
@@ -45,10 +42,8 @@ export const Board = ({ boardId }: BoardProps) => {
       const startColumnId = parseInt(source.droppableId);
       const endColumnId = parseInt(destination.droppableId);
 
-      if (startIndex === endIndex && startColumnId === endColumnId) {
-        // Dropped at the original position (= No change)
-        return;
-      }
+      // Dropped at the original position (= No change)
+      if (startIndex === endIndex && startColumnId === endColumnId) return;
 
       dispatch(
         moveCards({
