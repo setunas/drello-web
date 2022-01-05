@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
@@ -41,6 +42,12 @@ interface ColumnProps {
  * Column component responsible for each column within the board
  */
 export const Column = ({ columnId, title, index }: ColumnProps) => {
+  /**
+   * To avoid being rerenderred when a column is being dragged. Because dragging
+   * will cause a rerender of all of the children of the <Droppable />.
+   */
+  const MemoedCardList = React.memo(() => <CardList columnId={columnId} />);
+
   return (
     <Draggable draggableId={`column-${columnId.toString()}`} index={index}>
       {(columnProvided) => (
@@ -56,7 +63,7 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
                   <Title>{title}</Title>
                   <span>...</span>
                 </Header>
-                <CardList columnId={columnId} />
+                <MemoedCardList />
                 {provided.placeholder}
                 <NewCard columnId={columnId} />
               </Container>
