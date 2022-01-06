@@ -12,8 +12,8 @@ export const ColumnList = ({ boardId }: ColumnListProps) => {
 
   return (
     <>
-      {columns?.map(({ id, title }: ColumnType) => (
-        <Column key={id} title={title || ""} columnId={id} />
+      {columns?.map(({ id, title }: ColumnType, index: number) => (
+        <Column key={id} title={title || ""} columnId={id} index={index} />
       ))}
     </>
   );

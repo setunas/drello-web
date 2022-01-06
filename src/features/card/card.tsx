@@ -23,7 +23,7 @@ interface CardProps {
 export const Card = ({ index, card }: CardProps) => {
   return (
     <Draggable draggableId={card.id.toString()} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <CardMain
           ref={provided.innerRef}
           {...provided.draggableProps}

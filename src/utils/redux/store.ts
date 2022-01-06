@@ -14,6 +14,10 @@ export const makeConfiguredStore = (
   return configureStore({
     reducer: rootReducer,
     preloadedState: preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
     devTools: currentEnv() !== serverEnv.production,
   });
 };
