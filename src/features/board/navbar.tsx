@@ -7,6 +7,9 @@ import { signout } from "src/features/auth/auth.slice";
 
 const Main = styled.nav`
   display: grid;
+  grid-template-columns: min-content max-content;
+  align-items: center;
+  justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;

@@ -42,7 +42,6 @@ export const useAuth = () => {
           window.location.pathname !== path.signin() // Unless user is already at signin page
         ) {
           window.location.href = path.signin();
-          window.alert("Please signin.");
         }
       }
     });

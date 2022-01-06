@@ -72,7 +72,13 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          {!currentUser && (
+          {currentUser ? (
+            <Link href={path.boards(currentUser.boardId)}>
+              <a style={InlineAnchor}>
+                <LoginText>Drello Board</LoginText>
+              </a>
+            </Link>
+          ) : (
             <Link href={path.signin()}>
               <a style={InlineAnchor}>
                 <FontAwesomeIcon icon="sign-in-alt" />
