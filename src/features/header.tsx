@@ -3,6 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors } from "src/utils/styles";
+import { useAuth } from "./auth/use-auth";
 
 const HeaderContainer = styled.header`
   display: grid;
@@ -61,6 +62,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ title }: HeaderProps) => {
+  const { currentUser } = useAuth();
   return (
     <HeaderContainer>
       <HeaderBar>
@@ -70,12 +72,14 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <Link href={path.signin()}>
-            <a style={InlineAnchor}>
-              <FontAwesomeIcon icon="sign-in-alt" />
-              <LoginText>Login to get started</LoginText>
-            </a>
-          </Link>
+          {!currentUser && (
+            <Link href={path.signin()}>
+              <a style={InlineAnchor}>
+                <FontAwesomeIcon icon="sign-in-alt" />
+                <LoginText>Login to get started</LoginText>
+              </a>
+            </Link>
+          )}
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>
