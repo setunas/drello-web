@@ -46,7 +46,9 @@ export const slice = createSlice({
   },
 });
 
+// Selectors
 export const selectBoardById = (boardId: number) => (state: RootState) =>
   state.boardState.boards.find((board) => board.id === boardId);
 
+// Reducer & Actions
 export const boardReducer = slice.reducer;

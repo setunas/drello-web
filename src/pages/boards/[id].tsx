@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/features/board/navbar";
-import { NewColumn } from "src/features/column/new-column";
-import { ColumnList } from "src/features/column/column-list";
+import { Board } from "src/features/board/board";
 import { Subnav } from "src/features/board/subnav";
 import { imagePath } from "src/utils/url/drello-web";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
@@ -24,19 +23,7 @@ const BoardImage = styled(Image)`
   z-index: -99;
 `;
 
-const Container = styled.section`
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  gap: 1rem;
-  padding: 1em;
-  justify-content: start;
-  justify-items: start;
-  align-items: flex-start;
-  overflow-x: auto;
-`;
-
-const Board = () => {
+const BoardPage = () => {
   const { idToken, currentUser } = useAuth();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -69,13 +56,10 @@ const Board = () => {
       <Main>
         <Navbar />
         <Subnav name="Drello" />
-        <Container>
-          <ColumnList />
-          <NewColumn />
-        </Container>
+        <Board boardId={boardId} />
       </Main>
     </>
   );
 };
 
-export default Board;
+export default BoardPage;

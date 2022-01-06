@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
 import { colors } from "src/utils/styles";
+import { Droppable } from "react-beautiful-dnd";
 
 const Container = styled.div`
   display: grid;
@@ -35,16 +36,22 @@ interface ColumnProps {
   title: string;
 }
 
-// Column component responsible for each column within the board
+/**
+ * Column component responsible for each column within the board
+ */
 export const Column = ({ columnId, title }: ColumnProps) => {
   return (
-    <Container>
-      <Header>
-        <Title>{title}</Title>
-        <span>...</span>
-      </Header>
-      <CardList columnId={columnId} />
-      <NewCard columnId={columnId} />
-    </Container>
+    <Droppable droppableId={columnId.toString()}>
+      {(provided, snapshot) => (
+        <Container {...provided.droppableProps} ref={provided.innerRef}>
+          <Header>
+            <Title>{title}</Title>
+            <span>...</span>
+          </Header>
+          <CardList columnId={columnId} />
+          <NewCard columnId={columnId} />
+        </Container>
+      )}
+    </Droppable>
   );
 };

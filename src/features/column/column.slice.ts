@@ -12,10 +12,12 @@ const initialState: ColumnState = {
   columns: [],
 };
 
-const convertColumnToInnerType = (ob: OuterColumn): innerColumn => {
+const convertColumnToInnerType = (outerColumn: OuterColumn): innerColumn => {
   return {
-    id: ob.id,
-    title: ob.title,
+    id: outerColumn.id,
+    title: outerColumn.title,
+    boardId: outerColumn.boardId,
+    headCardId: outerColumn.headCardId,
   };
 };
 
@@ -27,15 +29,16 @@ export const slice = createSlice({
       const newItem = {
         id: Math.floor(100000 + Math.random() * 900000),
         title: action.payload,
+        boardId: 0,
       };
       state.columns.push(newItem);
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
-      const data = action.payload?.data;
-      if (data) {
-        state.columns = data.columns.map((column) =>
+      const columns = action.payload?.data?.columns;
+      if (columns) {
+        state.columns = columns.map((column) =>
           convertColumnToInnerType(column)
         );
       }
@@ -46,7 +49,10 @@ export const slice = createSlice({
   },
 });
 
-export const selectColumns = (state: RootState) => state.columnState.columns;
-export const { addColumn } = slice.actions;
+// Selectors
+export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
+  state.columnState.columns.filter((column) => column.boardId === boardId);
 
+// Reducer & Actions
+export const { addColumn } = slice.actions;
 export const columnReducer = slice.reducer;
