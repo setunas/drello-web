@@ -83,8 +83,10 @@ export const slice = createSlice({
   },
 });
 
+// Selectors
 export const selectIdToken = () => (state: RootState) =>
   state.authState.idToken;
 
+// Reducer & Actions
 export const { resetAuth } = slice.actions;
 export const authReducer = slice.reducer;

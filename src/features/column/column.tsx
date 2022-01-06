@@ -1,7 +1,9 @@
+import React from "react";
 import styled from "styled-components";
 import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
 import { colors } from "src/utils/styles";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
   display: grid;
@@ -33,18 +35,42 @@ const Title = styled.h4`
 interface ColumnProps {
   columnId: number;
   title: string;
+  index: number;
 }
 
-// Column component responsible for each column within the board
-export const Column = ({ columnId, title }: ColumnProps) => {
+/**
+ * Column component responsible for each column within the board
+ */
+export const Column = ({ columnId, title, index }: ColumnProps) => {
+  /**
+   * To avoid being rerenderred when a column is being dragged. Because dragging
+   * will cause a rerender of all of the children of the <Droppable />.
+   */
+  const MemoedCardList = React.memo(() => <CardList columnId={columnId} />);
+
   return (
-    <Container>
-      <Header>
-        <Title>{title}</Title>
-        <span>...</span>
-      </Header>
-      <CardList columnId={columnId} />
-      <NewCard columnId={columnId} />
-    </Container>
+    <Draggable draggableId={`column-${columnId.toString()}`} index={index}>
+      {(columnProvided) => (
+        <div
+          ref={columnProvided.innerRef}
+          {...columnProvided.draggableProps}
+          {...columnProvided.dragHandleProps}
+        >
+          <Droppable droppableId={columnId.toString()} type="cards">
+            {(provided) => (
+              <Container ref={provided.innerRef} {...provided.droppableProps}>
+                <Header>
+                  <Title>{title}</Title>
+                  <span>...</span>
+                </Header>
+                <MemoedCardList />
+                {provided.placeholder}
+                <NewCard columnId={columnId} />
+              </Container>
+            )}
+          </Droppable>
+        </div>
+      )}
+    </Draggable>
   );
 };

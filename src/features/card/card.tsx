@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Draggable } from "react-beautiful-dnd";
+import { Card as CardType } from "./card.g";
 
 const CardMain = styled.div`
   display: grid;
@@ -14,9 +16,22 @@ const CardMain = styled.div`
 `;
 
 interface CardProps {
-  title: string;
+  index: number;
+  card: CardType;
 }
 
-export const Card = ({ title }: CardProps) => {
-  return <CardMain>{title}</CardMain>;
+export const Card = ({ index, card }: CardProps) => {
+  return (
+    <Draggable draggableId={card.id.toString()} index={index}>
+      {(provided) => (
+        <CardMain
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          {card.title}
+        </CardMain>
+      )}
+    </Draggable>
+  );
 };

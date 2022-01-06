@@ -43,8 +43,10 @@ export const slice = createSlice({
   },
 });
 
+// Selectors
 export const selectCurrentUser = () => (state: RootState) =>
   state.userState.currentUser;
 
+// Reducer & Actions
 export const { resetCurrentUser } = slice.actions;
 export const userReducer = slice.reducer;
