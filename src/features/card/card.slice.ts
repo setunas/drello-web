@@ -17,7 +17,6 @@ const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
     id: outerCard.id,
     title: outerCard.title,
     columnId: outerCard.columnId,
-    nextCardId: outerCard.nextCardId,
   };
 };
 
@@ -31,7 +30,6 @@ export const slice = createSlice({
         id: Math.floor(100000 + Math.random() * 900000),
         title: action.payload.title,
         columnId: action.payload.columnId,
-        nextCardId: action.payload.nextCardId,
       };
       state.cardsByColumnId[action.payload.columnId].push(newItem);
     },
@@ -75,14 +73,14 @@ export const slice = createSlice({
           if (startIndex > 0) {
             // There is a previous card. Need to update next ID of previous card.
             const prevSourseCard = targetCardList[startIndex - 1];
-            prevSourseCard.nextCardId = nextSourseCardId;
+            // prevSourseCard.nextCardId = nextSourseCardId;
           } else {
             // There is no previous card. Need to update head's card ID of target column.
             // [TODO]: Update headerCardId of column state
           }
 
           const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
-          targetCard.nextCardId = nextDestCardId;
+          // targetCard.nextCardId = nextDestCardId;
         };
         updateLinkedListPointers();
 

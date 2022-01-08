@@ -17,7 +17,6 @@ const convertColumnToInnerType = (outerColumn: OuterColumn): innerColumn => {
     id: outerColumn.id,
     title: outerColumn.title,
     boardId: outerColumn.boardId,
-    headCardId: outerColumn.headCardId,
   };
 };
 
