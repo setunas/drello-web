@@ -1,3 +1,6 @@
+/**
+ * This file is for codes related `positon` of `Card`.
+ */
 import { Card } from "./card.g";
 
 const INITIAL_POSITION_GAP = 16384;
