@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Card as InnerCard } from "src/features/card/card.g";
-import { Card as OuterCard } from "src/features/board/board.api";
+import { Card, Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
@@ -46,6 +46,37 @@ export const postCardThunk = createAsyncThunk(
   }
 );
 
+const relocateCards = ({
+  cardsByColumn,
+  sourceIndex,
+  destIndex,
+  sourceColumnId,
+  destColumnId,
+}: {
+  cardsByColumn: CardState["cardsByColumn"];
+  sourceIndex: number;
+  destIndex: number;
+  sourceColumnId: number;
+  destColumnId: number;
+}) => {
+  let sourceCards = cardsByColumn[sourceColumnId];
+  let destCards = cardsByColumn[destColumnId] || [];
+
+  if (!sourceCards) {
+    throw new Error(
+      `No source card list is found by the provided coulmn IDs: ${sourceColumnId}`
+    );
+  }
+
+  sourceCards = [...sourceCards];
+  destCards = sourceColumnId === destColumnId ? sourceCards : [...destCards];
+
+  const [targetCard] = sourceCards.splice(sourceIndex, 1);
+  destCards.splice(destIndex, 0, targetCard);
+
+  return { targetCard, sourceCards, destCards };
+};
+
 export const moveCardThunk = createAsyncThunk(
   "card/moveCardThunk",
   async (
@@ -64,30 +95,15 @@ export const moveCardThunk = createAsyncThunk(
   ) => {
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
-
     const cardsByColumn = (getState() as RootState).cardState.cardsByColumn;
 
-    const relocateCards = () => {
-      let sourceCards = cardsByColumn[sourceColumnId];
-      let destCards = cardsByColumn[destColumnId] || [];
-
-      if (!sourceCards) {
-        throw new Error(
-          `No source card list is found by the provided coulmn IDs: ${sourceColumnId}`
-        );
-      }
-
-      sourceCards = [...sourceCards];
-      destCards =
-        sourceColumnId === destColumnId ? sourceCards : [...destCards];
-
-      const [targetCard] = sourceCards.splice(sourceIndex, 1);
-      destCards.splice(destIndex, 0, targetCard);
-
-      return { targetCard, sourceCards, destCards };
-    };
-
-    const { targetCard, sourceCards, destCards } = relocateCards();
+    const { targetCard, sourceCards, destCards } = relocateCards({
+      cardsByColumn,
+      sourceColumnId,
+      sourceIndex,
+      destColumnId,
+      destIndex,
+    });
     const { position } = updatePositions({ destIndex, destCards });
 
     updateCard({
@@ -120,8 +136,8 @@ export const slice = createSlice({
       }
 
       const cardMap = new Map<number, InnerCard[]>();
-      const cardsByColumnId: { [columnId: number]: InnerCard[] | undefined } =
-        {};
+      const cardsByColumn: CardState["cardsByColumn"] = {};
+
       cards
         .map((card) => convertCardToInnerType(card))
         .forEach((card) => {
@@ -129,18 +145,20 @@ export const slice = createSlice({
           cardList.push(card);
           cardMap.set(card.columnId, cardList);
         });
+
       cardMap.forEach((cardList, columnId) => {
         cardList.sort((a, b) => a.position - b.position);
-        cardsByColumnId[columnId] = cardList;
+        cardsByColumn[columnId] = cardList;
       });
 
-      state.cardsByColumn = cardsByColumnId;
+      state.cardsByColumn = cardsByColumn;
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
     builder.addCase(postCardThunk.fulfilled, (state, action) => {
       const card = action.payload;
+
       if (state.cardsByColumn[card.columnId]) {
         state.cardsByColumn[card.columnId]?.unshift(card);
       } else {
