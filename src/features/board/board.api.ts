@@ -19,13 +19,14 @@ export interface Card {
   position: number;
 }
 
-export const getBoard = ({
+export const getBoard = async ({
   boardId,
   idToken,
 }: {
   boardId: number;
   idToken: string;
-}) =>
-  drelloApiAxios.get<Board>(path.boards(boardId), {
+}) => {
+  return await drelloApiAxios.get<Board>(path.boards(boardId), {
     headers: { Authorization: `Bearer ${idToken}` },
   });
+};
