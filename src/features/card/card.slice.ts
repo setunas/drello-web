@@ -31,6 +31,7 @@ export const postCardThunk = createAsyncThunk(
   ) => {
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
+
     const cards = (getState() as RootState).cardState.cardsByColumn[columnId];
 
     const position = calcPositionOnCreate(cards || []);
