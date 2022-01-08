@@ -4,8 +4,9 @@ import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
+import { updatePositions } from "./position";
 
-interface CardState {
+export interface CardState {
   cardsByColumn: { [columnId: number]: InnerCard[] | undefined };
 }
 
@@ -71,44 +72,29 @@ export const moveCardThunk = createAsyncThunk(
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
 
-    let sourceCards = (getState() as RootState).cardState.cardsByColumn[
-      startColumnId
-    ];
-    let destCards = (getState() as RootState).cardState.cardsByColumn[
-      endColumnId
-    ];
+    const cardsByColumn = (getState() as RootState).cardState.cardsByColumn;
 
-    if (!sourceCards || !destCards) {
-      throw new Error(
-        `No card list is found by the provided coulmn IDs: ${startColumnId}, ${endColumnId}`
-      );
-    }
+    const relocateCards = () => {
+      let sourceCards = cardsByColumn[startColumnId];
+      let destCards = cardsByColumn[endColumnId] || [];
 
-    sourceCards = [...sourceCards];
-    destCards = startColumnId === endColumnId ? sourceCards : [...destCards];
+      if (!sourceCards) {
+        throw new Error(
+          `No source card list is found by the provided coulmn IDs: ${startColumnId}`
+        );
+      }
 
-    const [targetCard] = sourceCards.splice(startIndex, 1);
+      sourceCards = [...sourceCards];
+      destCards = startColumnId === endColumnId ? sourceCards : [...destCards];
 
-    destCards.splice(endIndex, 0, targetCard);
+      const [targetCard] = sourceCards.splice(startIndex, 1);
+      destCards.splice(endIndex, 0, targetCard);
 
-    const prevPos = destCards[endIndex - 1]?.position || 0;
-    const nextPos = destCards[endIndex + 1]?.position || 0;
+      return { targetCard, sourceCards, destCards };
+    };
 
-    if (
-      prevPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
-      nextPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
-      Math.abs(nextPos - prevPos) < MIN_POSITION_GAP
-    ) {
-      // [TODO]: ↓↓↓↓
-      console.log("Need relocate all cards' position in the column");
-    }
-
-    let position: number;
-    if (nextPos) {
-      position = (prevPos + nextPos) / 2;
-    } else {
-      position = prevPos + INITIAL_POSITION_GAP;
-    }
+    const { targetCard, sourceCards, destCards } = relocateCards();
+    const { position } = updatePositions({ endIndex, destCards });
 
     updateCard({
       id: targetCard.id,
