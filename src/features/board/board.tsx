@@ -3,7 +3,7 @@ import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { moveCards } from "src/features/card/card.slice";
+import { moveCardThunk } from "src/features/card/card.slice";
 import { reorderColumns } from "../column/column.slice";
 
 const Container = styled.section`
@@ -48,8 +48,7 @@ export const Board = ({ boardId }: BoardProps) => {
       if (startIndex === endIndex && startColumnId === endColumnId) return;
 
       dispatch(
-        moveCards({
-          targetCardId: parseInt(draggableId),
+        moveCardThunk({
           startIndex,
           endIndex,
           startColumnId,

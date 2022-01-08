@@ -53,67 +53,79 @@ export const postCardThunk = createAsyncThunk(
   }
 );
 
+export const moveCardThunk = createAsyncThunk(
+  "card/moveCardThunk",
+  async (
+    {
+      startIndex,
+      endIndex,
+      startColumnId,
+      endColumnId,
+    }: {
+      startIndex: number;
+      endIndex: number;
+      startColumnId: number;
+      endColumnId: number;
+    },
+    { getState }
+  ) => {
+    let sourceCards = (getState() as RootState).cardState.cardsByColumnId[
+      startColumnId
+    ];
+    let destCards = (getState() as RootState).cardState.cardsByColumnId[
+      endColumnId
+    ];
+
+    console.log(1);
+    if (!sourceCards || !destCards) {
+      throw new Error(
+        `No card list is found by the provided coulmn IDs: ${startColumnId}, ${endColumnId}`
+      );
+    }
+
+    sourceCards = [...sourceCards];
+    destCards = startColumnId === endColumnId ? sourceCards : [...destCards];
+
+    console.log(2, sourceCards, destCards, startIndex, endIndex);
+    const [targetCard] = sourceCards.splice(startIndex, 1);
+    console.log("targetCard", targetCard);
+
+    destCards.splice(endIndex, 0, targetCard);
+
+    const prevPos = destCards[endIndex - 1]?.position || 0;
+    const nextPos = destCards[endIndex + 1]?.position || 0;
+
+    if (
+      prevPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
+      nextPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
+      Math.abs(nextPos - prevPos) < 0.001
+    ) {
+      // [TODO]: ↓↓↓↓
+      console.log("Need relocate all cards' position in the column");
+    }
+
+    console.log(3);
+    let position: number;
+    if (nextPos) {
+      position = (prevPos + nextPos) / 2;
+    } else {
+      position = prevPos + INITIAL_POSITION;
+    }
+    console.log(4);
+
+    return {
+      sourceColumnId: startColumnId,
+      sourceCards,
+      destColumnId: endColumnId,
+      destCards,
+    };
+  }
+);
+
 export const slice = createSlice({
   name: "card",
   initialState,
-  reducers: {
-    /**
-     * This reducer is temporary implemented.
-     * [TODO]: Use thunk later to connect to APIs
-     */
-    moveCards: (
-      state,
-      action: PayloadAction<{
-        targetCardId: number;
-        startIndex: number;
-        endIndex: number;
-        startColumnId: number;
-        endColumnId: number;
-      }>
-    ) => {
-      const { startIndex, endIndex, startColumnId, endColumnId } =
-        action.payload;
-
-      const sourceCards = state.cardsByColumnId[startColumnId];
-      const destCards =
-        startColumnId === endColumnId
-          ? sourceCards
-          : state.cardsByColumnId[endColumnId];
-
-      if (!sourceCards || !destCards) {
-        console.error(
-          "No card list is found by the provided coulmn IDs:",
-          startColumnId,
-          endColumnId
-        );
-        return state;
-      }
-
-      const [targetCard] = sourceCards.splice(startIndex, 1);
-      destCards.splice(endIndex, 0, targetCard);
-
-      const prevPos = destCards[endIndex - 1]?.position || 0;
-      const nextPos = destCards[endIndex + 1]?.position || null;
-
-      let position: number;
-      if (nextPos) {
-        position = (prevPos + nextPos) / 2;
-      } else {
-        position = prevPos + INITIAL_POSITION;
-      }
-
-      if (
-        position >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
-        Math.abs(position - prevPos) < 0.001
-      ) {
-        // [TODO]: ↓↓↓↓
-        console.log("Need relocate all cards' position in the column");
-      }
-
-      state.cardsByColumnId[startColumnId] = sourceCards;
-      state.cardsByColumnId[endColumnId] = destCards;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
@@ -153,6 +165,15 @@ export const slice = createSlice({
     builder.addCase(postCardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
+    builder.addCase(moveCardThunk.fulfilled, (state, action) => {
+      const { sourceCards, sourceColumnId, destCards, destColumnId } =
+        action.payload;
+      state.cardsByColumnId[sourceColumnId] = sourceCards;
+      state.cardsByColumnId[destColumnId] = destCards;
+    });
+    builder.addCase(moveCardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
   },
 });
 
@@ -161,5 +182,4 @@ export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
   state.cardState.cardsByColumnId[columnId];
 
 // Reducer & Actions
-export const { moveCards } = slice.actions;
 export const cardReducer = slice.reducer;
