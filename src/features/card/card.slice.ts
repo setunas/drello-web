@@ -14,6 +14,7 @@ const initialState: CardState = {
 };
 
 const INITIAL_POSITION = 16384;
+const MIN_POSITION_GAP = 0.001;
 
 const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
   return {
@@ -93,7 +94,7 @@ export const moveCardThunk = createAsyncThunk(
     if (
       prevPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
       nextPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
-      Math.abs(nextPos - prevPos) < 0.001
+      Math.abs(nextPos - prevPos) < MIN_POSITION_GAP
     ) {
       // [TODO]: ↓↓↓↓
       console.log("Need relocate all cards' position in the column");
