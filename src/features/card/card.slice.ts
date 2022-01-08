@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Card as InnerCard } from "src/features/card/card.g";
 import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
@@ -50,15 +50,15 @@ export const moveCardThunk = createAsyncThunk(
   "card/moveCardThunk",
   async (
     {
-      startIndex,
-      endIndex,
-      startColumnId,
-      endColumnId,
+      sourceIndex,
+      destIndex,
+      sourceColumnId,
+      destColumnId,
     }: {
-      startIndex: number;
-      endIndex: number;
-      startColumnId: number;
-      endColumnId: number;
+      sourceIndex: number;
+      destIndex: number;
+      sourceColumnId: number;
+      destColumnId: number;
     },
     { getState }
   ) => {
@@ -68,39 +68,40 @@ export const moveCardThunk = createAsyncThunk(
     const cardsByColumn = (getState() as RootState).cardState.cardsByColumn;
 
     const relocateCards = () => {
-      let sourceCards = cardsByColumn[startColumnId];
-      let destCards = cardsByColumn[endColumnId] || [];
+      let sourceCards = cardsByColumn[sourceColumnId];
+      let destCards = cardsByColumn[destColumnId] || [];
 
       if (!sourceCards) {
         throw new Error(
-          `No source card list is found by the provided coulmn IDs: ${startColumnId}`
+          `No source card list is found by the provided coulmn IDs: ${sourceColumnId}`
         );
       }
 
       sourceCards = [...sourceCards];
-      destCards = startColumnId === endColumnId ? sourceCards : [...destCards];
+      destCards =
+        sourceColumnId === destColumnId ? sourceCards : [...destCards];
 
-      const [targetCard] = sourceCards.splice(startIndex, 1);
-      destCards.splice(endIndex, 0, targetCard);
+      const [targetCard] = sourceCards.splice(sourceIndex, 1);
+      destCards.splice(destIndex, 0, targetCard);
 
       return { targetCard, sourceCards, destCards };
     };
 
     const { targetCard, sourceCards, destCards } = relocateCards();
-    const { position } = updatePositions({ endIndex, destCards });
+    const { position } = updatePositions({ destIndex, destCards });
 
     updateCard({
       id: targetCard.id,
       title: targetCard.title,
-      columnId: endColumnId,
+      columnId: destColumnId,
       position,
       idToken,
     });
 
     return {
-      sourceColumnId: startColumnId,
+      sourceColumnId,
       sourceCards,
-      destColumnId: endColumnId,
+      destColumnId,
       destCards,
     };
   }
@@ -152,8 +153,13 @@ export const slice = createSlice({
     builder.addCase(moveCardThunk.fulfilled, (state, action) => {
       const { sourceCards, sourceColumnId, destCards, destColumnId } =
         action.payload;
-      state.cardsByColumn[sourceColumnId] = sourceCards;
-      state.cardsByColumn[destColumnId] = destCards;
+
+      if (sourceColumnId === destColumnId) {
+        state.cardsByColumn[sourceColumnId] = sourceCards;
+      } else {
+        state.cardsByColumn[sourceColumnId] = sourceCards;
+        state.cardsByColumn[destColumnId] = destCards;
+      }
     });
     builder.addCase(moveCardThunk.rejected, (state, action) => {
       console.error(action.error.message);

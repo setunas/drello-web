@@ -42,14 +42,14 @@ const calcPositionOnMove = ({
 };
 
 export const updatePositions = ({
-  endIndex,
+  destIndex,
   destCards,
 }: {
-  endIndex: number;
+  destIndex: number;
   destCards: Card[];
 }) => {
-  const prevPosition = destCards[endIndex - 1]?.position || 0;
-  const nextPosition = destCards[endIndex + 1]?.position || 0;
+  const prevPosition = destCards[destIndex - 1]?.position || 0;
+  const nextPosition = destCards[destIndex + 1]?.position || 0;
 
   const renumberedDestCards = renumberPositionsIfNeeded({
     nextPosition,

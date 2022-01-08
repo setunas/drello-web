@@ -28,31 +28,31 @@ export const Board = ({ boardId }: BoardProps) => {
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
     if (!destination) return; // Dropped outside the list
 
-    const startIndex = source.index;
-    const endIndex = destination.index;
+    const sourceIndex = source.index;
+    const destIndex = destination.index;
 
     const regex = /column-(\d+)/i;
     const found = draggableId.match(regex);
     if (found?.length) {
       // a column is being dragging
 
-      if (startIndex === endIndex) return; // Dropped at the original position (= No change)
+      if (sourceIndex === destIndex) return; // Dropped at the original position (= No change)
 
-      dispatch(reorderColumns({ startIndex, endIndex }));
+      dispatch(reorderColumns({ sourceIndex, destIndex }));
     } else {
       // a card is being dragging
-      const startColumnId = parseInt(source.droppableId);
-      const endColumnId = parseInt(destination.droppableId);
+      const sourceColumnId = parseInt(source.droppableId);
+      const destColumnId = parseInt(destination.droppableId);
 
       // Dropped at the original position (= No change)
-      if (startIndex === endIndex && startColumnId === endColumnId) return;
+      if (sourceIndex === destIndex && sourceColumnId === destColumnId) return;
 
       dispatch(
         moveCardThunk({
-          startIndex,
-          endIndex,
-          startColumnId,
-          endColumnId,
+          sourceIndex,
+          destIndex,
+          sourceColumnId,
+          destColumnId,
         })
       );
     }

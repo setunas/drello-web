@@ -35,15 +35,15 @@ export const slice = createSlice({
     reorderColumns: (
       state,
       action: PayloadAction<{
-        startIndex: number;
-        endIndex: number;
+        sourceIndex: number;
+        destIndex: number;
       }>
     ) => {
-      const { startIndex, endIndex } = action.payload;
+      const { sourceIndex, destIndex } = action.payload;
 
       const columnList = [...state.columns];
-      const [targetColumn] = columnList.splice(startIndex, 1);
-      columnList.splice(endIndex, 0, targetColumn);
+      const [targetColumn] = columnList.splice(sourceIndex, 1);
+      columnList.splice(destIndex, 0, targetColumn);
 
       state.columns = columnList;
     },
