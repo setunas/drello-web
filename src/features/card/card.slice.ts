@@ -1,18 +1,22 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Card as InnerCard } from "src/features/card/card.g";
 import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
+import { postCard } from "./card.api";
 
 interface CardState {
-  cardsByColumnId: Record<number, InnerCard[]>;
+  cardsByColumnId: { [columnId: number]: InnerCard[] | undefined };
 }
 
 const initialState: CardState = {
   cardsByColumnId: {},
 };
 
+const INITIAL_POSITION = 16384;
+
 const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
+  console.log("outerCard", outerCard);
   return {
     id: outerCard.id,
     title: outerCard.title,
@@ -21,20 +25,38 @@ const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
   };
 };
 
+export const postCardThunk = createAsyncThunk(
+  "card/postCardThunk",
+  async (
+    { title, columnId }: { title: string; columnId: number },
+    { getState }
+  ) => {
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+    const cards = (getState() as RootState).cardState.cardsByColumnId[columnId];
+
+    let position: number;
+    if (cards && cards.length > 0) {
+      console.log("/2", cards[0].position);
+      position = cards[0].position / 2;
+    } else {
+      position = INITIAL_POSITION;
+    }
+    console.log("positin", position);
+    const newCard = {
+      title,
+      columnId,
+      position,
+    };
+
+    return (await postCard({ idToken, ...newCard })).data;
+  }
+);
+
 export const slice = createSlice({
   name: "card",
   initialState,
   reducers: {
-    // [TODO] Set proper type to action
-    addCard: (state, action) => {
-      const newItem = {
-        id: Math.floor(100000 + Math.random() * 900000),
-        title: action.payload.title,
-        columnId: action.payload.columnId,
-        position: action.payload.position,
-      };
-      state.cardsByColumnId[action.payload.columnId].push(newItem);
-    },
     /**
      * This reducer is temporary implemented.
      * [TODO]: Use thunk later to connect to APIs
@@ -65,7 +87,9 @@ export const slice = createSlice({
 
       if (startColumnId === endColumnId) {
         // Reorder cards in the same column.
-        const targetCardList = [...state.cardsByColumnId[startColumnId]];
+        const targetCardList = [
+          ...(state.cardsByColumnId[startColumnId] || []),
+        ];
         const [targetCard] = targetCardList.splice(startIndex, 1);
         targetCardList.splice(endIndex, 0, targetCard);
 
@@ -94,9 +118,11 @@ export const slice = createSlice({
         return state;
       } else {
         // Reorder cards across different columns.
-        const sourceCardList = [...state.cardsByColumnId[startColumnId]];
+        const sourceCardList = [
+          ...(state.cardsByColumnId[startColumnId] || []),
+        ];
         const [targetCard] = sourceCardList.splice(startIndex, 1);
-        const destCardList = [...state.cardsByColumnId[endColumnId]];
+        const destCardList = [...(state.cardsByColumnId[endColumnId] || [])];
         destCardList.splice(endIndex, 0, targetCard);
 
         // [TODO]: Enable to change nextCardId and headCardID then hit API to update data in database.
@@ -132,6 +158,17 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
+    builder.addCase(postCardThunk.fulfilled, (state, action) => {
+      const card = action.payload;
+      if (state.cardsByColumnId[card.columnId]) {
+        state.cardsByColumnId[card.columnId]?.unshift(card);
+      } else {
+        state.cardsByColumnId[card.columnId] = [card];
+      }
+    });
+    builder.addCase(postCardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
   },
 });
 
@@ -140,5 +177,5 @@ export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
   state.cardState.cardsByColumnId[columnId];
 
 // Reducer & Actions
-export const { addCard, moveCards } = slice.actions;
+export const { moveCards } = slice.actions;
 export const cardReducer = slice.reducer;
