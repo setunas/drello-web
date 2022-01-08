@@ -123,17 +123,15 @@ export const moveCardThunk = createAsyncThunk(
   }
 );
 
-const sortCardsOnFetch = (cards: OuterCard[]) => {
+const sortCardsOnFetch = (cards: InnerCard[]) => {
   const cardMap = new Map<number, InnerCard[]>();
   const cardsByColumn: CardState["cardsByColumn"] = {};
 
-  cards
-    .map((card) => convertCardToInnerType(card))
-    .forEach((card) => {
-      const cardList = cardMap.get(card.columnId) || [];
-      cardList.push(card);
-      cardMap.set(card.columnId, cardList);
-    });
+  cards.forEach((card) => {
+    const cardList = cardMap.get(card.columnId) || [];
+    cardList.push(card);
+    cardMap.set(card.columnId, cardList);
+  });
 
   cardMap.forEach((cardList, columnId) => {
     cardList.sort((a, b) => a.position - b.position);
@@ -155,7 +153,9 @@ export const slice = createSlice({
         return state;
       }
 
-      state.cardsByColumn = sortCardsOnFetch(cards);
+      state.cardsByColumn = sortCardsOnFetch(
+        cards.map((card) => convertCardToInnerType(card))
+      );
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
