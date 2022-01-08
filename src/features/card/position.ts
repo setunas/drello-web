@@ -43,13 +43,13 @@ const calcPositionOnMove = ({
 
 export const updatePositions = ({
   destIndex,
-  destCards,
+  destCardList,
 }: {
   destIndex: number;
-  destCards: Card[];
+  destCardList: Card[];
 }) => {
-  const prevPosition = destCards[destIndex - 1]?.position || 0;
-  const nextPosition = destCards[destIndex + 1]?.position || 0;
+  const prevPosition = destCardList[destIndex - 1]?.position || 0;
+  const nextPosition = destCardList[destIndex + 1]?.position || 0;
 
   const renumberedDestCards = renumberPositionsIfNeeded({
     nextPosition,

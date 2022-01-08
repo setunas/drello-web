@@ -58,22 +58,25 @@ const relocateCards = ({
   sourceColumnId: number;
   destColumnId: number;
 }) => {
-  let sourceCards = cardsByColumn[sourceColumnId];
-  let destCards = cardsByColumn[destColumnId] || [];
+  let sourceCardList = cardsByColumn[sourceColumnId];
+  let destCardList = cardsByColumn[destColumnId] || [];
 
-  if (!sourceCards) {
+  if (!sourceCardList) {
     throw new Error(
       `No source card list is found by the provided coulmn IDs: ${sourceColumnId}`
     );
   }
 
-  sourceCards = [...sourceCards];
-  destCards = sourceColumnId === destColumnId ? sourceCards : [...destCards];
+  sourceCardList = [...sourceCardList];
+  // If the target card is moved to the same column,
+  // the cardList of the destination will be same as the source one.
+  destCardList =
+    sourceColumnId === destColumnId ? sourceCardList : [...destCardList];
 
-  const [targetCard] = sourceCards.splice(sourceIndex, 1);
-  destCards.splice(destIndex, 0, targetCard);
+  const [targetCard] = sourceCardList.splice(sourceIndex, 1);
+  destCardList.splice(destIndex, 0, targetCard);
 
-  return { targetCard, sourceCards, destCards };
+  return { targetCard, sourceCardList, destCardList };
 };
 
 export const moveCardThunk = createAsyncThunk(
@@ -96,14 +99,17 @@ export const moveCardThunk = createAsyncThunk(
     if (!idToken) throw new Error("Need IdToken");
     const cardsByColumn = (getState() as RootState).cardState.cardsByColumn;
 
-    const { targetCard, sourceCards, destCards } = relocateCards({
+    const { targetCard, sourceCardList, destCardList } = relocateCards({
       cardsByColumn,
       sourceColumnId,
       sourceIndex,
       destColumnId,
       destIndex,
     });
-    const { position } = updatePositions({ destIndex, destCards });
+    const { position } = updatePositions({
+      destIndex,
+      destCardList,
+    });
 
     updateCard({
       id: targetCard.id,
@@ -115,9 +121,9 @@ export const moveCardThunk = createAsyncThunk(
 
     return {
       sourceColumnId,
-      sourceCards,
+      sourceCardList,
       destColumnId,
-      destCards,
+      destCardList,
     };
   }
 );
@@ -172,14 +178,14 @@ export const slice = createSlice({
       console.error(action.error.message);
     });
     builder.addCase(moveCardThunk.fulfilled, (state, action) => {
-      const { sourceCards, sourceColumnId, destCards, destColumnId } =
+      const { sourceCardList, sourceColumnId, destCardList, destColumnId } =
         action.payload;
 
       if (sourceColumnId === destColumnId) {
-        state.cardsByColumn[sourceColumnId] = sourceCards;
+        state.cardsByColumn[sourceColumnId] = sourceCardList;
       } else {
-        state.cardsByColumn[sourceColumnId] = sourceCards;
-        state.cardsByColumn[destColumnId] = destCards;
+        state.cardsByColumn[sourceColumnId] = sourceCardList;
+        state.cardsByColumn[destColumnId] = destCardList;
       }
     });
     builder.addCase(moveCardThunk.rejected, (state, action) => {
