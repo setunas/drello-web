@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
-import { addCard } from "src/features/card/card.slice";
+import { postCardThunk } from "src/features/card/card.slice";
 
 const FormContainer = styled.form`
   display: grid;
@@ -67,12 +67,9 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   const [inputToggle, setInputToggle] = useState(true);
 
   const addCardHandler: SubmitHandler<FormInputs> = (data) => {
-    /* TODO: Implement add Card function */
-    data.cardTitle.length > 0 &&
-      dispatch(addCard({ title: data.cardTitle, columnId }));
+    dispatch(postCardThunk({ title: data.cardTitle, columnId }));
     reset();
     setInputToggle(true);
-    console.log("Implement function to addCard ideally with redux");
   };
 
   return inputToggle ? (
