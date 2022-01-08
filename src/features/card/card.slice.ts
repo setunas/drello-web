@@ -138,20 +138,24 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (!cards) {
-        state.cardsByColumnId = [];
+        state.cardsByColumnId = {};
         return state;
       }
 
-      const cardsByColumnId: Record<number, InnerCard[]> = {};
+      const cardMap = new Map<number, InnerCard[]>();
+      const cardsByColumnId: { [columnId: number]: InnerCard[] | undefined } =
+        {};
       cards
         .map((card) => convertCardToInnerType(card))
         .forEach((card) => {
-          if (cardsByColumnId[card.columnId]) {
-            cardsByColumnId[card.columnId].push(card);
-          } else {
-            cardsByColumnId[card.columnId] = [card];
-          }
+          const cardList = cardMap.get(card.columnId) || [];
+          cardList.push(card);
+          cardMap.set(card.columnId, cardList);
         });
+      cardMap.forEach((cardList, columnId) => {
+        cardList.sort((a, b) => a.position - b.position);
+        cardsByColumnId[columnId] = cardList;
+      });
 
       state.cardsByColumnId = cardsByColumnId;
     });
