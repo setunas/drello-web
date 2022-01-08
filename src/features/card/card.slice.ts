@@ -17,6 +17,7 @@ const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
     id: outerCard.id,
     title: outerCard.title,
     columnId: outerCard.columnId,
+    position: outerCard.position,
   };
 };
 
@@ -30,6 +31,7 @@ export const slice = createSlice({
         id: Math.floor(100000 + Math.random() * 900000),
         title: action.payload.title,
         columnId: action.payload.columnId,
+        position: action.payload.position,
       };
       state.cardsByColumnId[action.payload.columnId].push(newItem);
     },
