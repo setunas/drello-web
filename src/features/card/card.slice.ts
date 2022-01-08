@@ -3,7 +3,7 @@ import { Card as InnerCard } from "src/features/card/card.g";
 import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { postCard } from "./card.api";
+import { postCard, updateCard } from "./card.api";
 
 interface CardState {
   cardsByColumnId: { [columnId: number]: InnerCard[] | undefined };
@@ -112,6 +112,17 @@ export const moveCardThunk = createAsyncThunk(
       position = prevPos + INITIAL_POSITION;
     }
     console.log(4);
+
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+
+    updateCard({
+      id: targetCard.id,
+      title: targetCard.title,
+      columnId: endColumnId,
+      position,
+      idToken,
+    });
 
     return {
       sourceColumnId: startColumnId,

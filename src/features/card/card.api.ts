@@ -24,3 +24,21 @@ export const postCard = async (args: {
     headers: { Authorization: `Bearer ${args.idToken}` },
   });
 };
+
+export const updateCard = async (args: {
+  id: number;
+  title: string;
+  columnId: number;
+  position: number;
+  idToken: string;
+}) => {
+  const body = {
+    Title: args.title,
+    ColumnId: args.columnId,
+    Position: args.position,
+  };
+
+  return await drelloApiAxios.patch<Card>(path.cards(args.id), body, {
+    headers: { Authorization: `Bearer ${args.idToken}` },
+  });
+};
