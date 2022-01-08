@@ -16,7 +16,6 @@ const initialState: CardState = {
 const INITIAL_POSITION = 16384;
 
 const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
-  console.log("outerCard", outerCard);
   return {
     id: outerCard.id,
     title: outerCard.title,
@@ -37,12 +36,11 @@ export const postCardThunk = createAsyncThunk(
 
     let position: number;
     if (cards && cards.length > 0) {
-      console.log("/2", cards[0].position);
       position = cards[0].position / 2;
     } else {
       position = INITIAL_POSITION;
     }
-    console.log("positin", position);
+
     const newCard = {
       title,
       columnId,
@@ -76,7 +74,6 @@ export const moveCardThunk = createAsyncThunk(
       endColumnId
     ];
 
-    console.log(1);
     if (!sourceCards || !destCards) {
       throw new Error(
         `No card list is found by the provided coulmn IDs: ${startColumnId}, ${endColumnId}`
@@ -86,9 +83,7 @@ export const moveCardThunk = createAsyncThunk(
     sourceCards = [...sourceCards];
     destCards = startColumnId === endColumnId ? sourceCards : [...destCards];
 
-    console.log(2, sourceCards, destCards, startIndex, endIndex);
     const [targetCard] = sourceCards.splice(startIndex, 1);
-    console.log("targetCard", targetCard);
 
     destCards.splice(endIndex, 0, targetCard);
 
@@ -104,14 +99,12 @@ export const moveCardThunk = createAsyncThunk(
       console.log("Need relocate all cards' position in the column");
     }
 
-    console.log(3);
     let position: number;
     if (nextPos) {
       position = (prevPos + nextPos) / 2;
     } else {
       position = prevPos + INITIAL_POSITION;
     }
-    console.log(4);
 
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
