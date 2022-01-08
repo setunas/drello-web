@@ -6,11 +6,11 @@ import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
 
 interface CardState {
-  cardsByColumnId: { [columnId: number]: InnerCard[] | undefined };
+  cardsByColumn: { [columnId: number]: InnerCard[] | undefined };
 }
 
 const initialState: CardState = {
-  cardsByColumnId: {},
+  cardsByColumn: {},
 };
 
 const INITIAL_POSITION_GAP = 16384;
@@ -33,7 +33,7 @@ export const postCardThunk = createAsyncThunk(
   ) => {
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
-    const cards = (getState() as RootState).cardState.cardsByColumnId[columnId];
+    const cards = (getState() as RootState).cardState.cardsByColumn[columnId];
 
     let position: number;
     if (cards && cards.length > 0) {
@@ -68,10 +68,13 @@ export const moveCardThunk = createAsyncThunk(
     },
     { getState }
   ) => {
-    let sourceCards = (getState() as RootState).cardState.cardsByColumnId[
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+
+    let sourceCards = (getState() as RootState).cardState.cardsByColumn[
       startColumnId
     ];
-    let destCards = (getState() as RootState).cardState.cardsByColumnId[
+    let destCards = (getState() as RootState).cardState.cardsByColumn[
       endColumnId
     ];
 
@@ -107,9 +110,6 @@ export const moveCardThunk = createAsyncThunk(
       position = prevPos + INITIAL_POSITION_GAP;
     }
 
-    const idToken = (getState() as RootState).authState.idToken;
-    if (!idToken) throw new Error("Need IdToken");
-
     updateCard({
       id: targetCard.id,
       title: targetCard.title,
@@ -135,7 +135,7 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (!cards) {
-        state.cardsByColumnId = {};
+        state.cardsByColumn = {};
         return state;
       }
 
@@ -154,17 +154,17 @@ export const slice = createSlice({
         cardsByColumnId[columnId] = cardList;
       });
 
-      state.cardsByColumnId = cardsByColumnId;
+      state.cardsByColumn = cardsByColumnId;
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
     builder.addCase(postCardThunk.fulfilled, (state, action) => {
       const card = action.payload;
-      if (state.cardsByColumnId[card.columnId]) {
-        state.cardsByColumnId[card.columnId]?.unshift(card);
+      if (state.cardsByColumn[card.columnId]) {
+        state.cardsByColumn[card.columnId]?.unshift(card);
       } else {
-        state.cardsByColumnId[card.columnId] = [card];
+        state.cardsByColumn[card.columnId] = [card];
       }
     });
     builder.addCase(postCardThunk.rejected, (state, action) => {
@@ -173,8 +173,8 @@ export const slice = createSlice({
     builder.addCase(moveCardThunk.fulfilled, (state, action) => {
       const { sourceCards, sourceColumnId, destCards, destColumnId } =
         action.payload;
-      state.cardsByColumnId[sourceColumnId] = sourceCards;
-      state.cardsByColumnId[destColumnId] = destCards;
+      state.cardsByColumn[sourceColumnId] = sourceCards;
+      state.cardsByColumn[destColumnId] = destCards;
     });
     builder.addCase(moveCardThunk.rejected, (state, action) => {
       console.error(action.error.message);
@@ -183,8 +183,10 @@ export const slice = createSlice({
 });
 
 // Selectors
+export const selectCardsByColumn = () => (state: RootState) =>
+  state.cardState.cardsByColumn;
 export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
-  state.cardState.cardsByColumnId[columnId];
+  state.cardState.cardsByColumn[columnId];
 
 // Reducer & Actions
 export const cardReducer = slice.reducer;
