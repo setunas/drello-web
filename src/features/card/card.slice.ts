@@ -13,7 +13,7 @@ const initialState: CardState = {
   cardsByColumnId: {},
 };
 
-const INITIAL_POSITION = 16384;
+const INITIAL_POSITION_GAP = 16384;
 const MIN_POSITION_GAP = 0.001;
 
 const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
@@ -39,7 +39,7 @@ export const postCardThunk = createAsyncThunk(
     if (cards && cards.length > 0) {
       position = cards[0].position / 2;
     } else {
-      position = INITIAL_POSITION;
+      position = INITIAL_POSITION_GAP;
     }
 
     const newCard = {
@@ -92,8 +92,8 @@ export const moveCardThunk = createAsyncThunk(
     const nextPos = destCards[endIndex + 1]?.position || 0;
 
     if (
-      prevPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
-      nextPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
+      prevPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
+      nextPos >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
       Math.abs(nextPos - prevPos) < MIN_POSITION_GAP
     ) {
       // [TODO]: ↓↓↓↓
@@ -104,7 +104,7 @@ export const moveCardThunk = createAsyncThunk(
     if (nextPos) {
       position = (prevPos + nextPos) / 2;
     } else {
-      position = prevPos + INITIAL_POSITION;
+      position = prevPos + INITIAL_POSITION_GAP;
     }
 
     const idToken = (getState() as RootState).authState.idToken;
