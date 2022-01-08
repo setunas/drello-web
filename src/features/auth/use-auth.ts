@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -8,11 +8,9 @@ import {
 } from "src/features/auth/auth.slice";
 import { path } from "src/utils/url/drello-web";
 import {
-  getCurrentUserByIdToken,
   resetCurrentUser,
   selectCurrentUser,
 } from "src/features/user/user.slice";
-import { User } from "src/features/user/user.api";
 import { AppThunkDispatch } from "src/utils/redux/store";
 
 /**

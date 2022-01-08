@@ -1,14 +1,9 @@
 import { drelloApiAxios } from "src/utils/axios/drello-api-axios";
 import { path } from "src/utils/url/drello-api";
-
-export interface User {
-  id: number;
-  username: string;
-  boardId: number;
-}
+import { OuterUser } from "./user.g";
 
 export const getUser = ({ idToken }: { idToken: string }) =>
-  drelloApiAxios.get<User>(path.users(), {
+  drelloApiAxios.get<OuterUser>(path.users(), {
     headers: { Authorization: `Bearer ${idToken}` },
   });
 
@@ -19,7 +14,7 @@ export const postUser = ({
   idToken: string;
   username: string;
 }) => {
-  return drelloApiAxios.post<User>(
+  return drelloApiAxios.post<OuterUser>(
     path.users(),
     { Username: username },
     {
