@@ -169,7 +169,7 @@ export const slice = createSlice({
       const card = action.payload;
 
       if (state.cardsByColumn[card.columnId]) {
-        state.cardsByColumn[card.columnId]?.unshift(card);
+        state.cardsByColumn[card.columnId]?.push(card);
       } else {
         state.cardsByColumn[card.columnId] = [card];
       }

@@ -62,9 +62,10 @@ export const updatePositions = ({
 
 export const calcPositionOnCreate = (cardList: Card[]) => {
   let position: number;
+  const length = cardList.length;
 
-  if (cardList.length > 0) {
-    position = cardList[0].position / 2;
+  if (length > 0) {
+    position = cardList[length - 1].position + INITIAL_POSITION_GAP;
   } else {
     position = INITIAL_POSITION_GAP;
   }
