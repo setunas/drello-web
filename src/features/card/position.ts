@@ -20,7 +20,7 @@ const renumberPositionsIfNeeded = ({
   }
 };
 
-const calcPosition = ({
+const calcPositionOnMove = ({
   nextPosition,
   prevPosition,
 }: {
@@ -52,7 +52,19 @@ export const updatePositions = ({
     nextPosition,
     prevPosition,
   });
-  const position = calcPosition({ nextPosition, prevPosition });
+  const position = calcPositionOnMove({ nextPosition, prevPosition });
 
   return { position, renumberedDestCards };
+};
+
+export const calcPositionOnCreate = (cardList: Card[]) => {
+  let position: number;
+
+  if (cardList.length > 0) {
+    position = cardList[0].position / 2;
+  } else {
+    position = INITIAL_POSITION_GAP;
+  }
+
+  return position;
 };

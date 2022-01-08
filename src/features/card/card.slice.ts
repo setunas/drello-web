@@ -4,7 +4,7 @@ import { Card as OuterCard } from "src/features/board/board.api";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
-import { updatePositions } from "./position";
+import { calcPositionOnCreate, updatePositions } from "./position";
 
 export interface CardState {
   cardsByColumn: { [columnId: number]: InnerCard[] | undefined };
@@ -13,9 +13,6 @@ export interface CardState {
 const initialState: CardState = {
   cardsByColumn: {},
 };
-
-const INITIAL_POSITION_GAP = 16384;
-const MIN_POSITION_GAP = 0.001;
 
 const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
   return {
@@ -36,12 +33,7 @@ export const postCardThunk = createAsyncThunk(
     if (!idToken) throw new Error("Need IdToken");
     const cards = (getState() as RootState).cardState.cardsByColumn[columnId];
 
-    let position: number;
-    if (cards && cards.length > 0) {
-      position = cards[0].position / 2;
-    } else {
-      position = INITIAL_POSITION_GAP;
-    }
+    const position = calcPositionOnCreate(cards || []);
 
     const newCard = {
       title,
