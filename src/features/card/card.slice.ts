@@ -1,20 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Card as InnerCard } from "src/features/card/card.g";
-import { Card as OuterCard } from "src/features/board/board.api";
+import { Card, OuterCard } from "src/features/card/card.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
 import { calcPositionOnCreate, updatePositions } from "./position";
 
 export interface CardState {
-  cardsByColumn: { [columnId: number]: InnerCard[] | undefined };
+  cardsByColumn: { [columnId: number]: Card[] | undefined };
 }
 
 const initialState: CardState = {
   cardsByColumn: {},
 };
 
-const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
+const convertCardToInnerType = (outerCard: OuterCard): Card => {
   return {
     id: outerCard.id,
     title: outerCard.title,
@@ -123,8 +122,8 @@ export const moveCardThunk = createAsyncThunk(
   }
 );
 
-const sortCardsOnFetch = (cards: InnerCard[]) => {
-  const cardMap = new Map<number, InnerCard[]>();
+const sortCardsOnFetch = (cards: Card[]) => {
+  const cardMap = new Map<number, Card[]>();
   const cardsByColumn: CardState["cardsByColumn"] = {};
 
   cards.forEach((card) => {

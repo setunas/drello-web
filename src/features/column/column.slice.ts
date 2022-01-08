@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Column as innerColumn } from "src/features/column/column.g";
-import { Column as OuterColumn } from "src/features/board/board.api";
+import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 
 interface ColumnState {
-  columns: innerColumn[];
+  columns: Column[];
 }
 
 const initialState: ColumnState = {
   columns: [],
 };
 
-const convertColumnToInnerType = (outerColumn: OuterColumn): innerColumn => {
+const convertColumnToInnerType = (outerColumn: OuterColumn): Column => {
   return {
     id: outerColumn.id,
     title: outerColumn.title,
