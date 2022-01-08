@@ -71,67 +71,47 @@ export const slice = createSlice({
         endColumnId: number;
       }>
     ) => {
-      const { targetCardId, startIndex, endIndex, startColumnId, endColumnId } =
+      const { startIndex, endIndex, startColumnId, endColumnId } =
         action.payload;
 
-      const checkCardIds = (
-        manipulatedCardId: number,
-        targetCardId: number
-      ) => {
-        if (manipulatedCardId !== targetCardId) {
-          // Unexpected card is chosen
-          window.alert("Failed moving the card. Please try again.");
-          return state;
-        }
-      };
+      const sourceCards = state.cardsByColumnId[startColumnId];
+      const destCards =
+        startColumnId === endColumnId
+          ? sourceCards
+          : state.cardsByColumnId[endColumnId];
 
-      if (startColumnId === endColumnId) {
-        // Reorder cards in the same column.
-        const targetCardList = [
-          ...(state.cardsByColumnId[startColumnId] || []),
-        ];
-        const [targetCard] = targetCardList.splice(startIndex, 1);
-        targetCardList.splice(endIndex, 0, targetCard);
-
-        const updateLinkedListPointers = () => {
-          const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
-
-          if (startIndex > 0) {
-            // There is a previous card. Need to update next ID of previous card.
-            const prevSourseCard = targetCardList[startIndex - 1];
-            // prevSourseCard.nextCardId = nextSourseCardId;
-          } else {
-            // There is no previous card. Need to update head's card ID of target column.
-            // [TODO]: Update headerCardId of column state
-          }
-
-          const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
-          // targetCard.nextCardId = nextDestCardId;
-        };
-        updateLinkedListPointers();
-
-        checkCardIds(targetCard.id, targetCardId);
-
-        // [TODO]: Hit APIs to update data in database
-
-        state.cardsByColumnId[startColumnId] = targetCardList;
+      if (!sourceCards || !destCards) {
+        console.error(
+          "No card list is found by the provided coulmn IDs:",
+          startColumnId,
+          endColumnId
+        );
         return state;
-      } else {
-        // Reorder cards across different columns.
-        const sourceCardList = [
-          ...(state.cardsByColumnId[startColumnId] || []),
-        ];
-        const [targetCard] = sourceCardList.splice(startIndex, 1);
-        const destCardList = [...(state.cardsByColumnId[endColumnId] || [])];
-        destCardList.splice(endIndex, 0, targetCard);
-
-        // [TODO]: Enable to change nextCardId and headCardID then hit API to update data in database.
-
-        checkCardIds(targetCard.id, targetCardId);
-
-        state.cardsByColumnId[startColumnId] = sourceCardList;
-        state.cardsByColumnId[endColumnId] = destCardList;
       }
+
+      const [targetCard] = sourceCards.splice(startIndex, 1);
+      destCards.splice(endIndex, 0, targetCard);
+
+      const prevPos = destCards[endIndex - 1]?.position || 0;
+      const nextPos = destCards[endIndex + 1]?.position || null;
+
+      let position: number;
+      if (nextPos) {
+        position = (prevPos + nextPos) / 2;
+      } else {
+        position = prevPos + INITIAL_POSITION;
+      }
+
+      if (
+        position >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION ||
+        Math.abs(position - prevPos) < 0.001
+      ) {
+        // [TODO]: ↓↓↓↓
+        console.log("Need relocate all cards' position in the column");
+      }
+
+      state.cardsByColumnId[startColumnId] = sourceCards;
+      state.cardsByColumnId[endColumnId] = destCards;
     },
   },
   extraReducers: (builder) => {
