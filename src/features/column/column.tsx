@@ -69,7 +69,7 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
               <Container ref={provided.innerRef} {...provided.droppableProps}>
                 <Header>
                   <Title>{title}</Title>
-                  <span onClick={handleDelete}>...</span>
+                  <span onClick={handleDelete}>X</span>
                 </Header>
                 <MemoedCardList />
                 {provided.placeholder}
