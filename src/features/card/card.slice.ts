@@ -3,7 +3,7 @@ import { Card, OuterCard } from "src/features/card/card.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { postCard, updateCard } from "./card.api";
-import { calcPositionOnCreate, updatePositions } from "./position";
+import { calcPositionOnCreate, updatePositions } from "../position";
 
 export interface CardState {
   cardsByColumn: { [columnId: number]: Card[] | undefined };
