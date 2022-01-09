@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Main = styled.main`
+  display: grid;
+  gap: 1em;
   text-align: center;
   color: #707070;
   padding: 0 5em;
@@ -14,7 +16,6 @@ export const Footer = styled.footer`
 `;
 
 export const LandingMain = styled(Main)`
-  display: grid;
   align-content: center;
 `;
 
