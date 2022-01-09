@@ -1,5 +1,5 @@
 /**
- * This file is for codes related `positon`.
+ * This file is for codes related `positon`
  */
 import { Column } from "./column/column.g";
 import { Card } from "./card/card.g";
