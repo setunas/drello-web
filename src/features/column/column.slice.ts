@@ -54,13 +54,9 @@ const relocateColumns = ({
   sourceIndex: number;
   destIndex: number;
 }) => {
-  console.log(1.1);
   const _columnList = [...columnList];
-  console.log(1.2);
   const [targetColumn] = _columnList.splice(sourceIndex, 1);
-  console.log(1.3);
   _columnList.splice(destIndex, 0, targetColumn);
-  console.log(1.4);
 
   return { targetColumn, relocatedList: _columnList };
 };
@@ -82,18 +78,18 @@ export const moveColumnThunk = createAsyncThunk(
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
     const columnList = (getState() as RootState).columnState.columns;
-    console.log(1);
+
     const { targetColumn, relocatedList } = relocateColumns({
       columnList,
       sourceIndex,
       destIndex,
     });
-    console.log(1.5);
+
     const { position } = updatePositions({
       destIndex,
       destCardList: relocatedList,
     });
-    console.log(2);
+
     updateColumn({
       id: targetColumn.id,
       title: targetColumn.title,
@@ -101,7 +97,7 @@ export const moveColumnThunk = createAsyncThunk(
       position,
       idToken,
     });
-    console.log(3);
+
     return relocatedList;
   }
 );
