@@ -61,10 +61,7 @@ export const updatePositions = ({
   });
   const position = calcPositionOnMove({ nextPosition, prevPosition });
 
-  const updatedList = [...destCardList];
-  updatedList[destIndex] = { ...updatedList[destIndex], position };
-
-  return { position, updatedList, renumberedDestCards };
+  return { position, renumberedDestCards };
 };
 
 export const calcPositionOnCreate = (list: Positionable[]) => {

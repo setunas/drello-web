@@ -107,7 +107,7 @@ export const moveCardThunk = createAsyncThunk(
       destIndex,
     });
 
-    const { position, updatedList } = updatePositions({
+    const { position } = updatePositions({
       destIndex,
       destCardList,
     });

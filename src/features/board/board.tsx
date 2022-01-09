@@ -4,7 +4,7 @@ import { ColumnList } from "src/features/column/column-list";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { moveCardThunk } from "src/features/card/card.slice";
-import { moveColumnThunk, reorderColumns } from "../column/column.slice";
+import { moveColumnThunk } from "../column/column.slice";
 
 const Container = styled.section`
   display: grid;
