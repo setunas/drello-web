@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Card, OuterCard } from "src/features/card/card.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { postCard, updateCard } from "./card.api";
+import { deleteCard, postCard, updateCard } from "./card.api";
 import { calcPositionOnCreate, updatePositions } from "../position";
 
 export interface CardState {
@@ -112,21 +112,45 @@ export const moveCardThunk = createAsyncThunk(
       list: destCardList,
     });
 
-    updateCard({
+    const updatedCard = {
       id: targetCard.id,
       title: targetCard.title,
       columnId: destColumnId,
       position,
+    };
+
+    updateCard({
+      ...updatedCard,
       idToken,
     });
 
-    destCardList[destIndex] = { ...destCardList[destIndex], position };
+    destCardList[destIndex] = { ...destCardList[destIndex], ...updatedCard };
     return {
       sourceColumnId,
       sourceCardList,
       destColumnId,
       destCardList,
     };
+  }
+);
+
+export const deleteCardThunk = createAsyncThunk(
+  "card/deleteCardThunk",
+  async (
+    {
+      id,
+      columnId,
+    }: {
+      id: number;
+      columnId: number;
+    },
+    { getState }
+  ) => {
+    const { idToken } = (getState() as RootState).authState;
+    if (!idToken) throw new Error("Need IdToken");
+
+    await deleteCard({ id, idToken });
+    return { id, columnId };
   }
 );
 
@@ -191,6 +215,18 @@ export const slice = createSlice({
       }
     });
     builder.addCase(moveCardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(deleteCardThunk.fulfilled, (state, action) => {
+      const { id, columnId } = action.payload;
+
+      const filterdCardList = state.cardsByColumn[columnId]?.filter(
+        (card) => card.id !== id
+      );
+
+      state.cardsByColumn[columnId] = filterdCardList;
+    });
+    builder.addCase(deleteCardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
   },
