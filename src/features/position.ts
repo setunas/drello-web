@@ -40,7 +40,6 @@ const calcPositionOnMove = ({
   } else {
     position = prevPosition + INITIAL_POSITION_GAP;
   }
-  console.log("prev", prevPosition, "next", nextPosition, "target", position);
 
   return position;
 };
