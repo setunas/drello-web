@@ -86,8 +86,8 @@ export const moveColumnThunk = createAsyncThunk(
     });
 
     const { position } = updatePositions({
-      destIndex,
-      destCardList: relocatedList,
+      index: destIndex,
+      list: relocatedList,
     });
 
     updateColumn({
