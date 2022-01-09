@@ -124,7 +124,7 @@ export const moveCardThunk = createAsyncThunk(
       idToken,
     });
 
-    destCardList[destIndex] = { ...destCardList[destIndex], ...updatedCard };
+    destCardList[destIndex] = updatedCard;
     return {
       sourceColumnId,
       sourceCardList,
