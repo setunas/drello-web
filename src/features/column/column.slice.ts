@@ -88,15 +88,22 @@ export const moveColumnThunk = createAsyncThunk(
       list: relocatedList,
     });
 
-    updateColumn({
+    const updatedColumn = {
       id: targetColumn.id,
       title: targetColumn.title,
       boardId: boardId,
       position,
+    };
+
+    updateColumn({
+      ...updatedColumn,
       idToken,
     });
 
-    relocatedList[destIndex] = { ...relocatedList[destIndex], position };
+    relocatedList[destIndex] = {
+      ...relocatedList[destIndex],
+      ...updatedColumn,
+    };
     return relocatedList;
   }
 );
