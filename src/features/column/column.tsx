@@ -45,7 +45,7 @@ interface ColumnProps {
 }
 
 /**
- * Column component responsible for each column within the board
+ * Column component responsible for each column within the board.
  */
 export const Column = ({ columnId, title, index }: ColumnProps) => {
   const dispatch = useDispatch();
