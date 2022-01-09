@@ -106,7 +106,8 @@ export const moveCardThunk = createAsyncThunk(
       destColumnId,
       destIndex,
     });
-    const { position } = updatePositions({
+
+    const { position, updatedList } = updatePositions({
       destIndex,
       destCardList,
     });
@@ -119,6 +120,7 @@ export const moveCardThunk = createAsyncThunk(
       idToken,
     });
 
+    destCardList[destIndex] = { ...destCardList[destIndex], position };
     return {
       sourceColumnId,
       sourceCardList,
@@ -182,7 +184,7 @@ export const slice = createSlice({
         action.payload;
 
       if (sourceColumnId === destColumnId) {
-        state.cardsByColumn[sourceColumnId] = sourceCardList;
+        state.cardsByColumn[destColumnId] = destCardList;
       } else {
         state.cardsByColumn[sourceColumnId] = sourceCardList;
         state.cardsByColumn[destColumnId] = destCardList;

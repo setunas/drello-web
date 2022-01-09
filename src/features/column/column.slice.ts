@@ -98,6 +98,7 @@ export const moveColumnThunk = createAsyncThunk(
       idToken,
     });
 
+    relocatedList[destIndex] = { ...relocatedList[destIndex], position };
     return relocatedList;
   }
 );

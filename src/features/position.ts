@@ -40,6 +40,7 @@ const calcPositionOnMove = ({
   } else {
     position = prevPosition + INITIAL_POSITION_GAP;
   }
+  console.log("prev", prevPosition, "next", nextPosition, "target", position);
 
   return position;
 };
@@ -60,7 +61,10 @@ export const updatePositions = ({
   });
   const position = calcPositionOnMove({ nextPosition, prevPosition });
 
-  return { position, renumberedDestCards };
+  const updatedList = [...destCardList];
+  updatedList[destIndex] = { ...updatedList[destIndex], position };
+
+  return { position, updatedList, renumberedDestCards };
 };
 
 export const calcPositionOnCreate = (list: Positionable[]) => {
