@@ -1,12 +1,6 @@
 import { drelloApiAxios } from "src/utils/axios/drello-api-axios";
 import { path } from "src/utils/url/drello-api";
-
-export interface Card {
-  id: number;
-  title: string;
-  columnId: number;
-  position: number;
-}
+import { OuterCard } from "./card.g";
 
 export const postCard = async (args: {
   title: string;
@@ -20,7 +14,7 @@ export const postCard = async (args: {
     Position: args.position,
   };
 
-  return await drelloApiAxios.post<Card>(path.cards(), body, {
+  return await drelloApiAxios.post<OuterCard>(path.cards(), body, {
     headers: { Authorization: `Bearer ${args.idToken}` },
   });
 };
@@ -38,7 +32,7 @@ export const updateCard = async (args: {
     Position: args.position,
   };
 
-  return await drelloApiAxios.patch<Card>(path.cards(args.id), body, {
+  return await drelloApiAxios.patch<OuterCard>(path.cards(args.id), body, {
     headers: { Authorization: `Bearer ${args.idToken}` },
   });
 };
