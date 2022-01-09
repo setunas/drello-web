@@ -4,6 +4,8 @@ import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
 import { colors } from "src/utils/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { deleteColumnThunk } from "./column.slice";
 
 const Container = styled.div`
   display: grid;
@@ -42,6 +44,12 @@ interface ColumnProps {
  * Column component responsible for each column within the board
  */
 export const Column = ({ columnId, title, index }: ColumnProps) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteColumnThunk({ id: columnId }));
+  };
+
   /**
    * To avoid being rerenderred when a column is being dragged. Because dragging
    * will cause a rerender of all of the children of the <Droppable />.
@@ -61,7 +69,7 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
               <Container ref={provided.innerRef} {...provided.droppableProps}>
                 <Header>
                   <Title>{title}</Title>
-                  <span>...</span>
+                  <span onClick={handleDelete}>...</span>
                 </Header>
                 <MemoedCardList />
                 {provided.placeholder}
