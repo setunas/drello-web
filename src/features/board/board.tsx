@@ -4,7 +4,7 @@ import { ColumnList } from "src/features/column/column-list";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { moveCardThunk } from "src/features/card/card.slice";
-import { reorderColumns } from "../column/column.slice";
+import { moveColumnThunk, reorderColumns } from "../column/column.slice";
 
 const Container = styled.section`
   display: grid;
@@ -38,7 +38,7 @@ export const Board = ({ boardId }: BoardProps) => {
 
       if (sourceIndex === destIndex) return; // Dropped at the original position (= No change)
 
-      dispatch(reorderColumns({ sourceIndex, destIndex }));
+      dispatch(moveColumnThunk({ boardId, sourceIndex, destIndex }));
     } else {
       // a card is being dragging
       const sourceColumnId = parseInt(source.droppableId);
