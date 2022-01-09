@@ -45,14 +45,14 @@ const calcPositionOnMove = ({
 };
 
 export const updatePositions = ({
-  index,
+  destIndex,
   list,
 }: {
-  index: number;
+  destIndex: number;
   list: Positionable[];
 }) => {
-  const prevPosition = list[index - 1]?.position || 0;
-  const nextPosition = list[index + 1]?.position || 0;
+  const prevPosition = list[destIndex - 1]?.position || 0;
+  const nextPosition = list[destIndex + 1]?.position || 0;
 
   const renumberedDestCards = renumberPositionsIfNeeded({
     nextPosition,
