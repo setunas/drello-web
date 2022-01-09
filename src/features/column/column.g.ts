@@ -7,7 +7,7 @@ export interface OuterColumn {
 
 export interface Column {
   id: number;
-  title?: string;
+  title: string;
   position: number;
   boardId: number;
 }
