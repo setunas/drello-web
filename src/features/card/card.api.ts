@@ -36,3 +36,9 @@ export const updateCard = async (args: {
     headers: { Authorization: `Bearer ${args.idToken}` },
   });
 };
+
+export const deleteCard = async (args: { id: number; idToken: string }) => {
+  return await drelloApiAxios.delete<OuterCard>(path.cards(args.id), {
+    headers: { Authorization: `Bearer ${args.idToken}` },
+  });
+};
