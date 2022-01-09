@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { postColumn, updateColumn } from "./column.api";
+import { deleteColumn, postColumn, updateColumn } from "./column.api";
 import { calcPositionOnCreate, updatePositions } from "../position";
 
 interface ColumnState {
@@ -108,6 +108,24 @@ export const moveColumnThunk = createAsyncThunk(
   }
 );
 
+export const deleteColumnThunk = createAsyncThunk(
+  "card/deleteColumnThunk",
+  async (
+    {
+      id,
+    }: {
+      id: number;
+    },
+    { getState }
+  ) => {
+    const { idToken } = (getState() as RootState).authState;
+    if (!idToken) throw new Error("Need IdToken");
+
+    await deleteColumn({ id, idToken });
+    return { id };
+  }
+);
+
 export const slice = createSlice({
   name: "column",
   initialState,
@@ -141,6 +159,14 @@ export const slice = createSlice({
       state.columns = action.payload;
     });
     builder.addCase(moveColumnThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(deleteColumnThunk.fulfilled, (state, action) => {
+      const { id } = action.payload;
+      const filterdList = state.columns?.filter((column) => column.id !== id);
+      state.columns = filterdList;
+    });
+    builder.addCase(deleteColumnThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
   },
