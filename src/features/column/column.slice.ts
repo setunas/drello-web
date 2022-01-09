@@ -30,11 +30,9 @@ export const postColumnThunk = createAsyncThunk(
   ) => {
     const idToken = (getState() as RootState).authState.idToken;
     if (!idToken) throw new Error("Need IdToken");
-
     const columns = (getState() as RootState).columnState.columns;
 
     const position = calcPositionOnCreate(columns || []);
-
     const newColumn = {
       title,
       boardId,
