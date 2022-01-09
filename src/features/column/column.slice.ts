@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { postColumn } from "./column.api";
-import { calcPositionOnCreate } from "../position";
+import { postColumn, updateColumn } from "./column.api";
+import { calcPositionOnCreate, updatePositions } from "../position";
 
 interface ColumnState {
   columns: Column[];
@@ -35,43 +35,89 @@ export const postColumnThunk = createAsyncThunk(
 
     const position = calcPositionOnCreate(columns || []);
 
-    const newCard = {
+    const newColumn = {
       title,
       boardId,
       position,
     };
 
-    return (await postColumn({ idToken, ...newCard })).data;
+    return (await postColumn({ idToken, ...newColumn })).data;
+  }
+);
+
+const relocateColumns = ({
+  columnList,
+  sourceIndex,
+  destIndex,
+}: {
+  columnList: Column[];
+  sourceIndex: number;
+  destIndex: number;
+}) => {
+  console.log(1.1);
+  const _columnList = [...columnList];
+  console.log(1.2);
+  const [targetColumn] = _columnList.splice(sourceIndex, 1);
+  console.log(1.3);
+  _columnList.splice(destIndex, 0, targetColumn);
+  console.log(1.4);
+
+  return { targetColumn, relocatedList: _columnList };
+};
+
+export const moveColumnThunk = createAsyncThunk(
+  "column/moveColumnThunk",
+  async (
+    {
+      boardId,
+      sourceIndex,
+      destIndex,
+    }: {
+      boardId: number;
+      sourceIndex: number;
+      destIndex: number;
+    },
+    { getState }
+  ) => {
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+    const columnList = (getState() as RootState).columnState.columns;
+    console.log(1);
+    const { targetColumn, relocatedList } = relocateColumns({
+      columnList,
+      sourceIndex,
+      destIndex,
+    });
+    console.log(1.5);
+    const { position } = updatePositions({
+      destIndex,
+      destCardList: relocatedList,
+    });
+    console.log(2);
+    updateColumn({
+      id: targetColumn.id,
+      title: targetColumn.title,
+      boardId: boardId,
+      position,
+      idToken,
+    });
+    console.log(3);
+    return relocatedList;
   }
 );
 
 export const slice = createSlice({
   name: "column",
   initialState,
-  reducers: {
-    reorderColumns: (
-      state,
-      action: PayloadAction<{
-        sourceIndex: number;
-        destIndex: number;
-      }>
-    ) => {
-      const { sourceIndex, destIndex } = action.payload;
-
-      const columnList = [...state.columns];
-      const [targetColumn] = columnList.splice(sourceIndex, 1);
-      columnList.splice(destIndex, 0, targetColumn);
-
-      state.columns = columnList;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const columns = action.payload?.data?.columns;
+
       if (columns) {
-        state.columns = columns.map((column) =>
-          convertColumnToInnerType(column)
-        );
+        state.columns = columns
+          .map((column) => convertColumnToInnerType(column))
+          .sort((a, b) => a.position - b.position);
       }
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
@@ -89,6 +135,12 @@ export const slice = createSlice({
     builder.addCase(postColumnThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
+    builder.addCase(moveColumnThunk.fulfilled, (state, action) => {
+      state.columns = action.payload;
+    });
+    builder.addCase(moveColumnThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
   },
 });
 
@@ -97,5 +149,4 @@ export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
   state.columnState.columns.filter((column) => column.boardId === boardId);
 
 // Reducer & Actions
-export const { reorderColumns } = slice.actions;
 export const columnReducer = slice.reducer;
