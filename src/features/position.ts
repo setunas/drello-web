@@ -49,7 +49,7 @@ export const updatePositions = ({
   destCardList,
 }: {
   destIndex: number;
-  destCardList: Card[];
+  destCardList: Positionable[];
 }) => {
   const prevPosition = destCardList[destIndex - 1]?.position || 0;
   const nextPosition = destCardList[destIndex + 1]?.position || 0;
