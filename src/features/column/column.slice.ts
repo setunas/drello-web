@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
+import { postColumn } from "./column.api";
+import { calcPositionOnCreate } from "../position";
 
 interface ColumnState {
   columns: Column[];
@@ -15,22 +17,38 @@ const convertColumnToInnerType = (outerColumn: OuterColumn): Column => {
   return {
     id: outerColumn.id,
     title: outerColumn.title,
+    position: outerColumn.position,
     boardId: outerColumn.boardId,
   };
 };
+
+export const postColumnThunk = createAsyncThunk(
+  "card/postColumnThunk",
+  async (
+    { title, boardId }: { title: string; boardId: number },
+    { getState }
+  ) => {
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+
+    const columns = (getState() as RootState).columnState.columns;
+
+    const position = calcPositionOnCreate(columns || []);
+
+    const newCard = {
+      title,
+      boardId,
+      position,
+    };
+
+    return (await postColumn({ idToken, ...newCard })).data;
+  }
+);
 
 export const slice = createSlice({
   name: "column",
   initialState,
   reducers: {
-    addColumn: (state, action) => {
-      const newItem = {
-        id: Math.floor(100000 + Math.random() * 900000),
-        title: action.payload,
-        boardId: 0,
-      };
-      state.columns.push(newItem);
-    },
     reorderColumns: (
       state,
       action: PayloadAction<{
@@ -59,6 +77,18 @@ export const slice = createSlice({
     builder.addCase(getBoardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
+    builder.addCase(postColumnThunk.fulfilled, (state, action) => {
+      const column = action.payload;
+
+      if (state.columns) {
+        state.columns?.push(column);
+      } else {
+        state.columns = [column];
+      }
+    });
+    builder.addCase(postColumnThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
   },
 });
 
@@ -67,5 +97,5 @@ export const selectColumnsByBoardId = (boardId: number) => (state: RootState) =>
   state.columnState.columns.filter((column) => column.boardId === boardId);
 
 // Reducer & Actions
-export const { addColumn, reorderColumns } = slice.actions;
+export const { reorderColumns } = slice.actions;
 export const columnReducer = slice.reducer;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addColumn } from "src/features/column/column.slice";
+import { postColumnThunk } from "src/features/column/column.slice";
 
 const MainContainer = styled.div`
   display: grid;
@@ -63,17 +63,21 @@ const FAIcon = styled(FontAwesomeIcon)`
   color: ${colors.black(0.6)};
 `;
 
-type FormInputs = {
+interface FormInputs {
   title: string;
-};
+}
 
-export const NewColumn = () => {
+interface NewColumnProps {
+  boardId: number;
+}
+
+export const NewColumn = ({ boardId }: NewColumnProps) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
-    data.title.length > 0 && dispatch(addColumn(data.title));
+    dispatch(postColumnThunk({ title: data.title, boardId }));
     reset();
     setInputToggle(true);
   };
