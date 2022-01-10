@@ -13,7 +13,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
-  max-height: calc(100vh - 8rem);
+  max-height: calc(100vh - 4.7rem);
   justify-content: stretch;
   align-items: start;
   gap: 1em;
