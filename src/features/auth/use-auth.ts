@@ -37,10 +37,9 @@ export const useAuth = () => {
         dispatch(resetCurrentUser());
         if (
           typeof window !== "undefined" && // Client-side only
-          window.location.pathname !== path.signin() && // Unless user is already at signin page
-          window.location.pathname !== path.home()
+          window.location.pathname !== path.home() // Unless user is already at home page
         ) {
-          window.location.href = path.signin();
+          window.location.href = path.home();
           window.alert("Please signin.");
         }
       }
