@@ -6,7 +6,9 @@ import { useDispatch } from "react-redux";
 import { signout } from "src/features/auth/auth.slice";
 
 const Main = styled.nav`
-  display: grid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
