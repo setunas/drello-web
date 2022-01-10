@@ -7,7 +7,6 @@ import { signin } from "./auth/auth.slice";
 import { useDispatch } from "react-redux";
 
 const HeaderContainer = styled.header`
-  display: grid;
   padding: 1em 2em 0;
   @media screen and (min-width: 720px) {
     padding: 2em 10% 0;
