@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
+import { DeleteXButton } from "../delete-x-button";
 
 const MainContainer = styled.div`
   display: grid;
@@ -99,7 +100,7 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
           <Input placeholder="Enter title here..." {...register("title")} />
           <FormActions>
             <FormButton>Add Column</FormButton>
-            <FAIcon icon="times" onClick={() => setInputToggle(true)} />
+            <DeleteXButton onClick={() => setInputToggle(true)} />
           </FormActions>
         </EditContainer>
       )}

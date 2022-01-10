@@ -3,6 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { Card as CardType } from "./card.g";
 import { deleteCardThunk } from "./card.slice";
 import { useDispatch } from "react-redux";
+import { DeleteXButton } from "../delete-x-button";
 
 const CardMain = styled.div`
   display: grid;
@@ -41,7 +42,7 @@ export const Card = ({ index, card }: CardProps) => {
           {...provided.dragHandleProps}
         >
           <div>{card.title}</div>
-          <DeleteButton onClick={handleDelete}>x</DeleteButton>
+          <DeleteXButton onClick={handleDelete} />
         </CardMain>
       )}
     </Draggable>

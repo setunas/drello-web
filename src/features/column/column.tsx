@@ -6,6 +6,7 @@ import { colors } from "src/utils/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
+import { DeleteXButton } from "../delete-x-button";
 
 const Container = styled.div`
   width: 17em;
@@ -33,11 +34,6 @@ const Header = styled.div`
 const Title = styled.h4`
   width: 13em;
   color: ${colors.white()};
-`;
-
-const DeleteButton = styled.div`
-  font-weight: bold;
-  cursor: pointer;
 `;
 
 interface ColumnProps {
@@ -80,7 +76,7 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
               <Container ref={provided.innerRef} {...provided.droppableProps}>
                 <Header>
                   <Title>{title}</Title>
-                  <DeleteButton onClick={handleDelete}>x</DeleteButton>
+                  <DeleteXButton onClick={handleDelete} />
                 </Header>
                 <MemoedCardList />
                 {provided.placeholder}
