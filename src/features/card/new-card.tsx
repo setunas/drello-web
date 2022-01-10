@@ -21,6 +21,7 @@ const DisplayContainer = styled.div`
   justify-content: flex-start;
   color: ${colors.black(0.8)};
   padding: 0.5rem;
+  cursor: pointer;
   :hover {
     background-color: ${colors.black(0.3)};
   }
