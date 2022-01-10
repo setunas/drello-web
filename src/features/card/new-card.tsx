@@ -48,10 +48,12 @@ const FormButton = styled.button`
   border-radius: 0.2rem;
   color: ${colors.white(0.8)};
   background-color: ${colors.black(0.4)};
+  cursor: pointer;
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
   color: ${colors.black(0.6)};
+  cursor: pointer;
 `;
 
 interface NewCardProps {
