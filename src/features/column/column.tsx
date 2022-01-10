@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 
 const Container = styled.div`
+  width: 15em;
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
@@ -15,13 +16,9 @@ const Container = styled.div`
   align-items: start;
   gap: 1em;
   padding: 1em;
-  min-width: 15vw;
   border-radius: 0.2em;
   background-color: ${colors.greyish(0.9)};
   box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
-  @media only screen and (max-width: 720px) {
-    min-width: 20vw;
-  }
 `;
 
 const Header = styled.div`

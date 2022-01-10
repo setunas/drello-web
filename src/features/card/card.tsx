@@ -13,10 +13,6 @@ const CardMain = styled.div`
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 0.2rem;
-  max-width: 15vw;
-  @media screen and (max-width: 720px) {
-    max-width: 30vw;
-  }
 `;
 
 const DeleteButton = styled.div`
