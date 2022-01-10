@@ -53,6 +53,7 @@ const SigninButton = styled.div`
   grid-auto-flow: column;
   gap: 1em;
   align-content: center;
+  align-items: center;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
