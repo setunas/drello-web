@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 
 const Container = styled.div`
-  width: 15em;
+  width: 17em;
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;

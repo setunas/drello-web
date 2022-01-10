@@ -15,6 +15,7 @@ const MainContainer = styled.div`
 `;
 
 const DisplayContainer = styled.div`
+  width: 17em;
   display: grid;
   gap: 0.5rem;
   grid-auto-flow: column;
