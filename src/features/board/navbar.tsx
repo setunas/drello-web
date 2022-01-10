@@ -22,13 +22,13 @@ const Brand = styled.h3`
 export const Navbar = () => {
   const dispatch = useDispatch();
   const handleSignout = async () => {
-    await Router.push(path.landing());
+    await Router.push(path.home());
     dispatch(signout());
   };
 
   return (
     <Main>
-      <Link href={path.landing()}>
+      <Link href={path.home()}>
         <AnchorLink>
           <Brand>Drello</Brand>
         </AnchorLink>

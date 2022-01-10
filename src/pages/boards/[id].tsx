@@ -38,7 +38,7 @@ const BoardPage = () => {
 
   useEffect(() => {
     if (currentUser && currentUser?.boardId !== boardId) {
-      window.location.href = path.landing();
+      window.location.href = path.home();
     }
   }, [currentUser]);
 

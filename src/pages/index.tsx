@@ -8,7 +8,7 @@ import {
 } from "src/features/shared-styles";
 import { Header } from "src/features/header";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Head>
@@ -27,4 +27,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
