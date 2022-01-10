@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Link from "next/dist/client/link";
+import Link from "next/link";
+import Router from "next/router";
 import { AnchorLink } from "src/features/shared-styles";
 import { path } from "src/utils/url/drello-web";
 import { useDispatch } from "react-redux";
@@ -20,6 +21,10 @@ const Brand = styled.h3`
 
 export const Navbar = () => {
   const dispatch = useDispatch();
+  const handleSignout = async () => {
+    await Router.push(path.landing());
+    dispatch(signout());
+  };
 
   return (
     <Main>
@@ -28,11 +33,9 @@ export const Navbar = () => {
           <Brand>Drello</Brand>
         </AnchorLink>
       </Link>
-      <Link href={path.landing()}>
-        <AnchorLink>
-          <div onClick={() => dispatch(signout())}>Signout</div>
-        </AnchorLink>
-      </Link>
+      <AnchorLink>
+        <div onClick={handleSignout}>Signout</div>
+      </AnchorLink>
     </Main>
   );
 };
