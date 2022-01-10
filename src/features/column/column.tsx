@@ -35,7 +35,9 @@ const Title = styled.h4`
   color: ${colors.white()};
 `;
 
-const DeleteButton = styled.span`
+const DeleteButton = styled.div`
+  width: 2em;
+  text-align: center;
   cursor: pointer;
 `;
 
