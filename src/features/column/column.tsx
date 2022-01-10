@@ -53,6 +53,11 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
+    const isConfirmed = window.confirm(
+      `Delete a column "${title}"? All cards in the column also will be deleted.`
+    );
+    if (!isConfirmed) return;
+
     dispatch(deleteColumnThunk({ id: columnId }));
   };
 
