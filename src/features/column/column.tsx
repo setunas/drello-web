@@ -12,6 +12,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
+  max-height: calc(100vh - 8rem);
   justify-content: stretch;
   align-items: start;
   gap: 1em;
@@ -19,6 +20,7 @@ const Container = styled.div`
   border-radius: 0.2em;
   background-color: ${colors.greyish(0.9)};
   box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
+  overflow-y: auto;
 `;
 
 const Header = styled.div`
