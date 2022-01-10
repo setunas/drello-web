@@ -22,7 +22,7 @@ const HomePage = () => {
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
       </LandingMain>
-      <Footer>&copy; 2021 Setunas Team</Footer>
+      <Footer>&copy; 2022 Setunas Team</Footer>
     </>
   );
 };
