@@ -29,4 +29,8 @@ export const GlobalStyle = createGlobalStyle`
   div {
     word-wrap: break-word;
   }
+
+  button {
+    cursor: pointer;
+  }
 `;
