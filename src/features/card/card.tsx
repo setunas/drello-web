@@ -16,6 +16,7 @@ const CardMain = styled.div`
 `;
 
 const DeleteButton = styled.div`
+  font-weight: bold;
   cursor: pointer;
 `;
 
@@ -40,7 +41,7 @@ export const Card = ({ index, card }: CardProps) => {
           {...provided.dragHandleProps}
         >
           <div>{card.title}</div>
-          <DeleteButton onClick={handleDelete}>X</DeleteButton>
+          <DeleteButton onClick={handleDelete}>x</DeleteButton>
         </CardMain>
       )}
     </Draggable>

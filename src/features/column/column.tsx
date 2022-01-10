@@ -36,8 +36,7 @@ const Title = styled.h4`
 `;
 
 const DeleteButton = styled.div`
-  width: 2em;
-  text-align: center;
+  font-weight: bold;
   cursor: pointer;
 `;
 
@@ -76,7 +75,7 @@ export const Column = ({ columnId, title, index }: ColumnProps) => {
               <Container ref={provided.innerRef} {...provided.droppableProps}>
                 <Header>
                   <Title>{title}</Title>
-                  <DeleteButton onClick={handleDelete}>X</DeleteButton>
+                  <DeleteButton onClick={handleDelete}>x</DeleteButton>
                 </Header>
                 <MemoedCardList />
                 {provided.placeholder}
