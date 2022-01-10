@@ -53,7 +53,7 @@ const BoardPage = () => {
         objectPosition="center"
       />
       <Main>
-        <Navbar />
+        <Navbar boardId={boardId} />
         <Board boardId={boardId} />
       </Main>
     </>
