@@ -21,6 +21,7 @@ const Container = styled.div`
   background-color: ${colors.greyish(0.9)};
   box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
   overflow-y: auto;
+  word-wrap: break-word;
 `;
 
 const Header = styled.div`
@@ -30,6 +31,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h4`
+  width: 13em;
   color: ${colors.white()};
 `;
 
