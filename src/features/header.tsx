@@ -66,13 +66,6 @@ interface HeaderProps {
 
 export const Header = ({ title }: HeaderProps) => {
   const dispatch = useDispatch();
-  const { currentUser } = useAuth();
-
-  useEffect(() => {
-    if (currentUser) {
-      window.location.href = path.boards(currentUser.boardId);
-    }
-  }, [currentUser]);
 
   const handleSignin = () => {
     dispatch(signin());
