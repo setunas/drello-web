@@ -5,7 +5,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import { Navbar } from "src/features/board/navbar";
 import { Board } from "src/features/board/board";
-import { Subnav } from "src/features/board/subnav";
 import { imagePath } from "src/utils/url/drello-web";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/features/auth/use-auth";
