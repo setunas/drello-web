@@ -51,14 +51,15 @@ const LoginText = styled.span`
   }
 `;
 
-const InlineAnchor = {
-  display: "grid",
-  gridAutoFlow: "column",
-  gap: "1em",
-  alignContent: "center",
-  textDecoration: "none",
-  color: "inherit",
-};
+const SigninButton = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1em;
+  align-content: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+`;
 
 interface HeaderProps {
   title: string;
@@ -80,10 +81,10 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <a style={InlineAnchor} onClick={handleSignin}>
+          <SigninButton onClick={handleSignin}>
             <FontAwesomeIcon icon="sign-in-alt" />
             <LoginText>Login to get started</LoginText>
-          </a>
+          </SigninButton>
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>
