@@ -7,6 +7,7 @@ import { moveCardThunk } from "src/features/card/card.slice";
 import { moveColumnThunk } from "../column/column.slice";
 
 const Container = styled.section`
+  min-height: calc(100vh - 3rem);
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
