@@ -3,13 +3,13 @@ import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors } from "src/utils/styles";
-import { useAuth } from "./auth/use-auth";
+import { signin } from "./auth/auth.slice";
+import { useDispatch } from "react-redux";
 
 const HeaderContainer = styled.header`
-  display: grid;
-  padding: 2em 2em 0 2em;
+  padding: 1em 2em 0;
   @media screen and (min-width: 720px) {
-    padding: 5em 10em 0 10em;
+    padding: 2em 10% 0;
   }
 `;
 
@@ -19,11 +19,10 @@ const HeaderBar = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 1em 1.5em;
-  border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1em;
-  box-shadow: 0.2em 0.2em 0.3em ${colors.black(0.4)};
+  box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
   @media screen and (min-width: 720px) {
-    padding: 2em 5em;
+    padding: 1em 3em;
   }
 `;
 
@@ -48,44 +47,41 @@ const LoginText = styled.span`
   }
 `;
 
-const InlineAnchor = {
-  display: "grid",
-  gridAutoFlow: "column",
-  gap: "1em",
-  alignContent: "center",
-  textDecoration: "none",
-  color: "inherit",
-};
+const SigninButton = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1em;
+  align-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+`;
 
 interface HeaderProps {
   title: string;
 }
 
 export const Header = ({ title }: HeaderProps) => {
-  const { currentUser } = useAuth();
+  const dispatch = useDispatch();
+
+  const handleSignin = () => {
+    dispatch(signin());
+  };
+
   return (
     <HeaderContainer>
       <HeaderBar>
-        <Link href={path.landing()}>
+        <Link href={path.home()}>
           <a>
             <HeaderBrand>{title}</HeaderBrand>
           </a>
         </Link>
         <LeftNavItems>
-          {currentUser ? (
-            <Link href={path.boards(currentUser.boardId)}>
-              <a style={InlineAnchor}>
-                <LoginText>Drello Board</LoginText>
-              </a>
-            </Link>
-          ) : (
-            <Link href={path.signin()}>
-              <a style={InlineAnchor}>
-                <FontAwesomeIcon icon="sign-in-alt" />
-                <LoginText>Login to get started</LoginText>
-              </a>
-            </Link>
-          )}
+          <SigninButton onClick={handleSignin}>
+            <FontAwesomeIcon icon="sign-in-alt" />
+            <LoginText>Login to get started</LoginText>
+          </SigninButton>
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>

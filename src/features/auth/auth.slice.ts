@@ -10,6 +10,8 @@ import {
 import { getUser, postUser } from "src/features/user/user.api";
 import { User as InnerUser } from "src/features/user/user.g";
 import { getCurrentUserByIdToken } from "../user/user.slice";
+import Router from "next/router";
+import { path } from "src/utils/url/drello-web";
 
 interface AuthState {
   idToken: string | null;
@@ -36,6 +38,7 @@ export const signin = createAsyncThunk("auth/signin", async () => {
     currentUser = data;
   }
 
+  Router.push(path.boards(currentUser.boardId));
   return { currentUser, idToken };
 });
 

@@ -1,18 +1,24 @@
 import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 import { Card as CardType } from "./card.g";
+import { deleteCardThunk } from "./card.slice";
+import { useDispatch } from "react-redux";
+import { DeleteXButton } from "../delete-x-button";
 
 const CardMain = styled.div`
   display: grid;
+  grid-template-columns: calc(100% - 20px) 10px;
+  justify-content: space-between;
   padding: 1em;
   font-size: 0.9rem;
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 0.2rem;
-  max-width: 15vw;
-  @media screen and (max-width: 720px) {
-    max-width: 30vw;
-  }
+`;
+
+const DeleteButton = styled.div`
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 interface CardProps {
@@ -21,6 +27,12 @@ interface CardProps {
 }
 
 export const Card = ({ index, card }: CardProps) => {
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteCardThunk({ id: card.id, columnId: card.columnId }));
+  };
+
   return (
     <Draggable draggableId={card.id.toString()} index={index}>
       {(provided) => (
@@ -29,7 +41,8 @@ export const Card = ({ index, card }: CardProps) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {card.title}
+          <div>{card.title}</div>
+          <DeleteXButton onClick={handleDelete} />
         </CardMain>
       )}
     </Draggable>

@@ -3,8 +3,8 @@ import { NewColumn } from "src/features/column/new-column";
 import { ColumnList } from "src/features/column/column-list";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { moveCards } from "src/features/card/card.slice";
-import { reorderColumns } from "../column/column.slice";
+import { moveCardThunk } from "src/features/card/card.slice";
+import { moveColumnThunk } from "../column/column.slice";
 
 const Container = styled.section`
   display: grid;
@@ -28,32 +28,31 @@ export const Board = ({ boardId }: BoardProps) => {
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
     if (!destination) return; // Dropped outside the list
 
-    const startIndex = source.index;
-    const endIndex = destination.index;
+    const sourceIndex = source.index;
+    const destIndex = destination.index;
 
     const regex = /column-(\d+)/i;
     const found = draggableId.match(regex);
     if (found?.length) {
       // a column is being dragging
 
-      if (startIndex === endIndex) return; // Dropped at the original position (= No change)
+      if (sourceIndex === destIndex) return; // Dropped at the original position (= No change)
 
-      dispatch(reorderColumns({ startIndex, endIndex }));
+      dispatch(moveColumnThunk({ boardId, sourceIndex, destIndex }));
     } else {
       // a card is being dragging
-      const startColumnId = parseInt(source.droppableId);
-      const endColumnId = parseInt(destination.droppableId);
+      const sourceColumnId = parseInt(source.droppableId);
+      const destColumnId = parseInt(destination.droppableId);
 
       // Dropped at the original position (= No change)
-      if (startIndex === endIndex && startColumnId === endColumnId) return;
+      if (sourceIndex === destIndex && sourceColumnId === destColumnId) return;
 
       dispatch(
-        moveCards({
-          targetCardId: parseInt(draggableId),
-          startIndex,
-          endIndex,
-          startColumnId,
-          endColumnId,
+        moveCardThunk({
+          sourceIndex,
+          destIndex,
+          sourceColumnId,
+          destColumnId,
         })
       );
     }
@@ -70,7 +69,7 @@ export const Board = ({ boardId }: BoardProps) => {
           <Container ref={provided.innerRef} {...provided.droppableProps}>
             <ColumnList boardId={boardId} />
             {provided.placeholder}
-            <NewColumn />
+            <NewColumn boardId={boardId} />
           </Container>
         )}
       </Droppable>
