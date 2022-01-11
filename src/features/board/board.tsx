@@ -5,9 +5,10 @@ import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { moveCardThunk } from "src/features/card/card.slice";
 import { moveColumnThunk } from "../column/column.slice";
+import { columnHeight } from "../column/column";
 
 const Container = styled.section`
-  min-height: calc(100vh - 3rem);
+  min-height: calc(${columnHeight});
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;

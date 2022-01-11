@@ -8,12 +8,14 @@ import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 import { DeleteXButton } from "../delete-x-button";
 
+export const columnHeight = "100vh - 4.7rem";
+
 const Container = styled.div`
   width: 17em;
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
-  max-height: calc(100vh - 4.7rem);
+  max-height: calc(${columnHeight});
   justify-content: stretch;
   align-items: start;
   gap: 1em;
