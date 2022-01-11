@@ -22,7 +22,6 @@ const Container = styled.div`
   padding: 1em;
   border-radius: 0.2em;
   background-color: ${colors.greyish(0.9)};
-  box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
   overflow-y: auto;
   word-wrap: break-word;
 `;
