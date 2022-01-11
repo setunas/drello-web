@@ -2,24 +2,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import Image from "next/image";
 import { Navbar } from "src/features/board/navbar";
 import { Board } from "src/features/board/board";
-import { imagePath } from "src/utils/url/drello-web";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/features/auth/use-auth";
 import { path } from "src/utils/url/drello-web";
+import { zIndex } from "src/utils/styles";
 
 const Main = styled.main`
   display: grid;
   grid-auto-rows: min-content;
   height: 100vh;
-  z-index: 0;
-`;
-
-const BoardImage = styled(Image)`
-  height: 100vh;
-  z-index: -99;
+  z-index: ${zIndex.mainOfBoardPage};
 `;
 
 const BoardPage = () => {
@@ -44,19 +38,10 @@ const BoardPage = () => {
 
   if (!board) return null;
   return (
-    <>
-      <BoardImage
-        src={board.boardImage?.src || imagePath.template1}
-        alt={board.boardImage?.alt}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      />
-      <Main>
-        <Navbar boardId={boardId} />
-        <Board boardId={boardId} />
-      </Main>
-    </>
+    <Main>
+      <Navbar boardId={boardId} />
+      <Board boardId={boardId} />
+    </Main>
   );
 };
 

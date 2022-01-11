@@ -5,4 +5,6 @@ export const colors = {
   brandGrey: (opacity: number = 1) => `rgb(112, 112, 112, ${opacity})`,
 };
 
-export const zIndex = {};
+export const zIndex = {
+  mainOfBoardPage: 0,
+};
