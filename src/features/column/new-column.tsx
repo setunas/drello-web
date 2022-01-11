@@ -25,10 +25,10 @@ const DisplayContainer = styled.div`
   justify-content: flex-start;
   padding: 0.5rem 2rem;
   color: ${colors.black(0.8)};
-  background-color: ${colors.greyish(0.6)};
+  background-color: ${colors.greyish(0.9)};
   cursor: pointer;
   :hover {
-    background-color: ${colors.greyish(0.8)};
+    background-color: ${colors.greyish()};
   }
 `;
 
