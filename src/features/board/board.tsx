@@ -27,7 +27,7 @@ export const Board = ({ boardId }: BoardProps) => {
   const dispatch = useDispatch();
 
   const onDragEnd = ({ source, destination, draggableId }: DropResult) => {
-    if (!destination) return; // Dropped outside the list
+    if (!destination) return; // Dropped outside the list.
 
     const sourceIndex = source.index;
     const destIndex = destination.index;
