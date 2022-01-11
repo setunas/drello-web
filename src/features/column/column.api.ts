@@ -36,3 +36,9 @@ export const updateColumn = async (args: {
     headers: { Authorization: `Bearer ${args.idToken}` },
   });
 };
+
+export const deleteColumn = async (args: { id: number; idToken: string }) => {
+  return await drelloApiAxios.delete<OuterColumn>(path.columns(args.id), {
+    headers: { Authorization: `Bearer ${args.idToken}` },
+  });
+};

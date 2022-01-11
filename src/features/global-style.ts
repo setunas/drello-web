@@ -24,4 +24,8 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  div {
+    word-wrap: break-word;
+  }
 `;
