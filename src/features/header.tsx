@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors } from "src/utils/styles";
 import { signin } from "./auth/auth.slice";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderContainer = styled.header`
   padding: 1em 2em 0;
@@ -79,7 +80,7 @@ export const Header = ({ title }: HeaderProps) => {
         </Link>
         <LeftNavItems>
           <SigninButton onClick={handleSignin}>
-            <FontAwesomeIcon icon="sign-in-alt" />
+            <FontAwesomeIcon icon={faSignInAlt} />
             <LoginText>Login to get started</LoginText>
           </SigninButton>
         </LeftNavItems>

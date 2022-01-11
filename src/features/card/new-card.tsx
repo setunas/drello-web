@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
@@ -78,7 +79,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
 
   return inputToggle ? (
     <DisplayContainer onClick={() => setInputToggle(false)}>
-      <FAIcon icon="plus" />
+      <FAIcon icon={faPlus} />
       <span>Add a Card</span>
     </DisplayContainer>
   ) : (
