@@ -2,12 +2,10 @@ import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors, fontFamily } from "src/utils/styles";
-import { signin } from "../auth/auth.slice";
-import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
+import { GoToBoardButton } from "./go-to-board-button";
+import { SigninButton } from "./signin-button";
 
 const HeaderContainer = styled.header`
   padding: 1em 2em 0;
@@ -45,53 +43,10 @@ const LeftNavItems = styled.div`
   align-content: center;
 `;
 
-const LoginText = styled.span`
-  display: none;
-  @media screen and (min-width: 720px) {
-    display: block;
-  }
-`;
-
-const SigninButtonWrapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: 1em;
-  align-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: ${colors.brandGrey()};
-  cursor: pointer;
-`;
-
 interface HeaderProps {
   title: string;
   boardId: number;
 }
-
-interface GoToBoardButtonProps {
-  boardId: number;
-}
-
-const GoToBoardButton: FC<GoToBoardButtonProps> = ({ boardId }) => {
-  return <Link href={path.boards(boardId)}>Go to Board</Link>;
-};
-
-const SigninButton = () => {
-  const dispatch = useDispatch();
-
-  const handleSignin = () => {
-    dispatch(signin());
-  };
-
-  return (
-    <>
-      <SigninButtonWrapper onClick={handleSignin}>
-        <FontAwesomeIcon icon={faSignInAlt} />
-        <LoginText>Login to get started</LoginText>
-      </SigninButtonWrapper>
-    </>
-  );
-};
 
 export const Header: FC<HeaderProps> = ({ title }) => {
   const { currentUser } = useAuth();
