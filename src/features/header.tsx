@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { colors } from "src/utils/styles";
+import { colors, fontFamily } from "src/utils/styles";
 import { signin } from "./auth/auth.slice";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,7 +28,7 @@ const HeaderBar = styled.div`
 `;
 
 const HeaderBrand = styled.h3`
-  font-family: "Arapey", serif;
+  font-family: ${fontFamily.brand};
   font-size: 1.7em;
   color: ${colors.brandGrey()};
   @media screen and (min-width: 720px) {

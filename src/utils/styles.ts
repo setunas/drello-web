@@ -8,3 +8,8 @@ export const colors = {
 export const zIndex = {
   mainOfBoardPage: 0,
 };
+
+export const fontFamily = {
+  brand: `"Arapey", serif`,
+  primary: "Trebuchet MS",
+};

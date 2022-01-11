@@ -1,3 +1,4 @@
+import { fontFamily } from "src/utils/styles";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -13,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, #__next {
-    font-family: "Trebuchet MS";
+    font-family: ${fontFamily.primary};
   }
 
   #__next {

@@ -1,4 +1,4 @@
-import { colors } from "src/utils/styles";
+import { colors, fontFamily } from "src/utils/styles";
 import styled from "styled-components";
 
 export const Main = styled.main`
@@ -27,7 +27,7 @@ export const Headline = styled.article`
 `;
 
 export const HeadlineMain = styled.h2`
-  font-family: "Arapey", serif;
+  font-family: ${fontFamily.brand};
   font-size: 2em;
 `;
 
