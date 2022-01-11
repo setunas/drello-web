@@ -8,6 +8,12 @@ import {
 } from "src/features/shared-styles";
 import { Header } from "src/features/header/header";
 import { url } from "src/utils/url/others";
+import { colors } from "src/utils/styles";
+import styled from "styled-components";
+
+const InnerLink = styled.span`
+  color: ${colors.brandGrey()}; /* To change the color of the visited link in Safari */
+`;
 
 const HomePage = () => {
   return (
@@ -25,7 +31,7 @@ const HomePage = () => {
       </LandingMain>
       <Footer>
         <a href={url.setunasGithub} target="_blank" rel="noreferrer">
-          &copy; 2022 Setunas Team
+          <InnerLink>&copy; 2022 Setunas Team</InnerLink>
         </a>
       </Footer>
     </>
