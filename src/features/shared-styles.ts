@@ -37,4 +37,5 @@ export const HeadlineSub = styled.h3`
 export const AnchorLink = styled.a`
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 `;

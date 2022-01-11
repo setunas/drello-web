@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -8,11 +8,9 @@ import {
 } from "src/features/auth/auth.slice";
 import { path } from "src/utils/url/drello-web";
 import {
-  getCurrentUserByIdToken,
   resetCurrentUser,
   selectCurrentUser,
 } from "src/features/user/user.slice";
-import { User } from "src/features/user/user.api";
 import { AppThunkDispatch } from "src/utils/redux/store";
 
 /**
@@ -39,9 +37,9 @@ export const useAuth = () => {
         dispatch(resetCurrentUser());
         if (
           typeof window !== "undefined" && // Client-side only
-          window.location.pathname !== path.signin() // Unless user is already at signin page
+          window.location.pathname !== path.home() // Unless user is already at home page
         ) {
-          window.location.href = path.signin();
+          window.location.href = path.home();
           window.alert("Please signin.");
         }
       }

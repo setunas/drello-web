@@ -8,7 +8,7 @@ import {
 } from "src/features/shared-styles";
 import { Header } from "src/features/header";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Head>
@@ -22,9 +22,9 @@ const Home = () => {
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
       </LandingMain>
-      <Footer>&copy; 2021 Setunas Team</Footer>
+      <Footer>&copy; 2022 Setunas Team</Footer>
     </>
   );
 };
 
-export default Home;
+export default HomePage;

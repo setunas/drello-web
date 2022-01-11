@@ -1,6 +1,5 @@
 export const path = {
-  landing: () => `/`,
-  signin: (id?: number) => (id ? `/signin/${id}` : `/signin`),
+  home: () => `/`,
   boards: (id?: number) => (id ? `/boards/${id}` : `/boards`),
 };
 

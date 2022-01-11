@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { addColumn } from "src/features/column/column.slice";
+import { postColumnThunk } from "src/features/column/column.slice";
+import { DeleteXButton } from "../delete-x-button";
 
 const MainContainer = styled.div`
   display: grid;
@@ -15,6 +16,7 @@ const MainContainer = styled.div`
 `;
 
 const DisplayContainer = styled.div`
+  width: 17em;
   display: grid;
   gap: 0.5rem;
   grid-auto-flow: column;
@@ -23,12 +25,14 @@ const DisplayContainer = styled.div`
   padding: 0.5rem 2rem;
   color: ${colors.black(0.8)};
   background-color: ${colors.greyish(0.6)};
+  cursor: pointer;
   :hover {
     background-color: ${colors.greyish(0.8)};
   }
 `;
 
 const EditContainer = styled.form`
+  width: 17em;
   display: grid;
   gap: 0.5rem;
   padding: 0.5rem;
@@ -57,23 +61,29 @@ const FormButton = styled.button`
   border-radius: 0.2rem;
   color: ${colors.white(0.8)};
   background-color: ${colors.black(0.4)};
+  cursor: pointer;
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
   color: ${colors.black(0.6)};
+  cursor: pointer;
 `;
 
-type FormInputs = {
+interface FormInputs {
   title: string;
-};
+}
 
-export const NewColumn = () => {
+interface NewColumnProps {
+  boardId: number;
+}
+
+export const NewColumn = ({ boardId }: NewColumnProps) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
-    data.title.length > 0 && dispatch(addColumn(data.title));
+    dispatch(postColumnThunk({ title: data.title, boardId }));
     reset();
     setInputToggle(true);
   };
@@ -90,7 +100,7 @@ export const NewColumn = () => {
           <Input placeholder="Enter title here..." {...register("title")} />
           <FormActions>
             <FormButton>Add Column</FormButton>
-            <FAIcon icon="times" onClick={() => setInputToggle(true)} />
+            <DeleteXButton onClick={() => setInputToggle(true)} />
           </FormActions>
         </EditContainer>
       )}

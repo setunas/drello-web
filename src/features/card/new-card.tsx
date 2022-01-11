@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
-import { addCard } from "src/features/card/card.slice";
+import { postCardThunk } from "src/features/card/card.slice";
+import { DeleteXButton } from "../delete-x-button";
 
 const FormContainer = styled.form`
   display: grid;
@@ -21,6 +22,7 @@ const DisplayContainer = styled.div`
   justify-content: flex-start;
   color: ${colors.black(0.8)};
   padding: 0.5rem;
+  cursor: pointer;
   :hover {
     background-color: ${colors.black(0.3)};
   }
@@ -47,10 +49,12 @@ const FormButton = styled.button`
   border-radius: 0.2rem;
   color: ${colors.white(0.8)};
   background-color: ${colors.black(0.4)};
+  cursor: pointer;
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
   color: ${colors.black(0.6)};
+  cursor: pointer;
 `;
 
 interface NewCardProps {
@@ -67,12 +71,9 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   const [inputToggle, setInputToggle] = useState(true);
 
   const addCardHandler: SubmitHandler<FormInputs> = (data) => {
-    /* TODO: Implement add Card function */
-    data.cardTitle.length > 0 &&
-      dispatch(addCard({ title: data.cardTitle, columnId }));
+    dispatch(postCardThunk({ title: data.cardTitle, columnId }));
     reset();
     setInputToggle(true);
-    console.log("Implement function to addCard ideally with redux");
   };
 
   return inputToggle ? (
@@ -85,7 +86,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
       <CardInput placeholder="Enter title here..." {...register("cardTitle")} />
       <FormActions>
         <FormButton>Add Card</FormButton>
-        <FAIcon icon="times" onClick={() => setInputToggle(true)} />
+        <DeleteXButton onClick={() => setInputToggle(true)} />
       </FormActions>
     </FormContainer>
   );
