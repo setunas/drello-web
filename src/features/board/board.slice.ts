@@ -1,18 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getBoard } from "src/features/board/board.api";
-import { Board as innerBoard } from "src/features/board/board.g";
-import { Board as OuterBoard } from "src/features/board/board.api";
+import { Board, OuterBoard } from "src/features/board/board.g";
 import { RootState } from "src/utils/redux/root";
 
 interface BoardState {
-  boards: innerBoard[];
+  boards: Board[];
 }
 
 const initialState: BoardState = {
   boards: [],
 };
 
-const convertBoardToInnerType = (ob: OuterBoard): innerBoard => {
+const convertBoardToInnerType = (ob: OuterBoard): Board => {
   return {
     id: ob.id,
     title: ob.title,

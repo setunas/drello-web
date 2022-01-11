@@ -4,6 +4,7 @@ export const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
 
   html, body, #__next {
@@ -23,5 +24,13 @@ export const GlobalStyle = createGlobalStyle`
   
   a {
     text-decoration: none;
+  }
+
+  div {
+    word-wrap: break-word;
+  }
+
+  button {
+    cursor: pointer;
   }
 `;

@@ -1,144 +1,242 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Card as InnerCard } from "src/features/card/card.g";
-import { Card as OuterCard } from "src/features/board/board.api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Card, OuterCard } from "src/features/card/card.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
+import { deleteCard, postCard, updateCard } from "./card.api";
+import { calcPositionOnCreate, updatePositions } from "../position";
 
-interface CardState {
-  cardsByColumnId: Record<number, InnerCard[]>;
+export interface CardState {
+  cardsByColumn: { [columnId: number]: Card[] | undefined };
 }
 
 const initialState: CardState = {
-  cardsByColumnId: {},
+  cardsByColumn: {},
 };
 
-const convertCardToInnerType = (outerCard: OuterCard): InnerCard => {
+const convertCardToInnerType = (outerCard: OuterCard): Card => {
   return {
     id: outerCard.id,
     title: outerCard.title,
     columnId: outerCard.columnId,
-    nextCardId: outerCard.nextCardId,
+    position: outerCard.position,
   };
+};
+
+export const postCardThunk = createAsyncThunk(
+  "card/postCardThunk",
+  async (
+    { title, columnId }: { title: string; columnId: number },
+    { getState }
+  ) => {
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+
+    const cards = (getState() as RootState).cardState.cardsByColumn[columnId];
+
+    const position = calcPositionOnCreate(cards || []);
+
+    const newCard = {
+      title,
+      columnId,
+      position,
+    };
+
+    return (await postCard({ idToken, ...newCard })).data;
+  }
+);
+
+const relocateCards = ({
+  cardsByColumn,
+  sourceIndex,
+  destIndex,
+  sourceColumnId,
+  destColumnId,
+}: {
+  cardsByColumn: CardState["cardsByColumn"];
+  sourceIndex: number;
+  destIndex: number;
+  sourceColumnId: number;
+  destColumnId: number;
+}) => {
+  let sourceCardList = cardsByColumn[sourceColumnId];
+  let destCardList = cardsByColumn[destColumnId] || [];
+
+  if (!sourceCardList) {
+    throw new Error(
+      `No source card list is found by the provided coulmn IDs: ${sourceColumnId}`
+    );
+  }
+
+  sourceCardList = [...sourceCardList];
+  // If the target card is moved to the same column,
+  // the cardList of the destination will be same as the source one.
+  destCardList =
+    sourceColumnId === destColumnId ? sourceCardList : [...destCardList];
+
+  const [targetCard] = sourceCardList.splice(sourceIndex, 1);
+  destCardList.splice(destIndex, 0, targetCard);
+
+  return { targetCard, sourceCardList, destCardList };
+};
+
+export const moveCardThunk = createAsyncThunk(
+  "card/moveCardThunk",
+  async (
+    {
+      sourceIndex,
+      destIndex,
+      sourceColumnId,
+      destColumnId,
+    }: {
+      sourceIndex: number;
+      destIndex: number;
+      sourceColumnId: number;
+      destColumnId: number;
+    },
+    { getState }
+  ) => {
+    const idToken = (getState() as RootState).authState.idToken;
+    if (!idToken) throw new Error("Need IdToken");
+    const cardsByColumn = (getState() as RootState).cardState.cardsByColumn;
+
+    const { targetCard, sourceCardList, destCardList } = relocateCards({
+      cardsByColumn,
+      sourceColumnId,
+      sourceIndex,
+      destColumnId,
+      destIndex,
+    });
+
+    const { position } = updatePositions({
+      destIndex,
+      list: destCardList,
+    });
+
+    const updatedCard = {
+      id: targetCard.id,
+      title: targetCard.title,
+      columnId: destColumnId,
+      position,
+    };
+
+    updateCard({
+      ...updatedCard,
+      idToken,
+    });
+
+    destCardList[destIndex] = updatedCard;
+    return {
+      sourceColumnId,
+      sourceCardList,
+      destColumnId,
+      destCardList,
+    };
+  }
+);
+
+export const deleteCardThunk = createAsyncThunk(
+  "card/deleteCardThunk",
+  async (
+    {
+      id,
+      columnId,
+    }: {
+      id: number;
+      columnId: number;
+    },
+    { getState }
+  ) => {
+    const { idToken } = (getState() as RootState).authState;
+    if (!idToken) throw new Error("Need IdToken");
+
+    await deleteCard({ id, idToken });
+    return { id, columnId };
+  }
+);
+
+const sortCardsOnFetch = (cards: Card[]) => {
+  const cardMap = new Map<number, Card[]>();
+  const cardsByColumn: CardState["cardsByColumn"] = {};
+
+  cards.forEach((card) => {
+    const cardList = cardMap.get(card.columnId) || [];
+    cardList.push(card);
+    cardMap.set(card.columnId, cardList);
+  });
+
+  cardMap.forEach((cardList, columnId) => {
+    cardList.sort((a, b) => a.position - b.position);
+    cardsByColumn[columnId] = cardList;
+  });
+
+  return cardsByColumn;
 };
 
 export const slice = createSlice({
   name: "card",
   initialState,
-  reducers: {
-    // [TODO] Set proper type to action
-    addCard: (state, action) => {
-      const newItem = {
-        id: Math.floor(100000 + Math.random() * 900000),
-        title: action.payload.title,
-        columnId: action.payload.columnId,
-        nextCardId: action.payload.nextCardId,
-      };
-      state.cardsByColumnId[action.payload.columnId].push(newItem);
-    },
-    /**
-     * This reducer is temporary implemented.
-     * [TODO]: Use thunk later to connect to APIs
-     */
-    moveCards: (
-      state,
-      action: PayloadAction<{
-        targetCardId: number;
-        startIndex: number;
-        endIndex: number;
-        startColumnId: number;
-        endColumnId: number;
-      }>
-    ) => {
-      const { targetCardId, startIndex, endIndex, startColumnId, endColumnId } =
-        action.payload;
-
-      const checkCardIds = (
-        manipulatedCardId: number,
-        targetCardId: number
-      ) => {
-        if (manipulatedCardId !== targetCardId) {
-          // Unexpected card is chosen
-          window.alert("Failed moving the card. Please try again.");
-          return state;
-        }
-      };
-
-      if (startColumnId === endColumnId) {
-        // Reorder cards in the same column.
-        const targetCardList = [...state.cardsByColumnId[startColumnId]];
-        const [targetCard] = targetCardList.splice(startIndex, 1);
-        targetCardList.splice(endIndex, 0, targetCard);
-
-        const updateLinkedListPointers = () => {
-          const nextSourseCardId = targetCardList[startIndex + 1]?.id || null;
-
-          if (startIndex > 0) {
-            // There is a previous card. Need to update next ID of previous card.
-            const prevSourseCard = targetCardList[startIndex - 1];
-            prevSourseCard.nextCardId = nextSourseCardId;
-          } else {
-            // There is no previous card. Need to update head's card ID of target column.
-            // [TODO]: Update headerCardId of column state
-          }
-
-          const nextDestCardId = targetCardList[endIndex + 1]?.id || null;
-          targetCard.nextCardId = nextDestCardId;
-        };
-        updateLinkedListPointers();
-
-        checkCardIds(targetCard.id, targetCardId);
-
-        // [TODO]: Hit APIs to update data in database
-
-        state.cardsByColumnId[startColumnId] = targetCardList;
-        return state;
-      } else {
-        // Reorder cards across different columns.
-        const sourceCardList = [...state.cardsByColumnId[startColumnId]];
-        const [targetCard] = sourceCardList.splice(startIndex, 1);
-        const destCardList = [...state.cardsByColumnId[endColumnId]];
-        destCardList.splice(endIndex, 0, targetCard);
-
-        // [TODO]: Enable to change nextCardId and headCardID then hit API to update data in database.
-
-        checkCardIds(targetCard.id, targetCardId);
-
-        state.cardsByColumnId[startColumnId] = sourceCardList;
-        state.cardsByColumnId[endColumnId] = destCardList;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getBoardThunk.fulfilled, (state, action) => {
       const cards = action.payload?.data?.cards;
       if (!cards) {
-        state.cardsByColumnId = [];
+        state.cardsByColumn = {};
         return state;
       }
 
-      const cardsByColumnId: Record<number, InnerCard[]> = {};
-      cards
-        .map((card) => convertCardToInnerType(card))
-        .forEach((card) => {
-          if (cardsByColumnId[card.columnId]) {
-            cardsByColumnId[card.columnId].push(card);
-          } else {
-            cardsByColumnId[card.columnId] = [card];
-          }
-        });
-
-      state.cardsByColumnId = cardsByColumnId;
+      state.cardsByColumn = sortCardsOnFetch(
+        cards.map((card) => convertCardToInnerType(card))
+      );
     });
     builder.addCase(getBoardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(postCardThunk.fulfilled, (state, action) => {
+      const card = action.payload;
+
+      if (state.cardsByColumn[card.columnId]) {
+        state.cardsByColumn[card.columnId]?.push(card);
+      } else {
+        state.cardsByColumn[card.columnId] = [card];
+      }
+    });
+    builder.addCase(postCardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(moveCardThunk.fulfilled, (state, action) => {
+      const { sourceCardList, sourceColumnId, destCardList, destColumnId } =
+        action.payload;
+
+      if (sourceColumnId === destColumnId) {
+        state.cardsByColumn[destColumnId] = destCardList;
+      } else {
+        state.cardsByColumn[sourceColumnId] = sourceCardList;
+        state.cardsByColumn[destColumnId] = destCardList;
+      }
+    });
+    builder.addCase(moveCardThunk.rejected, (state, action) => {
+      console.error(action.error.message);
+    });
+    builder.addCase(deleteCardThunk.fulfilled, (state, action) => {
+      const { id, columnId } = action.payload;
+
+      const filterdCardList = state.cardsByColumn[columnId]?.filter(
+        (card) => card.id !== id
+      );
+
+      state.cardsByColumn[columnId] = filterdCardList;
+    });
+    builder.addCase(deleteCardThunk.rejected, (state, action) => {
       console.error(action.error.message);
     });
   },
 });
 
 // Selectors
+export const selectCardsByColumn = () => (state: RootState) =>
+  state.cardState.cardsByColumn;
 export const selectCardsByColumnId = (columnId: number) => (state: RootState) =>
-  state.cardState.cardsByColumnId[columnId];
+  state.cardState.cardsByColumn[columnId];
 
 // Reducer & Actions
-export const { addCard, moveCards } = slice.actions;
 export const cardReducer = slice.reducer;

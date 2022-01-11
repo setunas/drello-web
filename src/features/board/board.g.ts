@@ -1,5 +1,5 @@
-import { Column } from "src/features/column/column.g";
-import { Card } from "src/features/card/card.g";
+import { Column, OuterColumn } from "src/features/column/column.g";
+import { Card, OuterCard } from "src/features/card/card.g";
 
 export interface Stats {
   id?: number;
@@ -10,6 +10,13 @@ export interface Stats {
 export interface BoardImage {
   src: string;
   alt: string;
+}
+
+export interface OuterBoard {
+  id: number;
+  title: string;
+  columns?: OuterColumn[];
+  cards?: OuterCard[];
 }
 
 export interface Board {

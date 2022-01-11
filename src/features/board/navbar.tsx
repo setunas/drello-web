@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import Link from "next/dist/client/link";
+import Link from "next/link";
+import Router from "next/router";
 import { AnchorLink } from "src/features/shared-styles";
 import { path } from "src/utils/url/drello-web";
 import { useDispatch } from "react-redux";
 import { signout } from "src/features/auth/auth.slice";
 
 const Main = styled.nav`
-  display: grid;
-  grid-template-columns: min-content max-content;
-  align-items: center;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
@@ -19,21 +19,28 @@ const Brand = styled.h3`
   font-size: 1.4rem;
 `;
 
-export const Navbar = () => {
+interface NavbarProps {
+  boardId: number;
+}
+
+export const Navbar = ({ boardId }: NavbarProps) => {
   const dispatch = useDispatch();
+
+  const handleSignout = async () => {
+    await Router.push(path.home());
+    dispatch(signout());
+  };
 
   return (
     <Main>
-      <Link href={path.landing()}>
+      <Link href={path.boards(boardId)}>
         <AnchorLink>
           <Brand>Drello</Brand>
         </AnchorLink>
       </Link>
-      <Link href={path.landing()}>
-        <AnchorLink>
-          <div onClick={() => dispatch(signout())}>Signout</div>
-        </AnchorLink>
-      </Link>
+      <AnchorLink>
+        <div onClick={handleSignout}>Signout</div>
+      </AnchorLink>
     </Main>
   );
 };
