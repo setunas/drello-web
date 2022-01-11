@@ -29,7 +29,7 @@ const HeaderBar = styled.div`
 const HeaderBrand = styled.h3`
   font-family: "Arapey", serif;
   font-size: 1.7em;
-  color: #707070;
+  color: ${colors.brandGrey()};
   @media screen and (min-width: 720px) {
     font-size: 2em;
   }
@@ -54,7 +54,7 @@ const SigninButton = styled.div`
   align-content: center;
   align-items: center;
   text-decoration: none;
-  color: inherit;
+  color: ${colors.brandGrey()};
   cursor: pointer;
 `;
 
