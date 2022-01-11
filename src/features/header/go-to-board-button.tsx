@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const InnerLink = styled.span`
   color: inherit; /* To change the color of the visited link in Safari*/
+  cursor: pointer;
 `;
 
 interface GoToBoardButtonProps {
