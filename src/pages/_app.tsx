@@ -1,6 +1,5 @@
 import { Provider } from "react-redux";
 import { store } from "src/utils/redux/store";
-import { ThemeProvider } from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
