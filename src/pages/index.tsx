@@ -6,7 +6,7 @@ import {
   HeadlineMain,
   HeadlineSub,
 } from "src/features/shared-styles";
-import { Header } from "src/features/header";
+import { Header } from "src/features/header/header";
 import { url } from "src/utils/url/others";
 
 const HomePage = () => {

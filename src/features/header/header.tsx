@@ -2,11 +2,11 @@ import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors, fontFamily } from "src/utils/styles";
-import { signin } from "./auth/auth.slice";
+import { signin } from "../auth/auth.slice";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "./auth/use-auth";
+import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 
 const HeaderContainer = styled.header`
