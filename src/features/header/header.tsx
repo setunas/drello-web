@@ -45,7 +45,6 @@ const LeftNavItems = styled.div`
 
 interface HeaderProps {
   title: string;
-  boardId: number;
 }
 
 export const Header: FC<HeaderProps> = ({ title }) => {
