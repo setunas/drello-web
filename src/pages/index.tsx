@@ -24,7 +24,7 @@ const HomePage = () => {
         </Headline>
       </LandingMain>
       <Footer>
-        <a href={url.setunasGithub} target="_blank">
+        <a href={url.setunasGithub} target="_blank" rel="noreferrer">
           &copy; 2022 Setunas Team
         </a>
       </Footer>
