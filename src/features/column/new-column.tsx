@@ -17,13 +17,14 @@ const MainContainer = styled.div`
 `;
 
 const DisplayContainer = styled.div`
+  border-radius: 0.2em;
+  padding: 0.5rem 2rem;
   width: 17em;
   display: grid;
   gap: 0.5rem;
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.5rem 2rem;
   color: ${colors.black(0.8)};
   background-color: ${colors.greyish(0.9)};
   cursor: pointer;
