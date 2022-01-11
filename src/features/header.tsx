@@ -6,9 +6,13 @@ import { signin } from "./auth/auth.slice";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "./auth/use-auth";
+import { FC } from "react";
 
 const HeaderContainer = styled.header`
   padding: 1em 2em 0;
+  color: ${colors.brandGrey()};
+
   @media screen and (min-width: 720px) {
     padding: 2em 10% 0;
   }
@@ -48,7 +52,7 @@ const LoginText = styled.span`
   }
 `;
 
-const SigninButton = styled.div`
+const SigninButtonWrapper = styled.div`
   display: grid;
   grid-auto-flow: column;
   gap: 1em;
@@ -61,14 +65,36 @@ const SigninButton = styled.div`
 
 interface HeaderProps {
   title: string;
+  boardId: number;
 }
 
-export const Header = ({ title }: HeaderProps) => {
+interface GoToBoardButtonProps {
+  boardId: number;
+}
+
+const GoToBoardButton: FC<GoToBoardButtonProps> = ({ boardId }) => {
+  return <Link href={path.boards(boardId)}>Go to Board</Link>;
+};
+
+const SigninButton = () => {
   const dispatch = useDispatch();
 
   const handleSignin = () => {
     dispatch(signin());
   };
+
+  return (
+    <>
+      <SigninButtonWrapper onClick={handleSignin}>
+        <FontAwesomeIcon icon={faSignInAlt} />
+        <LoginText>Login to get started</LoginText>
+      </SigninButtonWrapper>
+    </>
+  );
+};
+
+export const Header: FC<HeaderProps> = ({ title }) => {
+  const { currentUser } = useAuth();
 
   return (
     <HeaderContainer>
@@ -79,10 +105,11 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <SigninButton onClick={handleSignin}>
-            <FontAwesomeIcon icon={faSignInAlt} />
-            <LoginText>Login to get started</LoginText>
-          </SigninButton>
+          {currentUser ? (
+            <GoToBoardButton boardId={currentUser.boardId} />
+          ) : (
+            <SigninButton />
+          )}
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>
