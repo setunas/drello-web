@@ -39,7 +39,7 @@ const BoardPage = () => {
   if (!board) return null;
   return (
     <Main>
-      <Navbar boardId={boardId} />
+      <Navbar />
       <Board boardId={boardId} />
     </Main>
   );

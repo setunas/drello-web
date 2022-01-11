@@ -19,11 +19,7 @@ const Brand = styled.h3`
   font-size: 1.4rem;
 `;
 
-interface NavbarProps {
-  boardId: number;
-}
-
-export const Navbar = ({ boardId }: NavbarProps) => {
+export const Navbar = () => {
   const dispatch = useDispatch();
 
   const handleSignout = async () => {
@@ -33,7 +29,7 @@ export const Navbar = ({ boardId }: NavbarProps) => {
 
   return (
     <Main>
-      <Link href={path.boards(boardId)}>
+      <Link href={path.home()}>
         <AnchorLink>
           <Brand>Drello</Brand>
         </AnchorLink>
