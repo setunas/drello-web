@@ -20,19 +20,11 @@ import { GlobalStyle } from "src/features/global-style";
 library.add(fab, fas, far, faHome, faPlus, faSignInAlt, faTimes, faStar, faCog);
 initFirebase();
 
-const theme = {
-  colors: {
-    primary: "#0070f3",
-  },
-};
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </Provider>
   );
 }
