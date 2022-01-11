@@ -1,13 +1,16 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { colors } from "src/utils/styles";
-import { signin } from "./auth/auth.slice";
-import { useDispatch } from "react-redux";
+import { colors, fontFamily } from "src/utils/styles";
+import { useAuth } from "../auth/use-auth";
+import { FC } from "react";
+import { GoToBoardButton } from "./go-to-board-button";
+import { SigninButton } from "./signin-button";
 
 const HeaderContainer = styled.header`
   padding: 1em 2em 0;
+  color: ${colors.brandGrey()};
+
   @media screen and (min-width: 720px) {
     padding: 2em 10% 0;
   }
@@ -27,9 +30,9 @@ const HeaderBar = styled.div`
 `;
 
 const HeaderBrand = styled.h3`
-  font-family: "Arapey", serif;
+  font-family: ${fontFamily.brand};
   font-size: 1.7em;
-  color: #707070;
+  color: ${colors.brandGrey()};
   @media screen and (min-width: 720px) {
     font-size: 2em;
   }
@@ -40,34 +43,12 @@ const LeftNavItems = styled.div`
   align-content: center;
 `;
 
-const LoginText = styled.span`
-  display: none;
-  @media screen and (min-width: 720px) {
-    display: block;
-  }
-`;
-
-const SigninButton = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: 1em;
-  align-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-`;
-
 interface HeaderProps {
   title: string;
 }
 
-export const Header = ({ title }: HeaderProps) => {
-  const dispatch = useDispatch();
-
-  const handleSignin = () => {
-    dispatch(signin());
-  };
+export const Header: FC<HeaderProps> = ({ title }) => {
+  const { currentUser } = useAuth();
 
   return (
     <HeaderContainer>
@@ -78,10 +59,11 @@ export const Header = ({ title }: HeaderProps) => {
           </a>
         </Link>
         <LeftNavItems>
-          <SigninButton onClick={handleSignin}>
-            <FontAwesomeIcon icon="sign-in-alt" />
-            <LoginText>Login to get started</LoginText>
-          </SigninButton>
+          {currentUser ? (
+            <GoToBoardButton boardId={currentUser.boardId} />
+          ) : (
+            <SigninButton />
+          )}
         </LeftNavItems>
       </HeaderBar>
     </HeaderContainer>

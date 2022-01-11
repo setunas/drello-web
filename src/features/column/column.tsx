@@ -8,19 +8,20 @@ import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 import { DeleteXButton } from "../delete-x-button";
 
+export const columnHeight = "100vh - 4.7rem";
+
 const Container = styled.div`
   width: 17em;
   display: grid;
   grid-template-rows: min-content auto;
   height: fit-content;
-  max-height: calc(100vh - 4.7rem);
+  max-height: calc(${columnHeight});
   justify-content: stretch;
   align-items: start;
   gap: 1em;
   padding: 1em;
   border-radius: 0.2em;
   background-color: ${colors.greyish(0.9)};
-  box-shadow: 0.2rem 0.2rem 0.2rem ${colors.black(0.3)};
   overflow-y: auto;
   word-wrap: break-word;
 `;

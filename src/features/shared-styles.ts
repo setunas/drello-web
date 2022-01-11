@@ -1,8 +1,9 @@
+import { colors, fontFamily } from "src/utils/styles";
 import styled from "styled-components";
 
 export const Main = styled.main`
   text-align: center;
-  color: #707070;
+  color: ${colors.brandGrey()};
   padding: 0 5em;
 `;
 
@@ -11,6 +12,7 @@ export const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: ${colors.brandGrey()};
 `;
 
 export const LandingMain = styled(Main)`
@@ -25,7 +27,7 @@ export const Headline = styled.article`
 `;
 
 export const HeadlineMain = styled.h2`
-  font-family: "Arapey", serif;
+  font-family: ${fontFamily.brand};
   font-size: 2em;
 `;
 
