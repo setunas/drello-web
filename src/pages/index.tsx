@@ -7,6 +7,7 @@ import {
   HeadlineSub,
 } from "src/features/shared-styles";
 import { Header } from "src/features/header";
+import { url } from "src/utils/url/others";
 
 const HomePage = () => {
   return (
@@ -22,7 +23,11 @@ const HomePage = () => {
           <HeadlineMain>Drello</HeadlineMain>
         </Headline>
       </LandingMain>
-      <Footer>&copy; 2022 Setunas Team</Footer>
+      <Footer>
+        <a href={url.setunasGithub} target="_blank">
+          &copy; 2022 Setunas Team
+        </a>
+      </Footer>
     </>
   );
 };
