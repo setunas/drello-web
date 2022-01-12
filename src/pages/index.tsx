@@ -26,12 +26,6 @@ const LandingMain = styled.main`
 `;
 
 const Headline = styled.article`
-  display: grid;
-  align-content: space-evenly;
-  gap: 1em;
-`;
-
-const HeadlineSub = styled.h3`
   font-size: 4rem;
   font-weight: bold;
   color: ${colors.boldText};
@@ -69,8 +63,8 @@ const HomePage = () => {
       <Header disableShadow={true} />
       <LandingMain>
         <Headline>
-          <HeadlineSub>Simple Kanban</HeadlineSub>
-          <HeadlineSub>for your todos</HeadlineSub>
+          Simple Kanban <br />
+          for your todos
         </Headline>
         <div>
           {currentUser ? (
