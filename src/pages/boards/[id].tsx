@@ -8,6 +8,7 @@ import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/features/auth/use-auth";
 import { path } from "src/utils/url/drello-web";
 import { zIndex } from "src/utils/styles";
+import Header from "src/features/header/header";
 
 const Main = styled.main`
   display: grid;
@@ -15,6 +16,8 @@ const Main = styled.main`
   height: 100vh;
   z-index: ${zIndex.mainOfBoardPage};
 `;
+
+export const boardPagePath = "/boards/[id]";
 
 const BoardPage = () => {
   const { idToken, currentUser } = useAuth();
@@ -39,7 +42,7 @@ const BoardPage = () => {
   if (!board) return null;
   return (
     <Main>
-      <Navbar />
+      <Header />
       <Board boardId={boardId} />
     </Main>
   );

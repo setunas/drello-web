@@ -1,40 +1,40 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { colors, fontFamily } from "src/utils/styles";
+import { colors } from "src/utils/styles";
 import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "./signin-button";
+import { SignoutButton } from "./signout-button";
+import { useMediaQuery } from "react-responsive";
 
-const HeaderContainer = styled.header`
-  padding: 1em 2em 0;
-  color: ${colors.brandGrey()};
+export const headerHeight = "3.8rem";
 
-  @media screen and (min-width: 720px) {
-    padding: 2em 10% 0;
-  }
-`;
-
-const HeaderBar = styled.div`
+const HeaderContainer = styled.header<{ disableShadow: boolean }>`
+  box-shadow: ${({ disableShadow }) =>
+    disableShadow ? "none" : "0 0.1em 0.6em #ddd"};
+  padding: 0 5% 0;
+  height: ${headerHeight};
+  width: 100vw;
+  position: fixed;
+  top: 0;
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 1.5em;
-  border-radius: 1em;
-  box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
-  @media screen and (min-width: 720px) {
-    padding: 1em 3em;
-  }
+  background-color: ${colors.white()};
+`;
+
+const HeaderAfter = styled.div`
+  height: ${headerHeight};
 `;
 
 const HeaderBrand = styled.h3`
-  font-family: ${fontFamily.brand};
-  font-size: 1.7em;
-  color: ${colors.brandGrey()};
-  @media screen and (min-width: 720px) {
-    font-size: 2em;
+  font-size: 2em;
+  color: ${colors.primary};
+  @media screen and (max-width: 720px) {
+    font-size: 1.7em;
   }
 `;
 
@@ -43,30 +43,42 @@ const LeftNavItems = styled.div`
   align-content: center;
 `;
 
+const DuringSigninWrapper = styled.div`
+  display: flex;
+  gap: 2em;
+`;
+
 interface HeaderProps {
-  title: string;
+  disableShadow?: boolean;
 }
 
-export const Header: FC<HeaderProps> = ({ title }) => {
+export const Header: FC<HeaderProps> = ({ disableShadow = false }) => {
   const { currentUser } = useAuth();
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
 
   return (
-    <HeaderContainer>
-      <HeaderBar>
+    <>
+      <HeaderContainer disableShadow={disableShadow}>
         <Link href={path.home()}>
           <a>
-            <HeaderBrand>{title}</HeaderBrand>
+            <HeaderBrand>Drello</HeaderBrand>
           </a>
         </Link>
         <LeftNavItems>
           {currentUser ? (
-            <GoToBoardButton boardId={currentUser.boardId} />
+            <DuringSigninWrapper>
+              {isSmallScreen || (
+                <GoToBoardButton boardId={currentUser.boardId} />
+              )}
+              <SignoutButton />
+            </DuringSigninWrapper>
           ) : (
-            <SigninButton />
+            <SigninButton text="Login" />
           )}
         </LeftNavItems>
-      </HeaderBar>
-    </HeaderContainer>
+      </HeaderContainer>
+      <HeaderAfter />
+    </>
   );
 };
 

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Router from "next/router";
-import { AnchorLink } from "src/features/shared-styles";
 import { path } from "src/utils/url/drello-web";
 import { useDispatch } from "react-redux";
 import { signout } from "src/features/auth/auth.slice";
@@ -13,6 +12,12 @@ const Main = styled.nav`
   background-color: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
+`;
+
+const AnchorLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 `;
 
 const Brand = styled.h3`
