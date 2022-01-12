@@ -8,11 +8,11 @@ import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "./signin-button";
 
 const HeaderContainer = styled.header`
-  padding: 1em 2em 0;
+  padding: 2em 10% 0;
   color: ${colors.brandGrey()};
 
-  @media screen and (min-width: 720px) {
-    padding: 2em 10% 0;
+  @media screen and (max-width: 720px) {
+    padding: 1em 2em 0;
   }
 `;
 
@@ -21,20 +21,20 @@ const HeaderBar = styled.div`
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 1.5em;
+  padding: 1em 3em;
   border-radius: 1em;
   box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
-  @media screen and (min-width: 720px) {
-    padding: 1em 3em;
+  @media screen and (max-width: 720px) {
+    padding: 1em 1.5em;
   }
 `;
 
 const HeaderBrand = styled.h3`
   font-family: ${fontFamily.brand};
-  font-size: 1.7em;
+  font-size: 2em;
   color: ${colors.brandGrey()};
-  @media screen and (min-width: 720px) {
-    font-size: 2em;
+  @media screen and (max-width: 720px) {
+    font-size: 1.7em;
   }
 `;
 

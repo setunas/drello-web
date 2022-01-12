@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 
 const LoginText = styled.span`
-  display: none;
-  @media screen and (min-width: 720px) {
-    display: block;
+  display: block;
+  @media screen and (max-width: 720px) {
+    display: none;
   }
 `;
 
