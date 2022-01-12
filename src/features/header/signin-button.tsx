@@ -7,7 +7,7 @@ const SigninButtonWrapper = styled.div`
   border-radius: 3em;
   padding: 0.5em 2em;
   background-color: ${colors.secondary};
-  color: ${colors.black()};
+  color: ${colors.boldText};
   font-weight: bold;
   cursor: pointer;
 `;

@@ -17,7 +17,7 @@ const LandingMain = styled.main`
     ${colors.white()} 0
   );
   text-align: center;
-  color: ${colors.black()};
+  color: ${colors.text};
 `;
 
 const Headline = styled.article`
@@ -29,7 +29,7 @@ const Headline = styled.article`
 const HeadlineSub = styled.h3`
   font-size: 4rem;
   font-weight: bold;
-  color: ${colors.black()};
+  color: ${colors.boldText};
 
   @media screen and (max-width: 720px) {
     font-size: 3rem;
@@ -37,7 +37,7 @@ const HeadlineSub = styled.h3`
 `;
 
 const InnerLink = styled.span`
-  color: ${colors.black()}; /* To change the color of the visited link in Safari */
+  color: ${colors.boldText}; /* To change the color of the visited link in Safari */
 `;
 
 const Footer = styled.footer`
@@ -49,7 +49,6 @@ const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: ${colors.black()};
 `;
 
 const HomePage = () => {
