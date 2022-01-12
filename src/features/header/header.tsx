@@ -10,21 +10,16 @@ import { SigninButton } from "./signin-button";
 const HeaderContainer = styled.header`
   box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
   padding: 0 10% 0;
-  height: 5em;
+  height: 3.8rem;
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  color: ${colors.brandGrey()};
-
-  @media screen and (max-width: 720px) {
-    padding: 1em 2em 0;
-  }
 `;
 
 const HeaderBrand = styled.h3`
   font-size: 2em;
-  color: ${colors.brandGrey()};
+  color: ${colors.primary};
   @media screen and (max-width: 720px) {
     font-size: 1.7em;
   }
