@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useAuth } from "src/features/auth/use-auth";
 import { SigninButton } from "src/features/header/signin-button";
 import { GoToBoardButton } from "src/features/header/go-to-board-button";
+import { useMediaQuery } from "react-responsive";
 
 const footerHeight = "2em";
 
@@ -57,6 +58,7 @@ const Footer = styled.footer`
 
 const HomePage = () => {
   const { currentUser } = useAuth();
+  const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
 
   return (
     <>
@@ -74,7 +76,9 @@ const HomePage = () => {
           {currentUser ? (
             <GoToBoardButton boardId={currentUser.boardId} />
           ) : (
-            <SigninButton />
+            <SigninButton
+              text={isSmallScreen ? "Login" : "Login to Get Started"}
+            />
           )}
         </div>
       </LandingMain>

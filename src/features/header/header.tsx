@@ -58,7 +58,7 @@ export const Header: FC<HeaderProps> = () => {
             <SignoutButton />
           </DuringSigninWrapper>
         ) : (
-          <SigninButton />
+          <SigninButton text="Login" />
         )}
       </LeftNavItems>
     </HeaderContainer>
