@@ -63,7 +63,8 @@ const HomePage = () => {
       <Header disableShadow={true} />
       <LandingMain>
         <Headline>
-          Simple Kanban <br />
+          Simple Kanban
+          <br />
           for your todos
         </Headline>
         <div>
