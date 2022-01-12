@@ -8,7 +8,7 @@ import { SigninButton } from "src/features/header/signin-button";
 import { GoToBoardButton } from "src/features/header/go-to-board-button";
 import { useMediaQuery } from "react-responsive";
 
-const footerHeight = "2em";
+const footerHeight = "3em";
 
 const LandingMain = styled.main`
   padding: 0 5em;
@@ -42,7 +42,7 @@ const HeadlineSub = styled.h3`
 `;
 
 const InnerLink = styled.span`
-  color: ${colors.boldText}; /* To change the color of the visited link in Safari */
+  color: ${colors.text}; /* To change the color of the visited link in Safari */
 `;
 
 const Footer = styled.footer`
