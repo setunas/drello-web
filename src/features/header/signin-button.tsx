@@ -2,24 +2,13 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { signin } from "../auth/auth.slice";
 import { useDispatch } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-
-const LoginText = styled.span`
-  display: block;
-  @media screen and (max-width: 720px) {
-    display: none;
-  }
-`;
 
 const SigninButtonWrapper = styled.div`
-  display: grid;
-  grid-auto-flow: column;
-  gap: 1em;
-  align-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: ${colors.brandGrey()};
+  border-radius: 3em;
+  padding: 0.5em 2em;
+  background-color: ${colors.secondary};
+  color: ${colors.black()};
+  font-weight: bold;
   cursor: pointer;
 `;
 
@@ -31,11 +20,6 @@ export const SigninButton = () => {
   };
 
   return (
-    <>
-      <SigninButtonWrapper onClick={handleSignin}>
-        <FontAwesomeIcon icon={faSignInAlt} />
-        <LoginText>Login to get started</LoginText>
-      </SigninButtonWrapper>
-    </>
+    <SigninButtonWrapper onClick={handleSignin}>Login</SigninButtonWrapper>
   );
 };
