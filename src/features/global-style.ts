@@ -8,19 +8,8 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  html, body, #__next {
-    height: 100%;
-    width: 100%;
-  }
-
   body, #__next {
     font-family: ${fontFamily.primary};
-  }
-
-  #__next {
-    display: grid;
-    grid-template-rows: 2fr 9fr 1fr;
-    grid-gap: 1em;
   }
   
   a {
