@@ -15,7 +15,7 @@ export const postUser = ({
   username: string;
 }) => {
   return drelloApiAxios.post<OuterUser>(
-    path.users(),
+    path.signup(),
     { Username: username },
     {
       headers: { Authorization: `Bearer ${idToken}` },
