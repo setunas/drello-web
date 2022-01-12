@@ -7,10 +7,12 @@ import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "./signin-button";
 
+export const headerHeight = "3.8rem";
+
 const HeaderContainer = styled.header`
   box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
   padding: 0 10% 0;
-  height: 3.8rem;
+  height: ${headerHeight};
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
