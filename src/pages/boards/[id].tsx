@@ -17,6 +17,8 @@ const Main = styled.main`
   z-index: ${zIndex.mainOfBoardPage};
 `;
 
+export const boardPagePath = "/boards/[id]";
+
 const BoardPage = () => {
   const { idToken, currentUser } = useAuth();
   const dispatch = useDispatch();

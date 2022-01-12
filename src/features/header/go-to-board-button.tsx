@@ -3,6 +3,8 @@ import { path } from "src/utils/url/drello-web";
 import { FC } from "react";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
+import { useRouter } from "next/router";
+import { boardPagePath } from "src/pages/boards/[id]";
 
 const InnerLink = styled.span`
   border-radius: 3em;
@@ -18,6 +20,10 @@ interface GoToBoardButtonProps {
 }
 
 export const GoToBoardButton: FC<GoToBoardButtonProps> = ({ boardId }) => {
+  const router = useRouter();
+  const isBoardPage = router.pathname === boardPagePath;
+
+  if (isBoardPage) return null;
   return (
     <Link href={path.boards(boardId)}>
       <InnerLink>Go to Board</InnerLink>
