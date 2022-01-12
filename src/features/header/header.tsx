@@ -6,6 +6,7 @@ import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "./signin-button";
+import { SignoutButton } from "./signout-button";
 
 export const headerHeight = "3.8rem";
 
@@ -32,6 +33,10 @@ const LeftNavItems = styled.div`
   align-content: center;
 `;
 
+const DuringSigninWrapper = styled.div`
+  display: flex;
+`;
+
 interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = () => {
@@ -46,7 +51,10 @@ export const Header: FC<HeaderProps> = () => {
       </Link>
       <LeftNavItems>
         {currentUser ? (
-          <GoToBoardButton boardId={currentUser.boardId} />
+          <DuringSigninWrapper>
+            <GoToBoardButton boardId={currentUser.boardId} />
+            <SignoutButton />
+          </DuringSigninWrapper>
         ) : (
           <SigninButton />
         )}
