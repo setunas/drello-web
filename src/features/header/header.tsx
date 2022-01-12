@@ -10,7 +10,7 @@ import { SigninButton } from "./signin-button";
 export const headerHeight = "3.8rem";
 
 const HeaderContainer = styled.header`
-  box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
+  box-shadow: 0 0.1em 0.5em ${colors.black()};
   padding: 0 10% 0;
   height: ${headerHeight};
   display: grid;
