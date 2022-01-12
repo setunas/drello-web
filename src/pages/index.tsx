@@ -1,38 +1,55 @@
 import Head from "next/head";
-import { Header } from "src/features/header/header";
+import { Header, headerHeight } from "src/features/header/header";
 import { url } from "src/utils/url/others";
 import { colors } from "src/utils/styles";
 import styled from "styled-components";
 
-export const Footer = styled.footer`
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: ${colors.black()};
-`;
+const footerHeight = "2em";
 
-export const LandingMain = styled.main`
-  text-align: center;
-  color: ${colors.black()};
+const LandingMain = styled.main`
   padding: 0 5em;
+  height: calc(100vh - ${headerHeight} - ${footerHeight});
   display: grid;
   align-content: center;
+  background-image: linear-gradient(
+    to bottom right,
+    ${colors.primary} 30%,
+    ${colors.white()} 0
+  );
+  text-align: center;
+  color: ${colors.black()};
 `;
 
-export const Headline = styled.article`
+const Headline = styled.article`
   display: grid;
   align-content: space-evenly;
   gap: 1em;
 `;
 
-export const HeadlineSub = styled.h3`
-  font-size: 1.3rem;
-  font-weight: 100;
+const HeadlineSub = styled.h3`
+  font-size: 4rem;
+  font-weight: bold;
+  color: ${colors.black()};
+
+  @media screen and (max-width: 720px) {
+    font-size: 3rem;
+  }
 `;
 
 const InnerLink = styled.span`
   color: ${colors.black()}; /* To change the color of the visited link in Safari */
+`;
+
+const Footer = styled.footer`
+  height: ${footerHeight};
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: ${colors.black()};
 `;
 
 const HomePage = () => {
@@ -45,7 +62,7 @@ const HomePage = () => {
       <Header title="Drello" />
       <LandingMain>
         <Headline>
-          <HeadlineSub>Simple kanban</HeadlineSub>
+          <HeadlineSub>Simple Kanban</HeadlineSub>
           <HeadlineSub>for your todos</HeadlineSub>
         </Headline>
       </LandingMain>
