@@ -11,8 +11,9 @@ import { useMediaQuery } from "react-responsive";
 
 export const headerHeight = "3.8rem";
 
-const HeaderContainer = styled.header`
-  box-shadow: 0 0.1em 0.6em #ddd;
+const HeaderContainer = styled.header<{ disableShadow: boolean }>`
+  box-shadow: ${({ disableShadow }) =>
+    disableShadow ? "none" : "0 0.1em 0.6em #ddd"};
   padding: 0 5% 0;
   height: ${headerHeight};
   width: 100vw;
@@ -47,15 +48,17 @@ const DuringSigninWrapper = styled.div`
   gap: 2em;
 `;
 
-interface HeaderProps {}
+interface HeaderProps {
+  disableShadow?: boolean;
+}
 
-export const Header: FC<HeaderProps> = () => {
+export const Header: FC<HeaderProps> = ({ disableShadow = false }) => {
   const { currentUser } = useAuth();
   const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
 
   return (
     <>
-      <HeaderContainer>
+      <HeaderContainer disableShadow={disableShadow}>
         <Link href={path.home()}>
           <a>
             <HeaderBrand>Drello</HeaderBrand>

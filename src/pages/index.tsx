@@ -66,7 +66,7 @@ const HomePage = () => {
         <title>Drello</title>
         <meta name="description" content="A Trello clone" />
       </Head>
-      <Header />
+      <Header disableShadow={true} />
       <LandingMain>
         <Headline>
           <HeadlineSub>Simple Kanban</HeadlineSub>
