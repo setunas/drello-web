@@ -6,7 +6,7 @@ import { path } from "src/utils/url/drello-web";
 import { signout } from "src/features/auth/auth.slice";
 
 const SignoutButtonWrapper = styled.span`
-  padding: 0.5em 2em;
+  padding: 0.5em 0;
   color: ${colors.text};
   font-weight: bold;
   cursor: pointer;

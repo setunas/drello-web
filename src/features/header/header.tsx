@@ -44,6 +44,7 @@ const LeftNavItems = styled.div`
 
 const DuringSigninWrapper = styled.div`
   display: flex;
+  gap: 2em;
 `;
 
 interface HeaderProps {}
