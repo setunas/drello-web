@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Main = styled.main`
   text-align: center;
-  color: ${colors.brandGrey()};
+  color: ${colors.black()};
   padding: 0 5em;
 `;
 
@@ -12,7 +12,7 @@ export const Footer = styled.footer`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: ${colors.brandGrey()};
+  color: ${colors.black()};
 `;
 
 export const LandingMain = styled(Main)`
