@@ -12,7 +12,7 @@ import { useMediaQuery } from "react-responsive";
 export const headerHeight = "3.8rem";
 
 const HeaderContainer = styled.header`
-  box-shadow: 0 0.1em 0.5em ${colors.black()};
+  box-shadow: 0 0.1em 0.6em #ddd;
   padding: 0 5% 0;
   height: ${headerHeight};
   display: grid;
