@@ -8,24 +8,17 @@ import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "./signin-button";
 
 const HeaderContainer = styled.header`
-  padding: 2em 10% 0;
-  color: ${colors.brandGrey()};
-
-  @media screen and (max-width: 720px) {
-    padding: 1em 2em 0;
-  }
-`;
-
-const HeaderBar = styled.div`
+  box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
+  padding: 0 10% 0;
+  height: 5em;
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1em 3em;
-  border-radius: 1em;
-  box-shadow: 0 0.1em 0.5em ${colors.black(0.4)};
+  color: ${colors.brandGrey()};
+
   @media screen and (max-width: 720px) {
-    padding: 1em 1.5em;
+    padding: 1em 2em 0;
   }
 `;
 
@@ -52,20 +45,18 @@ export const Header: FC<HeaderProps> = ({ title }) => {
 
   return (
     <HeaderContainer>
-      <HeaderBar>
-        <Link href={path.home()}>
-          <a>
-            <HeaderBrand>{title}</HeaderBrand>
-          </a>
-        </Link>
-        <LeftNavItems>
-          {currentUser ? (
-            <GoToBoardButton boardId={currentUser.boardId} />
-          ) : (
-            <SigninButton />
-          )}
-        </LeftNavItems>
-      </HeaderBar>
+      <Link href={path.home()}>
+        <a>
+          <HeaderBrand>{title}</HeaderBrand>
+        </a>
+      </Link>
+      <LeftNavItems>
+        {currentUser ? (
+          <GoToBoardButton boardId={currentUser.boardId} />
+        ) : (
+          <SigninButton />
+        )}
+      </LeftNavItems>
     </HeaderContainer>
   );
 };
