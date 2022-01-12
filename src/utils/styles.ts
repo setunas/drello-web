@@ -10,6 +10,5 @@ export const zIndex = {
 };
 
 export const fontFamily = {
-  brand: `"Arapey", serif`,
-  primary: "Trebuchet MS",
+  primary: `"sohne-var","Helvetica Neue","Arial",sans-serif;`,
 };

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { colors, fontFamily } from "src/utils/styles";
+import { colors } from "src/utils/styles";
 import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
@@ -23,7 +23,6 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderBrand = styled.h3`
-  font-family: ${fontFamily.brand};
   font-size: 2em;
   color: ${colors.brandGrey()};
   @media screen and (max-width: 720px) {
