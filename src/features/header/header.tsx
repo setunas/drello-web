@@ -15,10 +15,18 @@ const HeaderContainer = styled.header`
   box-shadow: 0 0.1em 0.6em #ddd;
   padding: 0 5% 0;
   height: ${headerHeight};
+  width: 100vw;
+  position: fixed;
+  top: 0;
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
+  background-color: ${colors.white()};
+`;
+
+const HeaderAfter = styled.div`
+  height: ${headerHeight};
 `;
 
 const HeaderBrand = styled.h3`
@@ -45,23 +53,28 @@ export const Header: FC<HeaderProps> = () => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
 
   return (
-    <HeaderContainer>
-      <Link href={path.home()}>
-        <a>
-          <HeaderBrand>Drello</HeaderBrand>
-        </a>
-      </Link>
-      <LeftNavItems>
-        {currentUser ? (
-          <DuringSigninWrapper>
-            {isSmallScreen || <GoToBoardButton boardId={currentUser.boardId} />}
-            <SignoutButton />
-          </DuringSigninWrapper>
-        ) : (
-          <SigninButton text="Login" />
-        )}
-      </LeftNavItems>
-    </HeaderContainer>
+    <>
+      <HeaderContainer>
+        <Link href={path.home()}>
+          <a>
+            <HeaderBrand>Drello</HeaderBrand>
+          </a>
+        </Link>
+        <LeftNavItems>
+          {currentUser ? (
+            <DuringSigninWrapper>
+              {isSmallScreen || (
+                <GoToBoardButton boardId={currentUser.boardId} />
+              )}
+              <SignoutButton />
+            </DuringSigninWrapper>
+          ) : (
+            <SigninButton text="Login" />
+          )}
+        </LeftNavItems>
+      </HeaderContainer>
+      <HeaderAfter />
+    </>
   );
 };
 
