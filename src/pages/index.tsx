@@ -3,6 +3,9 @@ import { Header, headerHeight } from "src/features/header/header";
 import { url } from "src/utils/url/others";
 import { colors } from "src/utils/styles";
 import styled from "styled-components";
+import { useAuth } from "src/features/auth/use-auth";
+import { SigninButton } from "src/features/header/signin-button";
+import { GoToBoardButton } from "src/features/header/go-to-board-button";
 
 const footerHeight = "2em";
 
@@ -10,13 +13,14 @@ const LandingMain = styled.main`
   padding: 0 5em;
   height: calc(100vh - ${headerHeight} - ${footerHeight});
   display: grid;
+  gap: 4em;
   align-content: center;
+  text-align: center;
   background-image: linear-gradient(
     to bottom right,
     ${colors.primary} 30%,
     ${colors.white()} 0
   );
-  text-align: center;
   color: ${colors.text};
 `;
 
@@ -52,6 +56,8 @@ const Footer = styled.footer`
 `;
 
 const HomePage = () => {
+  const { currentUser } = useAuth();
+
   return (
     <>
       <Head>
@@ -64,6 +70,13 @@ const HomePage = () => {
           <HeadlineSub>Simple Kanban</HeadlineSub>
           <HeadlineSub>for your todos</HeadlineSub>
         </Headline>
+        <div>
+          {currentUser ? (
+            <GoToBoardButton boardId={currentUser.boardId} />
+          ) : (
+            <SigninButton />
+          )}
+        </div>
       </LandingMain>
       <Footer>
         <a href={url.setunasGithub} target="_blank" rel="noreferrer">
