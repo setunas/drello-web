@@ -32,18 +32,16 @@ const LeftNavItems = styled.div`
   align-content: center;
 `;
 
-interface HeaderProps {
-  title: string;
-}
+interface HeaderProps {}
 
-export const Header: FC<HeaderProps> = ({ title }) => {
+export const Header: FC<HeaderProps> = () => {
   const { currentUser } = useAuth();
 
   return (
     <HeaderContainer>
       <Link href={path.home()}>
         <a>
-          <HeaderBrand>{title}</HeaderBrand>
+          <HeaderBrand>Drello</HeaderBrand>
         </a>
       </Link>
       <LeftNavItems>
