@@ -8,7 +8,7 @@ import { moveColumnThunk } from "../column/column.slice";
 import { columnHeight } from "../column/column";
 
 const Container = styled.section`
-  min-height: calc(${columnHeight});
+  min-height: calc(${columnHeight} + 2rem);
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
