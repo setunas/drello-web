@@ -6,7 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
-import { DeleteXButton } from "../delete-x-button";
+import { DeleteXButton } from "../button/delete-x-button";
+import { PrimaryButton } from "../button/primary-button";
 
 const FormContainer = styled.form`
   display: grid;
@@ -47,15 +48,6 @@ const FormActions = styled.div`
   gap: 1rem;
 `;
 
-const FormButton = styled.button`
-  padding: 0.5rem 0;
-  border: none;
-  border-radius: 0.2rem;
-  color: ${colors.white(0.8)};
-  background-color: ${colors.black(0.4)};
-  cursor: pointer;
-`;
-
 const FAIcon = styled(FontAwesomeIcon)`
   color: ${colors.black(0.6)};
   cursor: pointer;
@@ -92,7 +84,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
         {...register("cardTitle")}
       />
       <FormActions>
-        <FormButton>Add a Card</FormButton>
+        <PrimaryButton text="Add" />
         <DeleteXButton onClick={() => setInputToggle(true)} />
       </FormActions>
     </FormContainer>
