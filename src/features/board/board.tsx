@@ -37,9 +37,7 @@ export const Board = ({ boardId }: BoardProps) => {
     const found = draggableId.match(regex);
     if (found?.length) {
       // a column is being dragging
-
       if (sourceIndex === destIndex) return; // Dropped at the original position (= No change)
-
       dispatch(moveColumnThunk({ boardId, sourceIndex, destIndex }));
     } else {
       // a card is being dragging
