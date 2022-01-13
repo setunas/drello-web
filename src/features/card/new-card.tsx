@@ -30,11 +30,14 @@ const DisplayContainer = styled.div`
 `;
 
 const CardInput = styled.input`
-  font-size: 0.8rem;
-  padding: 0.5rem;
+  box-shadow: 0 0 1rem #ddd;
   border: none;
-  border-radius: 0.2rem;
-  text-transform: capitalize;
+  border-radius: 0.5rem;
+  padding: 1.1em;
+  width: 18rem;
+
+  font-size: 1rem;
+  line-height: 1.3em;
 `;
 
 const FormActions = styled.div`
@@ -84,7 +87,10 @@ export const NewCard = ({ columnId }: NewCardProps) => {
     </DisplayContainer>
   ) : (
     <FormContainer onSubmit={handleSubmit(addCardHandler)}>
-      <CardInput placeholder="Enter title here..." {...register("cardTitle")} />
+      <CardInput
+        placeholder="What do you get done?"
+        {...register("cardTitle")}
+      />
       <FormActions>
         <FormButton>Add Card</FormButton>
         <DeleteXButton onClick={() => setInputToggle(true)} />
