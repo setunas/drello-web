@@ -5,6 +5,7 @@ export const colors = {
   key: "",
   text: "#425466",
   boldText: "#0A2540",
+  placeholder: "#C1CBD7",
   background: "#fff",
   backgroundB: "#eee",
 
