@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { Card as CardType } from "./card.g";
 import { deleteCardThunk } from "./card.slice";
 import { useDispatch } from "react-redux";
-import { DeleteXButton } from "../delete-x-button";
+import { DeleteXButton } from "../button/delete-x-button";
 import { colors } from "src/utils/styles";
 
 const CardMain = styled.div`
