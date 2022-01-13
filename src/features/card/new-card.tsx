@@ -6,7 +6,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
-import { DeleteXButton } from "../button/delete-x-button";
 import { PrimaryButton } from "../button/primary-button";
 
 const FormContainer = styled.form`

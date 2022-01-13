@@ -7,6 +7,7 @@ import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
 import { DeleteXButton } from "../button/delete-x-button";
+import { PrimaryButton } from "../button/primary-button";
 
 const MainContainer = styled.div`
   display: grid;
@@ -51,18 +52,16 @@ const Input = styled.input`
 `;
 
 const FormActions = styled.div`
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
+  justify-content: left;
   align-items: center;
   gap: 1rem;
 `;
 
-const FormButton = styled.button`
-  padding: 0.5rem 0;
-  border: none;
-  border-radius: 0.2rem;
-  color: ${colors.white(0.8)};
-  background-color: ${colors.black(0.4)};
+const CancelButton = styled.span`
+  font-size: 1rem;
+  font-weight: bold;
+  color: ${colors.primary};
   cursor: pointer;
 `;
 
@@ -101,8 +100,10 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
         <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
           <Input placeholder="Enter title here..." {...register("title")} />
           <FormActions>
-            <FormButton>Add Column</FormButton>
-            <DeleteXButton onClick={() => setInputToggle(true)} />
+            <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
+            <CancelButton onClick={() => setInputToggle(true)}>
+              Cancel
+            </CancelButton>
           </FormActions>
         </EditContainer>
       )}
