@@ -103,6 +103,7 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
             type="text"
             placeholder="Enter a title here"
             {...register("title")}
+            required
           />
           <FormActions>
             <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
