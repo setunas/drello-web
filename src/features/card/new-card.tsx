@@ -10,7 +10,6 @@ import { PrimaryButton } from "../button/primary-button";
 
 const DisplayContainer = styled.div`
   padding: 0.5rem 0.3rem;
-  width: fit-content;
 
   display: grid;
   gap: 0.5rem;
