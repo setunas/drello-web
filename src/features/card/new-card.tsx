@@ -38,17 +38,6 @@ const CardInput = styled.input`
 
   font-size: 1rem;
   line-height: 1.3em;
-
-  &::placeholder {
-    color: ${colors.placeholder}; /* Chrome, Firefox, Opera, Safari 10.1+ */
-    opacity: 1; /* Firefox */
-  }
-  &:-ms-input-placeholder {
-    color: ${colors.placeholder}; /* Internet Explorer 10-11 */
-  }
-  &::-ms-input-placeholder {
-    color: ${colors.placeholder}; /* Microsoft Edge */
-  }
 `;
 
 const FormActions = styled.div`
