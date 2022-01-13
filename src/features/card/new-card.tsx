@@ -42,8 +42,10 @@ const CardInput = styled.input`
 `;
 
 const FormActions = styled.div`
-  display: grid;
-  grid-auto-flow: column;
+  padding-top: 0.1em;
+
+  display: flex;
+  justify-content: left;
   align-items: center;
   gap: 1rem;
 `;
@@ -84,7 +86,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
         {...register("cardTitle")}
       />
       <FormActions>
-        <PrimaryButton text="Add" />
+        <PrimaryButton text="Add" style={{ padding: "0.7em 2.5em" }} />
         <DeleteXButton onClick={() => setInputToggle(true)} />
       </FormActions>
     </FormContainer>
