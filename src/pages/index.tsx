@@ -48,7 +48,7 @@ const InnerLink = styled.span`
 `;
 
 const Footer = styled.footer`
-  z-index: ${zIndex.footer}
+  z-index: ${zIndex.footer};
   height: ${footerHeight};
   width: 100%;
 
