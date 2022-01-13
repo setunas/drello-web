@@ -49,7 +49,6 @@ const Input = styled.input`
   padding: 1rem;
   border: none;
   border-radius: 0.5rem;
-  text-transform: capitalize;
 `;
 
 const FormActions = styled.div`
@@ -102,7 +101,7 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
         <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
           <Input
             type="text"
-            placeholder="Enter title here..."
+            placeholder="Enter a title here"
             {...register("title")}
           />
           <FormActions>

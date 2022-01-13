@@ -86,7 +86,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
     <FormContainer onSubmit={handleSubmit(addCardHandler)}>
       <CardInput
         type="text"
-        placeholder="What do you get done?"
+        placeholder="Enter a title here"
         {...register("cardTitle")}
         required
       />
