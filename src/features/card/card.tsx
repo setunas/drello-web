@@ -10,7 +10,7 @@ const CardMain = styled.div`
   /* border: 1px solid #ddd; */
   box-shadow: 0 0 1rem #ddd;
   border-radius: 0.5rem;
-  padding: 1em;
+  padding: 1.1em;
   width: 18rem;
 
   display: grid;
@@ -18,7 +18,8 @@ const CardMain = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.3em;
   background-color: ${colors.background}};
 `;
 
