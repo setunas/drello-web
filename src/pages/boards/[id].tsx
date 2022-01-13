@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Navbar } from "src/features/board/navbar";
 import { Board } from "src/features/board/board";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/features/auth/use-auth";
