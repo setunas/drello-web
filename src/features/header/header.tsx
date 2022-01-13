@@ -31,10 +31,10 @@ const HeaderAfter = styled.div`
 `;
 
 const HeaderBrand = styled.h3`
-  font-size: 2em;
+  font-size: 2rem;
   color: ${colors.primary};
   @media screen and (max-width: 720px) {
-    font-size: 1.7em;
+    font-size: 1.7rem;
   }
 `;
 

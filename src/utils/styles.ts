@@ -5,6 +5,8 @@ export const colors = {
   key: "",
   text: "#425466",
   boldText: "#0A2540",
+  background: "#fff",
+  backgroundB: "#eee",
 
   black: (opacity: number = 1) => `rgba(0, 0, 0, ${opacity})`,
   white: (opacity: number = 1) => `rgba(255, 255, 255, ${opacity})`,

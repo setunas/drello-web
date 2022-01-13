@@ -11,19 +11,20 @@ import { DeleteXButton } from "../delete-x-button";
 export const columnHeight = "100vh - 4.7rem";
 
 const Container = styled.div`
-  width: 17em;
-  display: grid;
-  grid-template-rows: min-content auto;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 20rem;
   height: fit-content;
   max-height: calc(${columnHeight});
+  display: grid;
+  grid-template-rows: min-content auto;
   justify-content: stretch;
   align-items: start;
   gap: 1em;
-  padding: 1em;
-  border-radius: 0.2em;
-  background-color: ${colors.greyish(0.9)};
+  background-color: ${colors.backgroundB};
   overflow-y: auto;
   word-wrap: break-word;
+  color: ${colors.boldText};
 `;
 
 const Header = styled.div`
@@ -33,8 +34,8 @@ const Header = styled.div`
 `;
 
 const Title = styled.h4`
-  width: 13em;
-  color: ${colors.white()};
+  font-size: 1.2rem;
+  padding-left: 0.2rem;
 `;
 
 interface ColumnProps {
