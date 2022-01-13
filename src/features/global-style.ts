@@ -39,6 +39,15 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  input[type=text] {
+    border: 1px solid ${colors.background};    
+
+    &:focus {
+      border: 1px solid ${colors.primary};
+      outline: none !important;
+    }
+  }
+
   button {
     border: none;
     cursor: pointer;

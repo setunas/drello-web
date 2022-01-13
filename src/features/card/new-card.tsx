@@ -31,7 +31,6 @@ const DisplayContainer = styled.div`
 
 const CardInput = styled.input`
   box-shadow: 0 0 1rem #ddd;
-  border: none;
   border-radius: 0.5rem;
   padding: 1.1em;
   width: 18rem;
@@ -86,8 +85,10 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   ) : (
     <FormContainer onSubmit={handleSubmit(addCardHandler)}>
       <CardInput
+        type="text"
         placeholder="What do you get done?"
         {...register("cardTitle")}
+        required
       />
       <FormActions>
         <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
