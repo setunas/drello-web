@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
-import { DeleteXButton } from "../button/delete-x-button";
 import { PrimaryButton } from "../button/primary-button";
 
 const MainContainer = styled.div`
@@ -35,12 +34,15 @@ const DisplayContainer = styled.div`
 `;
 
 const EditContainer = styled.form`
-  width: 17em;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 20rem;
+  height: fit-content;
+
   display: grid;
   gap: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.2rem;
-  background-color: ${colors.greyish()};
+  background-color: ${colors.backgroundB};
 `;
 
 const Input = styled.input`
