@@ -8,11 +8,6 @@ import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
 import { PrimaryButton } from "../button/primary-button";
 
-const FormContainer = styled.form`
-  display: grid;
-  gap: 0.8rem;
-`;
-
 const DisplayContainer = styled.div`
   padding: 0.5rem 0.3rem;
   width: fit-content;
@@ -28,10 +23,15 @@ const DisplayContainer = styled.div`
   cursor: pointer;
 `;
 
+const FormContainer = styled.form`
+  display: grid;
+  gap: 1rem;
+`;
+
 const CardInput = styled.input`
   box-shadow: 0 0 1rem #ddd;
   border-radius: 0.5rem;
-  padding: 1.1em;
+  padding: 1em 1.1em;
   width: 18rem;
 
   font-size: 1rem;
