@@ -13,9 +13,12 @@ const footerHeight = "3em";
 const LandingMain = styled.main`
   padding: 0 5em;
   height: calc(100vh - ${headerHeight} - ${footerHeight});
+
   display: grid;
   gap: 4em;
+  align-items: center;
   align-content: center;
+
   text-align: center;
   background-image: linear-gradient(
     to bottom right,
