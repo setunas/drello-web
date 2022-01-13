@@ -18,7 +18,7 @@ const MainContainer = styled.div`
 
 const DisplayContainer = styled.div`
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 1.3rem;
   width: 20rem;
   height: fit-content;
 
