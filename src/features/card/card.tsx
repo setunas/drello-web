@@ -14,7 +14,7 @@ const CardMain = styled.div`
   width: 18rem;
 
   display: grid;
-  grid-template-columns: calc(100% - 20px) 10px;
+  grid-template-columns: calc(100% - 2em) 0.7em;
   justify-content: space-between;
   align-items: center;
 
