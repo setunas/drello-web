@@ -53,7 +53,8 @@ const CancelButton = styled.span`
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
-  color: ${colors.black(0.6)};
+  margin-right: 0.3rem;
+  color: ${colors.text};
   cursor: pointer;
 `;
 
