@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 import { DeleteXButton } from "../button/delete-x-button";
 
-export const columnHeight = "100vh - 4.7rem";
+export const columnHeight = "100vh - 6rem";
 
 const Container = styled.div`
   border-radius: 0.5rem;
