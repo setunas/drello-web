@@ -31,6 +31,8 @@ const Header = styled.div`
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
+  justify-items: center;
+  align-items: center;
 `;
 
 const Title = styled.h4`

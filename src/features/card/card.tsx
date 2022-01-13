@@ -12,9 +12,12 @@ const CardMain = styled.div`
   border-radius: 0.5rem;
   padding: 1em;
   width: 18rem;
+
   display: grid;
   grid-template-columns: calc(100% - 20px) 10px;
   justify-content: space-between;
+  align-items: center;
+
   font-size: 0.9rem;
   background-color: ${colors.background}};
 `;
