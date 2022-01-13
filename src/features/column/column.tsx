@@ -20,7 +20,7 @@ const Container = styled.div`
   grid-template-rows: min-content auto;
   justify-content: stretch;
   align-items: start;
-  gap: 1em;
+  gap: 1rem;
   background-color: ${colors.backgroundB};
   overflow-y: auto;
   word-wrap: break-word;
@@ -28,6 +28,8 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
+  padding: 0.3rem 0.2rem;
+
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
@@ -37,7 +39,6 @@ const Header = styled.div`
 
 const Title = styled.h4`
   font-size: 1.2rem;
-  padding-left: 0.2rem;
 `;
 
 interface ColumnProps {
