@@ -16,6 +16,7 @@ const Container = styled.div`
   width: 20rem;
   height: fit-content;
   max-height: calc(${columnHeight});
+
   display: grid;
   grid-template-rows: min-content auto;
   justify-content: stretch;
