@@ -22,7 +22,7 @@ const LandingMain = styled.main`
   text-align: center;
   background-image: linear-gradient(
     to bottom right,
-    ${colors.primary} 30%,
+    ${colors.primary} 15%,
     ${colors.white()} 0
   );
   color: ${colors.text};
