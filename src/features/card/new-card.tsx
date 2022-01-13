@@ -47,10 +47,11 @@ const FormActions = styled.div`
   gap: 1rem;
 `;
 
-const CancelButton = styled.button`
+const CancelButton = styled.span`
   font-size: 1rem;
   font-weight: bold;
   color: ${colors.primary};
+  cursor: pointer;
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
@@ -90,7 +91,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
       />
       <FormActions>
         <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-        <CancelButton>Cancel</CancelButton>
+        <CancelButton onClick={() => setInputToggle(true)}>Cancel</CancelButton>
       </FormActions>
     </FormContainer>
   );
