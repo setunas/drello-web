@@ -15,18 +15,18 @@ const FormContainer = styled.form`
 `;
 
 const DisplayContainer = styled.div`
+  padding: 0.5rem 0.3rem;
+  width: fit-content;
+
   display: grid;
   gap: 0.5rem;
   border-radius: 0.2rem;
   grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
+
   color: ${colors.black(0.8)};
-  padding: 0.5rem;
   cursor: pointer;
-  :hover {
-    background-color: ${colors.black(0.3)};
-  }
 `;
 
 const CardInput = styled.input`
