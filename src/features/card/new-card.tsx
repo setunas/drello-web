@@ -11,8 +11,7 @@ import { PrimaryButton } from "../button/primary-button";
 
 const FormContainer = styled.form`
   display: grid;
-  gap: 0.5rem;
-  border-radius: 0.2rem;
+  gap: 0.8rem;
 `;
 
 const DisplayContainer = styled.div`
@@ -42,12 +41,16 @@ const CardInput = styled.input`
 `;
 
 const FormActions = styled.div`
-  padding-top: 0.1em;
-
   display: flex;
   justify-content: left;
   align-items: center;
   gap: 1rem;
+`;
+
+const CancelButton = styled.button`
+  font-size: 1rem;
+  font-weight: bold;
+  color: ${colors.primary};
 `;
 
 const FAIcon = styled(FontAwesomeIcon)`
@@ -86,8 +89,8 @@ export const NewCard = ({ columnId }: NewCardProps) => {
         {...register("cardTitle")}
       />
       <FormActions>
-        <PrimaryButton text="Add" style={{ padding: "0.7em 2.5em" }} />
-        <DeleteXButton onClick={() => setInputToggle(true)} />
+        <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
+        <CancelButton>Cancel</CancelButton>
       </FormActions>
     </FormContainer>
   );
