@@ -40,16 +40,15 @@ const EditContainer = styled.form`
   height: fit-content;
 
   display: grid;
-  gap: 0.5rem;
-  padding: 0.5rem;
+  gap: 1rem;
   background-color: ${colors.backgroundB};
 `;
 
 const Input = styled.input`
-  font-size: 0.8rem;
-  padding: 0.5rem;
+  font-size: 1.2rem;
+  padding: 1rem;
   border: none;
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
   text-transform: capitalize;
 `;
 
@@ -100,7 +99,11 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
         </DisplayContainer>
       ) : (
         <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
-          <Input placeholder="Enter title here..." {...register("title")} />
+          <Input
+            type="text"
+            placeholder="Enter title here..."
+            {...register("title")}
+          />
           <FormActions>
             <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
             <CancelButton onClick={() => setInputToggle(true)}>

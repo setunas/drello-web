@@ -29,7 +29,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 0.3rem 0.3rem;
+  padding: 0.3rem;
 
   display: grid;
   grid-auto-flow: column;
