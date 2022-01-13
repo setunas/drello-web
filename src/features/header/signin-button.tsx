@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 import { colors } from "src/utils/styles";
 import { signin } from "../auth/auth.slice";
 import { useDispatch } from "react-redux";
@@ -15,9 +15,10 @@ const SigninButtonWrapper = styled.span`
 
 interface SigninButtonProps {
   text: string;
+  style?: CSSProperties;
 }
 
-export const SigninButton: FC<SigninButtonProps> = ({ text }) => {
+export const SigninButton: FC<SigninButtonProps> = ({ text, style }) => {
   const dispatch = useDispatch();
 
   const handleSignin = () => {
@@ -25,6 +26,8 @@ export const SigninButton: FC<SigninButtonProps> = ({ text }) => {
   };
 
   return (
-    <SigninButtonWrapper onClick={handleSignin}>{text}</SigninButtonWrapper>
+    <SigninButtonWrapper onClick={handleSignin} style={style}>
+      {text}
+    </SigninButtonWrapper>
   );
 };

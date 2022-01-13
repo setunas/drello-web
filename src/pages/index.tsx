@@ -85,7 +85,8 @@ const HomePage = () => {
             <GoToBoardButton boardId={currentUser.boardId} />
           ) : (
             <SigninButton
-              text={isSmallScreen ? "Login" : "Login to Get Started"}
+              text={isSmallScreen ? "Get Started" : "Login to Get Started"}
+              style={{ padding: "0.7em 2em" }}
             />
           )}
         </div>
