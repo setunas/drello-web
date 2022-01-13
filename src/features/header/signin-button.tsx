@@ -7,8 +7,8 @@ import { FC } from "react";
 const SigninButtonWrapper = styled.span`
   border-radius: 3em;
   padding: 0.5em 2em;
-  background-color: ${colors.secondary};
-  color: ${colors.boldText};
+  background-color: ${colors.primary};
+  color: ${colors.background};
   font-weight: bold;
   cursor: pointer;
 `;
