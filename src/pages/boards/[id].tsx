@@ -7,14 +7,22 @@ import { Board } from "src/features/board/board";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
 import { useAuth } from "src/features/auth/use-auth";
 import { path } from "src/utils/url/drello-web";
-import { zIndex } from "src/utils/styles";
+import { colors, zIndex } from "src/utils/styles";
 import Header from "src/features/header/header";
 
 const Main = styled.main`
+  z-index: ${zIndex.mainOfBoardPage};
+
+  height: 100vh;
+
   display: grid;
   grid-auto-rows: min-content;
-  height: 100vh;
-  z-index: ${zIndex.mainOfBoardPage};
+
+  background-image: linear-gradient(
+    to bottom right,
+    ${colors.background} 90%,
+    ${colors.primary} 0
+  );
 `;
 
 export const boardPagePath = "/boards/[id]";
