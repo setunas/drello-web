@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Header, headerHeight } from "src/features/header/header";
 import { url } from "src/utils/url/others";
-import { colors } from "src/utils/styles";
+import { colors, zIndex } from "src/utils/styles";
 import styled from "styled-components";
 import { useAuth } from "src/features/auth/use-auth";
 import { SigninButton } from "src/features/header/signin-button";
@@ -23,6 +23,10 @@ const LandingMain = styled.main`
     ${colors.white()} 0
   );
   color: ${colors.text};
+
+  @media screen and (max-height: 450px) {
+    gap: 2em;
+  }
 `;
 
 const Headline = styled.article`
@@ -33,6 +37,10 @@ const Headline = styled.article`
   @media screen and (max-width: 720px) {
     font-size: 3rem;
   }
+
+  @media screen and (max-height: 450px) {
+    font-size: 3rem;
+  }
 `;
 
 const InnerLink = styled.span`
@@ -40,14 +48,19 @@ const InnerLink = styled.span`
 `;
 
 const Footer = styled.footer`
+  z-index: ${zIndex.footer}
   height: ${footerHeight};
   width: 100%;
+
   position: fixed;
   bottom: 0;
+
   display: grid;
   justify-content: center;
   align-items: center;
+
   text-align: center;
+  background-color: ${colors.background};
 `;
 
 const HomePage = () => {

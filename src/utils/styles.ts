@@ -16,6 +16,7 @@ export const colors = {
 
 export const zIndex = {
   mainOfBoardPage: 0,
+  footer: 100,
 };
 
 export const fontFamily = {
