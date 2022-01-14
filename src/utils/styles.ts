@@ -1,5 +1,5 @@
 export const colors = {
-  // Primary
+  // Brand
   primary: "#31AF90",
   secondary: "#F0F465",
 
