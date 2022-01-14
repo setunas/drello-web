@@ -1,13 +1,15 @@
 export const colors = {
+  // Primary
   primary: "#31AF90",
   secondary: "#F0F465",
+
+  // Neutral
   text: "#425466",
   boldText: "#0A2540",
   placeholder: "#C1CBD7",
   background: "#fff",
   backgroundB: "#eee",
 
-  white: (opacity: number = 1) => `rgba(255, 255, 255, ${opacity})`,
   greyish: (opacity: number = 1) => `rgba(141, 153, 174, ${opacity})`,
 };
 
