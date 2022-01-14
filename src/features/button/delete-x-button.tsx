@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const StyledDeleteXButton = styled(FontAwesomeIcon)`
-  color: ${colors.black(0.6)};
+  color: ${colors.text};
   cursor: pointer;
 `;
 

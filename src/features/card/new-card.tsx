@@ -18,7 +18,6 @@ const DisplayContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  color: ${colors.black(0.8)};
   cursor: pointer;
 `;
 
