@@ -1,4 +1,4 @@
-# drello-web
+# drello-web [WIP]
 
 ## System Configuration
 -> Link to `drello-api`
