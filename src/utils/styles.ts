@@ -4,7 +4,7 @@ export const colors = {
   secondary: "#F0F465",
 
   // Neutral
-  text: "#425466",
+  textPlain: "#425466",
   textBold: "#0A2540",
   textPlaceholder: "#C1CBD7",
   backgroundMain: "#fff",
