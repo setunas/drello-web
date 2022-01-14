@@ -23,7 +23,7 @@ const LandingMain = styled.main`
   background-image: linear-gradient(
     to bottom right,
     ${colors.primary} 15%,
-    ${colors.background} 0
+    ${colors.backgroundMain} 0
   );
   color: ${colors.text};
 
@@ -63,7 +63,7 @@ const Footer = styled.footer`
   align-items: center;
 
   text-align: center;
-  background-color: ${colors.background};
+  background-color: ${colors.backgroundMain};
 `;
 
 const HomePage = () => {

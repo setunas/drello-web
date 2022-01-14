@@ -20,7 +20,7 @@ const CardMain = styled.div`
 
   font-size: 1rem;
   line-height: 1.3em;
-  background-color: ${colors.background}};
+  background-color: ${colors.backgroundMain}};
 `;
 
 interface CardProps {

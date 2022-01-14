@@ -23,7 +23,7 @@ const HeaderContainer = styled.header<{ disableShadow: boolean }>`
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
-  background-color: ${colors.background};
+  background-color: ${colors.backgroundMain};
 `;
 
 const HeaderAfter = styled.div`

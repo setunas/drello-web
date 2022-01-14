@@ -20,7 +20,7 @@ const Main = styled.main`
 
   background-image: linear-gradient(
     to bottom right,
-    ${colors.background} 90%,
+    ${colors.backgroundMain} 90%,
     ${colors.primary} 0
   );
 `;

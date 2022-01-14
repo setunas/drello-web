@@ -8,7 +8,7 @@ const PrimaryButtonWrapper = styled.button`
   padding: 0.7em 2em;
 
   background-color: ${colors.primary};
-  color: ${colors.background};
+  color: ${colors.backgroundMain};
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;

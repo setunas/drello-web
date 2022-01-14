@@ -7,7 +7,7 @@ export const colors = {
   text: "#425466",
   boldText: "#0A2540",
   placeholder: "#C1CBD7",
-  background: "#fff",
+  backgroundMain: "#fff",
   backgroundSub: "#eee",
 };
 

@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   input[type=text] {
-    border: 1px solid ${colors.background};    
+    border: 1px solid ${colors.backgroundMain};    
 
     &:focus {
       border: 1px solid ${colors.primary};
