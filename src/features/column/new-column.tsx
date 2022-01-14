@@ -28,7 +28,7 @@ const DisplayContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
 
-  background-color: ${colors.backgroundB};
+  background-color: ${colors.backgroundSub};
   color: ${colors.boldText};
   cursor: pointer;
 `;
@@ -41,7 +41,7 @@ const EditContainer = styled.form`
 
   display: grid;
   gap: 1rem;
-  background-color: ${colors.backgroundB};
+  background-color: ${colors.backgroundSub};
 `;
 
 const Input = styled.input`

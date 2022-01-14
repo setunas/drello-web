@@ -22,7 +22,7 @@ const Container = styled.div`
   justify-content: stretch;
   align-items: start;
   gap: 1rem;
-  background-color: ${colors.backgroundB};
+  background-color: ${colors.backgroundSub};
   overflow-y: auto;
   word-wrap: break-word;
   color: ${colors.boldText};

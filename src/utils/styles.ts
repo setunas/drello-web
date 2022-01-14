@@ -8,7 +8,7 @@ export const colors = {
   boldText: "#0A2540",
   placeholder: "#C1CBD7",
   background: "#fff",
-  backgroundB: "#eee",
+  backgroundSub: "#eee",
 };
 
 export const zIndex = {
