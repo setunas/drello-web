@@ -29,7 +29,7 @@ const DisplayContainer = styled.div`
   justify-content: flex-start;
 
   background-color: ${colors.backgroundSub};
-  color: ${colors.boldText};
+  color: ${colors.textBold};
   cursor: pointer;
 `;
 

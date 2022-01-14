@@ -35,7 +35,7 @@ const LandingMain = styled.main`
 const Headline = styled.article`
   font-size: 4rem;
   font-weight: bold;
-  color: ${colors.boldText};
+  color: ${colors.textBold};
 
   @media screen and (max-width: 720px) {
     font-size: 3rem;

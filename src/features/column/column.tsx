@@ -25,7 +25,7 @@ const Container = styled.div`
   background-color: ${colors.backgroundSub};
   overflow-y: auto;
   word-wrap: break-word;
-  color: ${colors.boldText};
+  color: ${colors.textBold};
 `;
 
 const Header = styled.div`
