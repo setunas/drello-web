@@ -9,8 +9,6 @@ export const colors = {
   placeholder: "#C1CBD7",
   background: "#fff",
   backgroundB: "#eee",
-
-  greyish: (opacity: number = 1) => `rgba(141, 153, 174, ${opacity})`,
 };
 
 export const zIndex = {
