@@ -28,14 +28,14 @@ export const GlobalStyle = createGlobalStyle`
 
   input {
     &::placeholder {
-      color: ${colors.placeholder}; /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: ${colors.textPlaceholder}; /* Chrome, Firefox, Opera, Safari 10.1+ */
       opacity: 1; /* Firefox */
     }
     &:-ms-input-placeholder {
-      color: ${colors.placeholder}; /* Internet Explorer 10-11 */
+      color: ${colors.textPlaceholder}; /* Internet Explorer 10-11 */
     }
     &::-ms-input-placeholder {
-      color: ${colors.placeholder}; /* Microsoft Edge */
+      color: ${colors.textPlaceholder}; /* Microsoft Edge */
     }
   }
 

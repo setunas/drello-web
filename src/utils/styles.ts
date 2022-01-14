@@ -6,7 +6,7 @@ export const colors = {
   // Neutral
   text: "#425466",
   textBold: "#0A2540",
-  placeholder: "#C1CBD7",
+  textPlaceholder: "#C1CBD7",
   backgroundMain: "#fff",
   backgroundSub: "#eee",
 };
