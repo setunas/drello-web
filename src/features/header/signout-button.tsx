@@ -7,7 +7,7 @@ import { signout } from "src/features/auth/auth.slice";
 
 const SignoutButtonWrapper = styled.span`
   padding: 0.5em 0;
-  color: ${colors.text};
+  color: ${colors.textPlain};
   font-weight: bold;
   cursor: pointer;
 `;

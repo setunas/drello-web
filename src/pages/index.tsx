@@ -25,7 +25,7 @@ const LandingMain = styled.main`
     ${colors.primary} 15%,
     ${colors.backgroundMain} 0
   );
-  color: ${colors.text};
+  color: ${colors.textPlain};
 
   @media screen and (max-height: 450px) {
     gap: 2em;
@@ -47,7 +47,7 @@ const Headline = styled.article`
 `;
 
 const InnerLink = styled.span`
-  color: ${colors.text}; /* To change the color of the visited link in Safari */
+  color: ${colors.textPlain}; /* To change the color of the visited link in Safari */
 `;
 
 const Footer = styled.footer`
