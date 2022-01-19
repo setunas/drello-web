@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
-import { PrimaryButton } from "../button/primary-button";
+import { PrimaryButton } from "../common-button/primary-button";
 
 const DisplayContainer = styled.div`
   padding: 0.5rem 0.3rem;

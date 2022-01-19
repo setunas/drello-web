@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
-import { PrimaryButton } from "../button/primary-button";
+import { PrimaryButton } from "../common-button/primary-button";
 
 const MainContainer = styled.div`
   display: grid;

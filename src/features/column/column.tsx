@@ -6,7 +6,7 @@ import { colors } from "src/utils/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
-import { DeleteXButton } from "../button/delete-x-button";
+import { DeleteXButton } from "../common-button/delete-x-button";
 
 export const columnHeight = "100vh - 6rem";
 
