@@ -20,7 +20,7 @@ export const LoadingDots = styled.span`
   }
 
   &::before {
-    left: -1rem;
+    left: -0.9rem;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 100%;
@@ -31,7 +31,7 @@ export const LoadingDots = styled.span`
   }
 
   &::after {
-    left: 1rem;
+    left: 0.9rem;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 100%;
