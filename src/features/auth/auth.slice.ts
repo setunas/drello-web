@@ -16,10 +16,16 @@ import { postSignup } from "./signup.api";
 
 interface AuthState {
   idToken: string | null;
+  signin: {
+    isLoading: boolean;
+  };
 }
 
 const initialState: AuthState = {
   idToken: null,
+  signin: {
+    isLoading: false,
+  },
 };
 
 export const signin = createAsyncThunk("auth/signin", async () => {
@@ -69,10 +75,15 @@ export const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(signin.pending, (state, action) => {
+      state.signin.isLoading = true;
+    });
     builder.addCase(signin.fulfilled, (state, action) => {
+      state.signin.isLoading = false;
       state.idToken = action.payload.idToken;
     });
     builder.addCase(signin.rejected, (state, action) => {
+      state.signin.isLoading = false;
       console.error(action.error.message);
     });
     builder.addCase(getIdTokenAndCurrentUser.fulfilled, (state, action) => {
@@ -90,6 +101,8 @@ export const slice = createSlice({
 // Selectors
 export const selectIdToken = () => (state: RootState) =>
   state.authState.idToken;
+export const selectSigninIsLoading = () => (state: RootState) =>
+  state.authState.signin.isLoading;
 
 // Reducer & Actions
 export const { resetAuth } = slice.actions;
