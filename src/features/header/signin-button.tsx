@@ -18,9 +18,14 @@ const SigninButtonWrapper = styled.span`
 interface SigninButtonProps {
   text: string;
   style?: CSSProperties;
+  loadingStyle?: CSSProperties;
 }
 
-export const SigninButton: FC<SigninButtonProps> = ({ text, style }) => {
+export const SigninButton: FC<SigninButtonProps> = ({
+  text,
+  style,
+  loadingStyle,
+}) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,7 +39,9 @@ export const SigninButton: FC<SigninButtonProps> = ({ text, style }) => {
   return (
     <>
       {isLoading ? (
-        <LoadingDots />
+        <span style={loadingStyle}>
+          <LoadingDots />
+        </span>
       ) : (
         <SigninButtonWrapper onClick={handleSignin} style={style}>
           {text}

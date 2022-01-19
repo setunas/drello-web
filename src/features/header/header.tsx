@@ -73,7 +73,10 @@ export const Header: FC<HeaderProps> = ({ disableShadow = false }) => {
               <SignoutButton />
             </DuringSigninWrapper>
           ) : (
-            <SigninButton text="Login" />
+            <SigninButton
+              text="Login"
+              loadingStyle={{ marginRight: "3.4em" }}
+            />
           )}
         </LeftNavItems>
       </HeaderContainer>
