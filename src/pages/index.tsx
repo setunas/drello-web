@@ -93,7 +93,7 @@ const HomePage = () => {
             <SigninButton
               text={isSmallScreen ? "Get Started" : "Login to Get Started"}
               style={{ padding: "0.7em 2em" }}
-              loadingStyle={{ padding: "0.6em 2em" }}
+              loadingStyle={{ padding: "0 2em" }}
             />
           )}
         </div>

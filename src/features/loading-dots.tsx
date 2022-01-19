@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 export const LoadingDots = styled.span`
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 100%;
   background-color: ${colors.textPlaceholder};
   color: ${colors.textPlaceholder};
   animation: dotFlashing 1s infinite linear alternate;
@@ -20,10 +20,10 @@ export const LoadingDots = styled.span`
   }
 
   &::before {
-    left: -15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    left: -1rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
     background-color: ${colors.textPlaceholder};
     color: ${colors.textPlaceholder};
     animation: dotFlashing 1s infinite alternate;
@@ -31,10 +31,10 @@ export const LoadingDots = styled.span`
   }
 
   &::after {
-    left: 15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+    left: 1rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
     background-color: ${colors.textPlaceholder};
     color: ${colors.textPlaceholder};
     animation: dotFlashing 1s infinite alternate;
