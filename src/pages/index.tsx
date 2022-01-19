@@ -66,6 +66,57 @@ const Footer = styled.footer`
   background-color: ${colors.backgroundMain};
 `;
 
+const LoadingDots = styled.div`
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: ${colors.textBold};
+  color: ${colors.textBold};
+  animation: dotFlashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+
+  &::before,
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+
+  &::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: ${colors.textBold};
+    color: ${colors.textBold};
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+
+  &::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: ${colors.textBold};
+    color: ${colors.textBold};
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dotFlashing {
+    0% {
+      background-color: ${colors.textPlain};
+    }
+    50%,
+    100% {
+      background-color: ${colors.backgroundSub};
+    }
+  }
+`;
+
 const HomePage = () => {
   const { currentUser } = useAuth();
   const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
@@ -83,6 +134,7 @@ const HomePage = () => {
           <br />
           for your todos
         </Headline>
+        <LoadingDots />
         <div>
           {currentUser ? (
             <GoToBoardButton
