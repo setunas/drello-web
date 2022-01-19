@@ -4,7 +4,7 @@ import { signin } from "../auth/auth.slice";
 import { useDispatch } from "react-redux";
 import { FC, useState } from "react";
 import { AppThunkDispatch } from "src/utils/redux/store";
-import { LoadingDots } from "../loading/loading-dots";
+import { LoadingDots } from "../user/loading-dots";
 
 const SigninButtonWrapper = styled.span`
   border-radius: 3em;
