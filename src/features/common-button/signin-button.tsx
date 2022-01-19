@@ -1,10 +1,11 @@
 import styled, { CSSProperties } from "styled-components";
 import { colors } from "src/utils/styles";
 import { signin } from "../auth/auth.slice";
-import { useDispatch } from "react-redux";
-import { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FC } from "react";
 import { AppThunkDispatch } from "src/utils/redux/store";
 import { LoadingDots } from "../loading-dots";
+import { selectIsLoading, setIsLoading } from "./signin-button.slice";
 
 const SigninButtonWrapper = styled.span`
   border-radius: 3em;
@@ -27,13 +28,13 @@ export const SigninButton: FC<SigninButtonProps> = ({
   loadingStyle,
 }) => {
   const dispatch = useDispatch<AppThunkDispatch>();
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(selectIsLoading());
 
   const handleSignin = () => {
-    setIsLoading(true);
+    dispatch(setIsLoading(true));
     dispatch(signin())
       .unwrap()
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   return (
