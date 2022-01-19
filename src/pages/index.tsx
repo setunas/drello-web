@@ -4,7 +4,7 @@ import { url } from "src/utils/url/others";
 import { colors, zIndex } from "src/utils/styles";
 import styled from "styled-components";
 import { useAuth } from "src/features/auth/use-auth";
-import { SigninButton } from "src/features/header/signin-button";
+import { SigninButton } from "src/features/button/signin-button";
 import { GoToBoardButton } from "src/features/header/go-to-board-button";
 import { useMediaQuery } from "react-responsive";
 

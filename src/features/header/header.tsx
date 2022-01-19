@@ -5,7 +5,7 @@ import { colors } from "src/utils/styles";
 import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
-import { SigninButton } from "./signin-button";
+import { SigninButton } from "../button/signin-button";
 import { SignoutButton } from "./signout-button";
 import { useMediaQuery } from "react-responsive";
 
