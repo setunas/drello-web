@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { DeleteXButton } from "../common-button/delete-x-button";
 import { colors } from "src/utils/styles";
 import { AppThunkDispatch } from "src/utils/redux/store";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const CardMain = styled.div<{ isDeleting: boolean }>`
   box-shadow: 0 0 1rem #ddd;
