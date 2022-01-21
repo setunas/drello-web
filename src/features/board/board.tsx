@@ -5,18 +5,18 @@ import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { moveCardThunk } from "src/features/card/card.slice";
 import { moveColumnThunk } from "../column/column.slice";
-import { columnHeight } from "../column/column";
 
 const Container = styled.section`
-  min-height: calc(${columnHeight} + 2rem);
+  padding: 1em;
+
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
   gap: 1rem;
-  padding: 1em;
   justify-content: start;
   justify-items: start;
   align-items: flex-start;
+
   overflow-x: auto;
 `;
 

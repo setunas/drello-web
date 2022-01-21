@@ -19,7 +19,7 @@ const Main = styled.main`
   grid-auto-rows: min-content;
 
   background-image: linear-gradient(
-    to bottom right,
+    to left bottom,
     ${colors.backgroundMain} 90%,
     ${colors.primary} 0
   );
