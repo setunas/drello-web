@@ -69,7 +69,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
-  const showFormAction = useRef(true);
+  const showFormAction = useRef(true); // Use `useRef` instead of `useState` to update the value imediately.
 
   const addCardHandler: SubmitHandler<FormInputs> = async (data) => {
     showFormAction.current = false;
