@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     color: ${colors.textPlain};
+    outline: none;
   }
 
   body, #__next {
