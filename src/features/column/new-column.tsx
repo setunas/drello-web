@@ -83,18 +83,18 @@ interface NewColumnProps {
 export const NewColumn = ({ boardId }: NewColumnProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
-  const [inputToggle, setInputToggle] = useState(true);
+  const [showForm, setShowForm] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = async (data) => {
     await dispatch(postColumnThunk({ title: data.title, boardId }));
     reset();
-    setInputToggle(true);
+    setShowForm(true);
   };
 
   return (
     <MainContainer>
-      {inputToggle ? (
-        <DisplayContainer onClick={() => setInputToggle(false)}>
+      {showForm ? (
+        <DisplayContainer onClick={() => setShowForm(false)}>
           <FAIcon icon={faPlus} />
           <span>Add a Column</span>
         </DisplayContainer>
@@ -108,7 +108,7 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
           />
           <FormActions>
             <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-            <CancelButton onClick={() => setInputToggle(true)}>
+            <CancelButton onClick={() => setShowForm(true)}>
               Cancel
             </CancelButton>
           </FormActions>

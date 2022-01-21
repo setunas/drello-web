@@ -68,16 +68,16 @@ type FormInputs = {
 export const NewCard = ({ columnId }: NewCardProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
-  const [inputToggle, setInputToggle] = useState(true);
+  const [showForm, setShowForm] = useState(true);
 
   const addCardHandler: SubmitHandler<FormInputs> = async (data) => {
     await dispatch(postCardThunk({ title: data.cardTitle, columnId })).unwrap();
     reset();
-    setInputToggle(true);
+    setShowForm(true);
   };
 
-  return inputToggle ? (
-    <DisplayContainer onClick={() => setInputToggle(false)}>
+  return showForm ? (
+    <DisplayContainer onClick={() => setShowForm(false)}>
       <FAIcon icon={faPlus} />
       <span>Add a Card</span>
     </DisplayContainer>
@@ -91,7 +91,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
       />
       <FormActions>
         <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-        <CancelButton onClick={() => setInputToggle(true)}>Cancel</CancelButton>
+        <CancelButton onClick={() => setShowForm(true)}>Cancel</CancelButton>
       </FormActions>
     </FormContainer>
   );
