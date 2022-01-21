@@ -16,8 +16,6 @@ const Container = styled.section`
   justify-content: start;
   justify-items: start;
   align-items: flex-start;
-
-  overflow-x: auto;
 `;
 
 interface BoardProps {
