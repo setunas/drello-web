@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
 import { PrimaryButton } from "../common-button/primary-button";
+import { AppThunkDispatch } from "src/utils/redux/store";
 
 const MainContainer = styled.div`
   display: grid;
@@ -80,14 +81,17 @@ interface NewColumnProps {
 }
 
 export const NewColumn = ({ boardId }: NewColumnProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
+  const showFormAction = useRef(true);
 
-  const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
-    dispatch(postColumnThunk({ title: data.title, boardId }));
+  const addColumnHandler: SubmitHandler<FormInputs> = async (data) => {
+    showFormAction.current = false;
+    await dispatch(postColumnThunk({ title: data.title, boardId })).unwrap();
     reset();
     setShowForm(true);
+    showFormAction.current = true;
   };
 
   return (
@@ -105,12 +109,14 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
             {...register("title")}
             required
           />
-          <FormActions>
-            <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-            <CancelButton onClick={() => setShowForm(true)}>
-              Cancel
-            </CancelButton>
-          </FormActions>
+          {showFormAction.current && (
+            <FormActions>
+              <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
+              <CancelButton onClick={() => setShowForm(true)}>
+                Cancel
+              </CancelButton>
+            </FormActions>
+          )}
         </EditContainer>
       )}
     </MainContainer>

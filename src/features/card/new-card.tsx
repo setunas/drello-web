@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
 import { PrimaryButton } from "../common-button/primary-button";
+import { AppThunkDispatch } from "src/utils/redux/store";
 
 const DisplayContainer = styled.div`
   padding: 0.5rem 0.3rem;
@@ -65,14 +66,17 @@ type FormInputs = {
 };
 
 export const NewCard = ({ columnId }: NewCardProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
+  const showFormAction = useRef(true);
 
-  const addCardHandler: SubmitHandler<FormInputs> = (data) => {
-    dispatch(postCardThunk({ title: data.cardTitle, columnId }));
+  const addCardHandler: SubmitHandler<FormInputs> = async (data) => {
+    showFormAction.current = false;
+    await dispatch(postCardThunk({ title: data.cardTitle, columnId })).unwrap();
     reset();
     setShowForm(true);
+    showFormAction.current = true;
   };
 
   return showForm ? (
@@ -88,10 +92,12 @@ export const NewCard = ({ columnId }: NewCardProps) => {
         {...register("cardTitle")}
         required
       />
-      <FormActions>
-        <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-        <CancelButton onClick={() => setShowForm(true)}>Cancel</CancelButton>
-      </FormActions>
+      {showFormAction.current && (
+        <FormActions>
+          <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
+          <CancelButton onClick={() => setShowForm(true)}>Cancel</CancelButton>
+        </FormActions>
+      )}
     </FormContainer>
   );
 };
