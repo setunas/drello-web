@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -84,14 +84,17 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
-  const showFormAction = useRef(true); // Use `useRef` instead of `useState` to update the value imediately.
+  const [showFormAction, setShowFormAction] = useState(true);
 
-  const addColumnHandler: SubmitHandler<FormInputs> = async (data) => {
-    showFormAction.current = false;
-    await dispatch(postColumnThunk({ title: data.title, boardId })).unwrap();
-    reset();
-    setShowForm(true);
-    showFormAction.current = true;
+  const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
+    setShowFormAction(false);
+    dispatch(postColumnThunk({ title: data.title, boardId }))
+      .unwrap()
+      .finally(() => {
+        reset();
+        setShowForm(true);
+        setShowFormAction(true);
+      });
   };
 
   return (
@@ -109,7 +112,7 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
             {...register("title")}
             required
           />
-          {showFormAction.current && (
+          {showFormAction && (
             <FormActions>
               <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
               <CancelButton onClick={() => setShowForm(true)}>

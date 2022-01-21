@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -69,14 +69,17 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
-  const showFormAction = useRef(true); // Use `useRef` instead of `useState` to update the value imediately.
+  const [showFormAction, setShowFormAction] = useState(true);
 
-  const addCardHandler: SubmitHandler<FormInputs> = async (data) => {
-    showFormAction.current = false;
-    await dispatch(postCardThunk({ title: data.cardTitle, columnId })).unwrap();
-    reset();
-    setShowForm(true);
-    showFormAction.current = true;
+  const addCardHandler: SubmitHandler<FormInputs> = (data) => {
+    setShowFormAction(false);
+    dispatch(postCardThunk({ title: data.cardTitle, columnId }))
+      .unwrap()
+      .finally(() => {
+        reset();
+        setShowForm(true);
+        setShowFormAction(true);
+      });
   };
 
   return showForm ? (
@@ -92,7 +95,7 @@ export const NewCard = ({ columnId }: NewCardProps) => {
         {...register("cardTitle")}
         required
       />
-      {showFormAction.current && (
+      {showFormAction && (
         <FormActions>
           <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
           <CancelButton onClick={() => setShowForm(true)}>Cancel</CancelButton>
