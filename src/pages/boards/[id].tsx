@@ -18,6 +18,7 @@ const Main = styled.main`
   display: grid;
   grid-auto-rows: min-content;
 
+  overflow-x: auto;
   background-image: linear-gradient(
     to left bottom,
     ${colors.backgroundMain} 90%,
