@@ -7,7 +7,6 @@ import { colors } from "src/utils/styles";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { postColumnThunk } from "src/features/column/column.slice";
 import { PrimaryButton } from "../common-button/primary-button";
-import { AppThunkDispatch } from "src/utils/redux/store";
 
 const MainContainer = styled.div`
   display: grid;
@@ -81,12 +80,12 @@ interface NewColumnProps {
 }
 
 export const NewColumn = ({ boardId }: NewColumnProps) => {
-  const dispatch = useDispatch<AppThunkDispatch>();
+  const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [showForm, setShowForm] = useState(true);
 
-  const addColumnHandler: SubmitHandler<FormInputs> = async (data) => {
-    await dispatch(postColumnThunk({ title: data.title, boardId }));
+  const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
+    dispatch(postColumnThunk({ title: data.title, boardId }));
     reset();
     setShowForm(true);
   };
