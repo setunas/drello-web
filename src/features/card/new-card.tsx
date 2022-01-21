@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { colors } from "src/utils/styles";
 import { postCardThunk } from "src/features/card/card.slice";
 import { PrimaryButton } from "../common-button/primary-button";
+import { AppThunkDispatch } from "src/utils/redux/store";
 
 const DisplayContainer = styled.div`
   padding: 0.5rem 0.3rem;
@@ -65,12 +66,12 @@ type FormInputs = {
 };
 
 export const NewCard = ({ columnId }: NewCardProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppThunkDispatch>();
   const { register, handleSubmit, reset } = useForm<FormInputs>();
   const [inputToggle, setInputToggle] = useState(true);
 
-  const addCardHandler: SubmitHandler<FormInputs> = (data) => {
-    dispatch(postCardThunk({ title: data.cardTitle, columnId }));
+  const addCardHandler: SubmitHandler<FormInputs> = async (data) => {
+    await dispatch(postCardThunk({ title: data.cardTitle, columnId })).unwrap();
     reset();
     setInputToggle(true);
   };
