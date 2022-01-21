@@ -66,11 +66,13 @@ export const Board = ({ boardId }: BoardProps) => {
         type="column"
       >
         {(provided) => (
-          <Container ref={provided.innerRef} {...provided.droppableProps}>
-            <ColumnList boardId={boardId} />
-            {provided.placeholder}
-            <NewColumn boardId={boardId} />
-          </Container>
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <Container>
+              <ColumnList boardId={boardId} />
+              {provided.placeholder}
+              <NewColumn boardId={boardId} />
+            </Container>
+          </div>
         )}
       </Droppable>
     </DragDropContext>
