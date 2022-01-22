@@ -15,7 +15,7 @@ export const patchCardPositions = async (args: {
   };
 
   return await drelloApiAxios.patch<{ cards: OuterCard[] }>(
-    path.positions(args.columnId),
+    path.cardPositions(args.columnId),
     body,
     {
       headers: { Authorization: `Bearer ${args.idToken}` },
