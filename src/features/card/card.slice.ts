@@ -4,7 +4,7 @@ import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { deleteCard, postCard, patchCard } from "./card.api";
 import { calcPositionOnCreate, updatePositions } from "../position/position";
-import { patchPositions } from "../position/position.api";
+import { patchCardPositions } from "../position/position.api";
 
 export interface CardState {
   cardsByColumn: { [columnId: number]: Card[] | undefined };
@@ -114,7 +114,7 @@ export const moveCardThunk = createAsyncThunk(
     });
 
     if (renumberdList) {
-      patchPositions({
+      patchCardPositions({
         cards: renumberdList,
         columnId: destColumnId,
         idToken,
