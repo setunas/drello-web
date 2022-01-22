@@ -20,4 +20,5 @@ export const path = {
   cards: (cardId?: number) => (cardId ? `/cards/${cardId}` : `/cards`),
   users: (userId?: number) => (userId ? `/users/${userId}` : `/users`),
   signup: () => `/signup`,
+  positions: (columnId: number) => `/columns/${columnId}/cards/positions`,
 };
