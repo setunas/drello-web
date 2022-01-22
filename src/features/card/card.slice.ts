@@ -119,29 +119,34 @@ export const moveCardThunk = createAsyncThunk(
         columnId: destColumnId,
         idToken,
       });
-    } else if (position) {
-      const updatedCard = {
-        id: targetCard.id,
-        title: targetCard.title,
-        columnId: destColumnId,
-        position,
-      };
+    }
 
-      patchCard({
-        ...updatedCard,
-        idToken,
-      });
+    const updatedCard = {
+      id: targetCard.id,
+      title: targetCard.title,
+      columnId: destColumnId,
+      position,
+    };
 
-      destCardList[destIndex] = updatedCard;
+    patchCard({
+      ...updatedCard,
+      idToken,
+    });
+
+    let finalDestCardList: Card[];
+    if (renumberdList) {
+      renumberdList[destIndex] = updatedCard;
+      finalDestCardList = renumberdList;
     } else {
-      throw Error("`position` is not returned");
+      destCardList[destIndex] = updatedCard;
+      finalDestCardList = destCardList;
     }
 
     return {
       sourceColumnId,
       sourceCardList,
       destColumnId,
-      destCardList: renumberdList ? renumberdList : destCardList,
+      destCardList: finalDestCardList,
     };
   }
 );

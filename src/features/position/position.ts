@@ -81,7 +81,7 @@ export const updatePositions = <T extends Positionable>({
     list,
   });
   if (renumberdList !== null) {
-    return { renumberdList };
+    return { renumberdList, position: renumberdList[destIndex].position };
   }
 
   const position = calcPositionOnMove({
