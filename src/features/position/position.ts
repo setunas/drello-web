@@ -14,17 +14,26 @@ const renumberPositionsIfNeeded = <T extends Positionable>({
   prevPosition,
   list,
 }: {
-  nextPosition: number;
-  prevPosition: number;
+  nextPosition: number | null;
+  prevPosition: number | null;
   list: T[];
 }) => {
+  if (nextPosition === null && prevPosition === null) {
+    // When the target is the first element in the list
+    return null;
+  }
+
+  const nextP = nextPosition || 0;
+  const prevP = prevPosition || 0;
+
   if (
-    prevPosition >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
-    nextPosition >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
-    Math.abs(nextPosition - prevPosition) < MIN_POSITION_GAP
+    prevP >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
+    nextP >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
+    Math.abs(nextP - prevP) < MIN_POSITION_GAP
   ) {
     let position = INITIAL_POSITION_GAP;
     const updatedList = [...list];
+
     updatedList.forEach((positionable) => {
       positionable.position = position;
       position += INITIAL_POSITION_GAP;
@@ -61,8 +70,8 @@ export const updatePositions = <T extends Positionable>({
   destIndex: number;
   list: T[];
 }) => {
-  const prevPosition = list[destIndex - 1]?.position || 0;
-  const nextPosition = list[destIndex + 1]?.position || 0;
+  const prevPosition = list[destIndex - 1]?.position || null;
+  const nextPosition = list[destIndex + 1]?.position || null;
 
   const renumberdList = renumberPositionsIfNeeded({
     nextPosition,
@@ -73,7 +82,10 @@ export const updatePositions = <T extends Positionable>({
     return { renumberdList };
   }
 
-  const position = calcPositionOnMove({ nextPosition, prevPosition });
+  const position = calcPositionOnMove({
+    nextPosition: nextPosition || 0,
+    prevPosition: prevPosition || 0,
+  });
   return { position };
 };
 
