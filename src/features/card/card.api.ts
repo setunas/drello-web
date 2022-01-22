@@ -19,7 +19,7 @@ export const postCard = async (args: {
   });
 };
 
-export const updateCard = async (args: {
+export const patchCard = async (args: {
   id: number;
   title: string;
   columnId: number;

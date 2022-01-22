@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { deleteColumn, postColumn, updateColumn } from "./column.api";
+import { deleteColumn, postColumn, patchColumn } from "./column.api";
 import { calcPositionOnCreate, updatePositions } from "../position/position";
 
 interface ColumnState {
@@ -95,7 +95,7 @@ export const moveColumnThunk = createAsyncThunk(
       position,
     };
 
-    updateColumn({
+    patchColumn({
       ...updatedColumn,
       idToken,
     });

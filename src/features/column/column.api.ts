@@ -19,7 +19,7 @@ export const postColumn = async (args: {
   });
 };
 
-export const updateColumn = async (args: {
+export const patchColumn = async (args: {
   id: number;
   title: string;
   boardId: number;

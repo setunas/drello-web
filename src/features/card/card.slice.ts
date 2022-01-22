@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Card, OuterCard } from "src/features/card/card.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
-import { deleteCard, postCard, updateCard } from "./card.api";
+import { deleteCard, postCard, patchCard } from "./card.api";
 import { calcPositionOnCreate, updatePositions } from "../position/position";
 
 export interface CardState {
@@ -119,7 +119,7 @@ export const moveCardThunk = createAsyncThunk(
       position,
     };
 
-    updateCard({
+    patchCard({
       ...updatedCard,
       idToken,
     });
