@@ -2,7 +2,7 @@ import { drelloApiAxios } from "src/utils/axios/drello-api-axios";
 import { path } from "src/utils/url/drello-api";
 import { OuterCard } from "src/features/card/card.g";
 
-export const patchPosition = async (args: {
+export const patchPositions = async (args: {
   cards: {
     id: number;
     position: number;

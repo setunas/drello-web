@@ -4,6 +4,7 @@ import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { deleteCard, postCard, patchCard } from "./card.api";
 import { calcPositionOnCreate, updatePositions } from "../position/position";
+import { patchPositions } from "../position/position.api";
 
 export interface CardState {
   cardsByColumn: { [columnId: number]: Card[] | undefined };
@@ -107,29 +108,40 @@ export const moveCardThunk = createAsyncThunk(
       destIndex,
     });
 
-    const { position } = updatePositions({
+    const { position, renumberdList } = updatePositions({
       destIndex,
       list: destCardList,
     });
 
-    const updatedCard = {
-      id: targetCard.id,
-      title: targetCard.title,
-      columnId: destColumnId,
-      position,
-    };
+    if (renumberdList) {
+      patchPositions({
+        cards: renumberdList,
+        columnId: destColumnId,
+        idToken,
+      });
+    } else if (position) {
+      const updatedCard = {
+        id: targetCard.id,
+        title: targetCard.title,
+        columnId: destColumnId,
+        position,
+      };
 
-    patchCard({
-      ...updatedCard,
-      idToken,
-    });
+      patchCard({
+        ...updatedCard,
+        idToken,
+      });
 
-    destCardList[destIndex] = updatedCard;
+      destCardList[destIndex] = updatedCard;
+    } else {
+      throw Error("`position` is not returned");
+    }
+
     return {
       sourceColumnId,
       sourceCardList,
       destColumnId,
-      destCardList,
+      destCardList: renumberdList ? renumberdList : destCardList,
     };
   }
 );

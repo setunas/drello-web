@@ -83,25 +83,32 @@ export const moveColumnThunk = createAsyncThunk(
       destIndex,
     });
 
-    const { position } = updatePositions({
+    const { position, renumberdList } = updatePositions({
       destIndex,
       list: relocatedList,
     });
 
-    const updatedColumn = {
-      id: targetColumn.id,
-      title: targetColumn.title,
-      boardId: boardId,
-      position,
-    };
+    if (renumberdList) {
+      // Hit the patchColumnPositions API
+    } else if (position) {
+      const updatedColumn = {
+        id: targetColumn.id,
+        title: targetColumn.title,
+        boardId: boardId,
+        position,
+      };
 
-    patchColumn({
-      ...updatedColumn,
-      idToken,
-    });
+      patchColumn({
+        ...updatedColumn,
+        idToken,
+      });
 
-    relocatedList[destIndex] = updatedColumn;
-    return relocatedList;
+      relocatedList[destIndex] = updatedColumn;
+    } else {
+      throw Error("`position` is not returned");
+    }
+
+    return renumberdList ? renumberdList : relocatedList;
   }
 );
 
