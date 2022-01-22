@@ -1,8 +1,8 @@
 /**
  * This file is for codes related `positon`.
  */
-import { Column } from "./column/column.g";
-import { Card } from "./card/card.g";
+import { Column } from "../column/column.g";
+import { Card } from "../card/card.g";
 
 const INITIAL_POSITION_GAP = 16384;
 const MIN_POSITION_GAP = 0.001;

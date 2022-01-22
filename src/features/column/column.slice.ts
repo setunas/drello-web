@@ -3,7 +3,7 @@ import { Column, OuterColumn } from "src/features/column/column.g";
 import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { deleteColumn, postColumn, updateColumn } from "./column.api";
-import { calcPositionOnCreate, updatePositions } from "../position";
+import { calcPositionOnCreate, updatePositions } from "../position/position";
 
 interface ColumnState {
   columns: Column[];
