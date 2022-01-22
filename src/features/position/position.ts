@@ -31,12 +31,14 @@ const renumberPositionsIfNeeded = <T extends Positionable>({
     nextP >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
     Math.abs(nextP - prevP) < MIN_POSITION_GAP
   ) {
+    console.log(nextP, prevP);
     let position = INITIAL_POSITION_GAP;
-    const updatedList = [...list];
 
-    updatedList.forEach((positionable) => {
-      positionable.position = position;
+    const updatedList = list.map((positionable) => {
+      const obj = { ...positionable };
+      obj.position = position;
       position += INITIAL_POSITION_GAP;
+      return obj;
     });
 
     return updatedList;
