@@ -4,12 +4,7 @@
 # Drello Overview
 We give you an overview of Drello [here](https://github.com/setunas/drello-api#drello-overview). Take a look at this first 😉
 
-## Drello Overview
-
-[`drello-api`](https://github.com/setunas/drello-api)
-
-## System Configuration
--> Link to `drello-api`
+# About `drello-api`
 
 ## File Structure
 
