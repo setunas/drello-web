@@ -1,15 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
-import { colors } from "src/utils/styles";
+import { colors, headerHeight } from "src/utils/styles";
 import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "../common-button/signin-button";
 import { SignoutButton } from "./signout-button";
 import { useMediaQuery } from "react-responsive";
-
-export const headerHeight = "3.8rem";
 
 const HeaderContainer = styled.header<{ disableShadow: boolean }>`
   box-shadow: ${({ disableShadow }) =>

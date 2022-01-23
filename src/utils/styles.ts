@@ -20,3 +20,5 @@ export const zIndex = {
 export const fontFamily = {
   primary: `"sohne-var","Helvetica Neue","Arial",sans-serif;`,
 };
+
+export const headerHeight = "3.8rem";

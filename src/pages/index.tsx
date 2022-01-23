@@ -1,6 +1,6 @@
-import { Header, headerHeight } from "src/features/header/header";
+import { Header } from "src/features/header/header";
 import { url } from "src/utils/url/others";
-import { colors, zIndex } from "src/utils/styles";
+import { colors, headerHeight, zIndex } from "src/utils/styles";
 import styled from "styled-components";
 import { useAuth } from "src/features/auth/use-auth";
 import { SigninButton } from "src/features/common-button/signin-button";

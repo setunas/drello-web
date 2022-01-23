@@ -2,12 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { CardList } from "src/features/card/card-list";
 import { NewCard } from "src/features/card/new-card";
-import { colors } from "src/utils/styles";
+import { colors, headerHeight } from "src/utils/styles";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 import { DeleteXButton } from "../common-button/delete-x-button";
-import { headerHeight } from "../header/header";
 
 export const columnHeight = `100vh - ${headerHeight} - 2rem`;
 
