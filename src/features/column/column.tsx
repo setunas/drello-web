@@ -18,10 +18,10 @@ const Container = styled.div`
   max-height: calc(${columnHeight});
 
   display: grid;
-  grid-template-rows: min-content auto;
-  justify-content: stretch;
+  grid-template-rows: min-content;
   align-items: start;
   gap: 1rem;
+
   background-color: ${colors.backgroundSub};
   overflow-y: auto;
   color: ${colors.textBold};
