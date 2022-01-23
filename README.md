@@ -5,6 +5,7 @@
 We give you an overview of Drello [here](https://github.com/setunas/drello-api#drello-overview). Take a look at this first 😉
 
 # About `drello-web`
+In this section, we are going to explain `drello-web`. If you want to see about `drello-api`, see [here](https://github.com/setunas/drello-api/blob/develop/README.md#about-drello-api).
 
 ## File Structure
 
