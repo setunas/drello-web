@@ -10,7 +10,7 @@ const MIN_POSITION_GAP = 0.001;
  * elements in a certain list. This is necessary because a position could reach
  * some thresholds which can't be calculated anymore.
  * `renumberPositionsIfNeeded()` solves that problem by re-numbering all the
- * positions before they reach the threshold.
+ * positions in the provided list before they reach the threshold.
  */
 const renumberPositionsIfNeeded = <T extends Positionable>({
   nextPosition,
