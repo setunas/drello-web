@@ -9,14 +9,6 @@ import { postColumnThunk } from "src/features/column/column.slice";
 import { PrimaryButton } from "../common-button/primary-button";
 import { AppThunkDispatch } from "src/utils/redux/store";
 
-const MainContainer = styled.div`
-  display: grid;
-  min-width: 15vw;
-  @media screen and (max-width: 720px) {
-    min-width: 20vw;
-  }
-`;
-
 const DisplayContainer = styled.div`
   border-radius: 0.5rem;
   padding: 1rem 1.3rem;
@@ -99,31 +91,25 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
       });
   };
 
-  return (
-    <MainContainer>
-      {showForm ? (
-        <DisplayContainer onClick={() => setShowForm(false)}>
-          <FAIcon icon={faPlus} />
-          <span>Add a Column</span>
-        </DisplayContainer>
-      ) : (
-        <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
-          <Input
-            type="text"
-            placeholder="Enter a title here"
-            {...register("title")}
-            required
-          />
-          {showFormAction && (
-            <FormActions>
-              <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
-              <CancelButton onClick={() => setShowForm(true)}>
-                Cancel
-              </CancelButton>
-            </FormActions>
-          )}
-        </EditContainer>
+  return showForm ? (
+    <DisplayContainer onClick={() => setShowForm(false)}>
+      <FAIcon icon={faPlus} />
+      <span>Add a Column</span>
+    </DisplayContainer>
+  ) : (
+    <EditContainer onSubmit={handleSubmit(addColumnHandler)}>
+      <Input
+        type="text"
+        placeholder="Enter a title here"
+        {...register("title")}
+        required
+      />
+      {showFormAction && (
+        <FormActions>
+          <PrimaryButton text="Add" style={{ padding: "0.5em 2em" }} />
+          <CancelButton onClick={() => setShowForm(true)}>Cancel</CancelButton>
+        </FormActions>
       )}
-    </MainContainer>
+    </EditContainer>
   );
 };
