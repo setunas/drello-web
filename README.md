@@ -12,12 +12,12 @@ In this section, we are going to explain `drello-web`. If you want to see about 
 
 
 ## Tech Stacks
-- TypeScript
-- React
-- Next.js
-- Redux Toolkit
-- styled-components
-- Github Actions
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [styled-components](https://styled-components.com/)
+- [Github Actions](https://github.com/features/actions)
 
 
 ## File Structure
