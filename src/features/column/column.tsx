@@ -7,8 +7,9 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { deleteColumnThunk } from "./column.slice";
 import { DeleteXButton } from "../common-button/delete-x-button";
+import { headerHeight } from "../header/header";
 
-export const columnHeight = "100vh - 6rem";
+export const columnHeight = `100vh - ${headerHeight} - 2rem`;
 
 const Container = styled.div`
   border-radius: 0.5rem;
