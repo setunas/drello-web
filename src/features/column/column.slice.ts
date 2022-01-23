@@ -4,6 +4,7 @@ import { RootState } from "src/utils/redux/root";
 import { getBoardThunk } from "src/features/board/board.slice";
 import { deleteColumn, postColumn, patchColumn } from "./column.api";
 import { calcPositionOnCreate, updatePositions } from "../position/position";
+import { patchColumnPositions } from "../position/position.api";
 
 interface ColumnState {
   columns: Column[];
@@ -89,26 +90,31 @@ export const moveColumnThunk = createAsyncThunk(
     });
 
     if (renumberdList) {
-      // Hit the patchColumnPositions API
-    } else if (position) {
-      const updatedColumn = {
-        id: targetColumn.id,
-        title: targetColumn.title,
-        boardId: boardId,
-        position,
-      };
-
-      patchColumn({
-        ...updatedColumn,
-        idToken,
-      });
-
-      relocatedList[destIndex] = updatedColumn;
-    } else {
-      throw Error("`position` is not returned");
+      patchColumnPositions({ columns: renumberdList, idToken });
     }
 
-    return renumberdList ? renumberdList : relocatedList;
+    const updatedColumn = {
+      id: targetColumn.id,
+      title: targetColumn.title,
+      boardId: boardId,
+      position,
+    };
+
+    patchColumn({
+      ...updatedColumn,
+      idToken,
+    });
+
+    let finalColumnList: Column[];
+    if (renumberdList) {
+      renumberdList[destIndex] = updatedColumn;
+      finalColumnList = renumberdList;
+    } else {
+      relocatedList[destIndex] = updatedColumn;
+      finalColumnList = relocatedList;
+    }
+
+    return finalColumnList;
   }
 );
 
