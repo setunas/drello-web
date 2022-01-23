@@ -18,12 +18,15 @@ const HeaderContainer = styled.header<{ disableShadow: boolean }>`
   height: ${headerHeight};
   width: 100vw;
   width: -webkit-fill-available;
+
   position: fixed;
   top: 0;
+
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
   align-items: center;
+
   background-color: ${colors.backgroundMain};
 `;
 

@@ -9,7 +9,7 @@ import { useMediaQuery } from "react-responsive";
 
 const footerHeight = "3em";
 
-const LandingMain = styled.main`
+const Main = styled.main`
   padding: 0 5em;
   height: calc(100vh - ${headerHeight} - ${footerHeight});
 
@@ -72,7 +72,7 @@ const HomePage = () => {
   return (
     <>
       <Header disableShadow={true} />
-      <LandingMain>
+      <Main>
         <Headline>
           Simple Kanban
           <br />
@@ -92,7 +92,7 @@ const HomePage = () => {
             />
           )}
         </div>
-      </LandingMain>
+      </Main>
       <Footer>
         <a href={url.setunasGithub} target="_blank" rel="noreferrer">
           <InnerLink>&copy; 2022 Setunas Team</InnerLink>
