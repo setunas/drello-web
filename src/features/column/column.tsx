@@ -48,9 +48,6 @@ interface ColumnProps {
   index: number;
 }
 
-/**
- * Column component responsible for each column within the board.
- */
 export const Column = ({ columnId, title, index }: ColumnProps) => {
   const dispatch = useDispatch();
 
