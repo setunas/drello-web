@@ -11,12 +11,7 @@ import Header from "src/features/header/header";
 
 const Main = styled.main`
   z-index: ${zIndex.mainOfBoardPage};
-
   height: 100vh;
-
-  display: grid;
-  grid-auto-rows: min-content;
-
   background-image: linear-gradient(
     to left bottom,
     ${colors.backgroundMain} 90%,
