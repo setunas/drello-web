@@ -34,6 +34,7 @@ const renumberPositionsIfNeeded = <T extends Positionable>({
     nextP >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
     Math.abs(nextP - prevP) < MIN_POSITION_GAP
   ) {
+    // When need to be re-numberd
     let position = INITIAL_POSITION_GAP;
 
     const updatedList = list.map((positionable) => {
