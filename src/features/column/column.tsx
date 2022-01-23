@@ -38,6 +38,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h4`
+  width: 15rem;
   font-size: 1.2rem;
 `;
 
