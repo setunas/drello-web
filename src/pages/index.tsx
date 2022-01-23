@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { Header, headerHeight } from "src/features/header/header";
 import { url } from "src/utils/url/others";
 import { colors, zIndex } from "src/utils/styles";
@@ -72,10 +71,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Head>
-        <title>Drello</title>
-        <meta name="description" content="Drello" />
-      </Head>
       <Header disableShadow={true} />
       <LandingMain>
         <Headline>

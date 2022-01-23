@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Router, { useRouter } from "next/router";
@@ -49,16 +48,10 @@ const BoardPage = () => {
 
   if (!board) return null;
   return (
-    <>
-      <Head>
-        <title>Drello</title>
-        <meta name="description" content="Drello" />
-      </Head>
-      <Main>
-        <Header />
-        <Board boardId={boardId} />
-      </Main>
-    </>
+    <Main>
+      <Header />
+      <Board boardId={boardId} />
+    </Main>
   );
 };
 
