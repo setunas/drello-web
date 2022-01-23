@@ -114,11 +114,7 @@ export const moveCardThunk = createAsyncThunk(
     });
 
     if (renumberdList) {
-      patchCardPositions({
-        cards: renumberdList,
-        columnId: destColumnId,
-        idToken,
-      });
+      patchCardPositions({ cards: renumberdList, idToken });
     }
 
     const updatedCard = {

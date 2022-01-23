@@ -6,20 +6,15 @@ export const patchCardPositions = async (args: {
     id: number;
     position: number;
   }[];
-  columnId: number;
   idToken: string;
 }) => {
   const body = {
     Cards: args.cards,
   };
 
-  return await drelloApiAxios.patch<null>(
-    path.cardPositions(args.columnId),
-    body,
-    {
-      headers: { Authorization: `Bearer ${args.idToken}` },
-    }
-  );
+  return await drelloApiAxios.patch<null>(path.cardPositions(), body, {
+    headers: { Authorization: `Bearer ${args.idToken}` },
+  });
 };
 
 export const patchColumnPositions = async (args: {
