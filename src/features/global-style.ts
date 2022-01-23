@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     color: ${colors.textPlain};
     outline: none;
+    word-wrap: break-word;
   }
 
   body, #__next {
@@ -21,10 +22,6 @@ export const GlobalStyle = createGlobalStyle`
     &:visited {
       color: inherit;
     }
-  }
-
-  div {
-    word-wrap: break-word;
   }
 
   input {
