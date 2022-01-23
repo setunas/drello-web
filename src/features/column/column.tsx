@@ -24,7 +24,6 @@ const Container = styled.div`
   gap: 1rem;
   background-color: ${colors.backgroundSub};
   overflow-y: auto;
-  word-wrap: break-word;
   color: ${colors.textBold};
 `;
 
