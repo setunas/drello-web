@@ -1,6 +1,5 @@
 import { drelloApiAxios } from "src/utils/axios/drello-api-axios";
 import { path } from "src/utils/url/drello-api";
-import { OuterCard } from "src/features/card/card.g";
 
 export const patchCardPositions = async (args: {
   cards: {
@@ -14,11 +13,27 @@ export const patchCardPositions = async (args: {
     Cards: args.cards,
   };
 
-  return await drelloApiAxios.patch<{ cards: OuterCard[] }>(
+  return await drelloApiAxios.patch<null>(
     path.cardPositions(args.columnId),
     body,
     {
       headers: { Authorization: `Bearer ${args.idToken}` },
     }
   );
+};
+
+export const patchColumnPositions = async (args: {
+  columns: {
+    id: number;
+    position: number;
+  }[];
+  idToken: string;
+}) => {
+  const body = {
+    Columns: args.columns,
+  };
+
+  return await drelloApiAxios.patch<null>(path.columnPositions(), body, {
+    headers: { Authorization: `Bearer ${args.idToken}` },
+  });
 };
