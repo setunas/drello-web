@@ -17,6 +17,7 @@ const HeaderContainer = styled.header<{ disableShadow: boolean }>`
   padding: 0 5% 0;
   height: ${headerHeight};
   width: 100vw;
+  width: -webkit-fill-available;
   position: fixed;
   top: 0;
   display: grid;
