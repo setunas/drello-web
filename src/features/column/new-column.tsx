@@ -87,6 +87,8 @@ export const NewColumn = ({ boardId }: NewColumnProps) => {
   const [showFormAction, setShowFormAction] = useState(true);
 
   const addColumnHandler: SubmitHandler<FormInputs> = (data) => {
+    if (!showFormAction) return;
+
     setShowFormAction(false);
     dispatch(postColumnThunk({ title: data.title, boardId }))
       .unwrap()

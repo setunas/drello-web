@@ -72,6 +72,8 @@ export const NewCard = ({ columnId }: NewCardProps) => {
   const [showFormAction, setShowFormAction] = useState(true);
 
   const addCardHandler: SubmitHandler<FormInputs> = (data) => {
+    if (!showFormAction) return;
+
     setShowFormAction(false);
     dispatch(postCardThunk({ title: data.cardTitle, columnId }))
       .unwrap()
