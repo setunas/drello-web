@@ -6,16 +6,13 @@ import { useDispatch } from "react-redux";
 import { moveCardThunk } from "src/features/card/card.slice";
 import { moveColumnThunk } from "../column/column.slice";
 
-const Container = styled.section`
-  padding: 1em;
+const BoardWrapper = styled.div``;
 
+const Container = styled.section`
+  padding: 1rem;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: max-content;
   gap: 1rem;
-  justify-content: start;
-  justify-items: start;
-  align-items: flex-start;
 `;
 
 interface BoardProps {
@@ -57,22 +54,24 @@ export const Board = ({ boardId }: BoardProps) => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable
-        droppableId="column-droppable"
-        direction="horizontal"
-        type="column"
-      >
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <Container>
-              <ColumnList boardId={boardId} />
-              {provided.placeholder}
-              <NewColumn boardId={boardId} />
-            </Container>
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <BoardWrapper>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable
+          droppableId="column-droppable"
+          direction="horizontal"
+          type="column"
+        >
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <Container>
+                <ColumnList boardId={boardId} />
+                {provided.placeholder}
+                <NewColumn boardId={boardId} />
+              </Container>
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </BoardWrapper>
   );
 };
