@@ -4,11 +4,17 @@
 import { Column } from "../column/column.g";
 import { Card } from "../card/card.g";
 
+type Positionable = Card | Column;
 const INITIAL_POSITION_GAP = 16384;
 const MIN_POSITION_GAP = 0.001;
 
-type Positionable = Card | Column;
-
+/**
+ * `renumberPositionsIfNeeded()` re-numbers the positions of the positionable
+ * elements in a certain list. This is necessary because a position could reach
+ * some thresholds which can't be calculated anymore.
+ * `renumberPositionsIfNeeded()` solves that problem by re-numbering all the
+ * positions before they reach the threshold.
+ */
 const renumberPositionsIfNeeded = <T extends Positionable>({
   nextPosition,
   prevPosition,
@@ -31,7 +37,6 @@ const renumberPositionsIfNeeded = <T extends Positionable>({
     nextP >= Number.MAX_SAFE_INTEGER - INITIAL_POSITION_GAP ||
     Math.abs(nextP - prevP) < MIN_POSITION_GAP
   ) {
-    console.log(nextP, prevP);
     let position = INITIAL_POSITION_GAP;
 
     const updatedList = list.map((positionable) => {
@@ -47,6 +52,10 @@ const renumberPositionsIfNeeded = <T extends Positionable>({
   return null;
 };
 
+/**
+ * `calcPositionOnMove()` calculates the position of the target positionable
+ * element when it is moved.
+ */
 const calcPositionOnMove = ({
   nextPosition,
   prevPosition,
@@ -65,6 +74,10 @@ const calcPositionOnMove = ({
   return position;
 };
 
+/**
+ * `updatePositions()` invoke all processes to calculate positions
+ * when a positionable element is moved.
+ */
 export const updatePositions = <T extends Positionable>({
   destIndex,
   list,
@@ -91,6 +104,10 @@ export const updatePositions = <T extends Positionable>({
   return { position };
 };
 
+/**
+ * `calcPositionOnCreate()` calculate the position of the new positionable element
+ * when it is created.
+ */
 export const calcPositionOnCreate = <T extends Positionable>(list: T[]) => {
   let position: number;
   const length = list.length;
