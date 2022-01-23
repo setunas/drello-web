@@ -1,13 +1,11 @@
 import { Header } from "src/features/header/header";
-import { url } from "src/utils/url/others";
-import { colors, headerHeight, zIndex } from "src/utils/styles";
+import { colors, headerHeight } from "src/utils/styles";
 import styled from "styled-components";
 import { useAuth } from "src/features/auth/use-auth";
 import { SigninButton } from "src/features/common-button/signin-button";
 import { GoToBoardButton } from "src/features/header/go-to-board-button";
 import { useMediaQuery } from "react-responsive";
-
-const footerHeight = "3em";
+import { Footer, footerHeight } from "src/features/footer/footer";
 
 const Main = styled.main`
   padding: 0 5em;
@@ -45,26 +43,6 @@ const Headline = styled.article`
   }
 `;
 
-const InnerLink = styled.span`
-  color: ${colors.textPlain}; /* To change the color of the visited link in Safari */
-`;
-
-const Footer = styled.footer`
-  z-index: ${zIndex.footer};
-  height: ${footerHeight};
-  width: 100%;
-
-  position: fixed;
-  bottom: 0;
-
-  display: grid;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-  background-color: ${colors.backgroundMain};
-`;
-
 const HomePage = () => {
   const { currentUser } = useAuth();
   const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
@@ -93,11 +71,7 @@ const HomePage = () => {
           )}
         </div>
       </Main>
-      <Footer>
-        <a href={url.setunasGithub} target="_blank" rel="noreferrer">
-          <InnerLink>&copy; 2022 Setunas Team</InnerLink>
-        </a>
-      </Footer>
+      <Footer />
     </>
   );
 };
