@@ -50,7 +50,7 @@ export const getIdTokenAndCurrentUser = createAsyncThunk(
   "auth/getIdTokenAndCurrentUser",
   async (user: User, { dispatch }) => {
     const idToken = await user.getIdToken();
-    await dispatch(getCurrentUserByIdToken(idToken));
+    await dispatch(getCurrentUserByIdToken(idToken)).unwrap();
     return idToken;
   }
 );

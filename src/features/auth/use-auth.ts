@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Router from "next/router";
 import {
   getIdTokenAndCurrentUser,
   resetAuth,
@@ -30,16 +31,20 @@ export const useAuth = () => {
     onAuthStateChanged(getAuth(), async (user) => {
       if (user) {
         // When user is signed in
-        dispatch(getIdTokenAndCurrentUser(user));
+        dispatch(getIdTokenAndCurrentUser(user))
+          .unwrap()
+          .catch((err) => {
+            console.error(err.message);
+            if (Router.pathname !== path.home()) {
+              Router.push(path.home());
+            }
+          });
       } else {
         // When user is signed out
         dispatch(resetAuth());
         dispatch(resetCurrentUser());
-        if (
-          typeof window !== "undefined" && // Client-side only
-          window.location.pathname !== path.home() // Unless user is already at home page
-        ) {
-          window.location.href = path.home();
+        if (Router.pathname !== path.home()) {
+          Router.push(path.home());
           window.alert("Please signin.");
         }
       }

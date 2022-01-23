@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import styled from "styled-components";
 import { Board } from "src/features/board/board";
 import { getBoardThunk, selectBoardById } from "src/features/board/board.slice";
@@ -43,7 +43,7 @@ const BoardPage = () => {
 
   useEffect(() => {
     if (currentUser && currentUser?.boardId !== boardId) {
-      window.location.href = path.home();
+      Router.push(path.home());
     }
   }, [currentUser]);
 
