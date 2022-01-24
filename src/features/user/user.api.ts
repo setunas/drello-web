@@ -3,6 +3,6 @@ import { path } from "src/utils/url/drello-api";
 import { OuterUser } from "./user.g";
 
 export const getUser = ({ idToken }: { idToken: string }) =>
-  drelloApiAxios.get<OuterUser>(path.users(), {
+  drelloApiAxios.get<OuterUser>(path.me(), {
     headers: { Authorization: `Bearer ${idToken}` },
   });
