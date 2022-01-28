@@ -25,4 +25,4 @@ We value the concept of [co-location](https://kentcdodds.com/blog/colocation) to
 
 
 ## CI/CD
-We use [Github Actions](https://github.com/features/actions) and Netlify for CI/CD. It automatically lints, builds, or deploys when you push to a pull request or merge to a certain branch.
+We use [Github Actions](https://github.com/features/actions) and [Netlify](https://www.netlify.com/) for CI/CD. It automatically lints, builds, or deploys when you push to a pull request or merge to a certain branch.
