@@ -49,7 +49,7 @@ const BoardPage = () => {
   if (!board) return null;
   return (
     <Main>
-      <Header />
+      <Header currentUser={currentUser} />
       <Board boardId={boardId} />
     </Main>
   );

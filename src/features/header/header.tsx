@@ -2,12 +2,12 @@ import Link from "next/link";
 import styled from "styled-components";
 import { path } from "src/utils/url/drello-web";
 import { colors, headerHeight } from "src/utils/styles";
-import { useAuth } from "../auth/use-auth";
 import { FC } from "react";
 import { GoToBoardButton } from "./go-to-board-button";
 import { SigninButton } from "../common-button/signin-button";
 import { SignoutButton } from "./signout-button";
 import { useMediaQuery } from "react-responsive";
+import { User } from "../user/user.g";
 
 const HeaderContainer = styled.header<{ disableShadow: boolean }>`
   box-shadow: ${({ disableShadow }) =>
@@ -51,11 +51,14 @@ const DuringSigninWrapper = styled.div`
 `;
 
 interface HeaderProps {
+  currentUser: User | null;
   disableShadow?: boolean;
 }
 
-export const Header: FC<HeaderProps> = ({ disableShadow = false }) => {
-  const { currentUser } = useAuth();
+export const Header: FC<HeaderProps> = ({
+  currentUser,
+  disableShadow = false,
+}) => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 460px)" });
 
   return (

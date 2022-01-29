@@ -31,14 +31,16 @@ export const useAuth = () => {
     onAuthStateChanged(getAuth(), async (user) => {
       if (user) {
         // When user is signed in
-        dispatch(getIdTokenAndCurrentUser(user))
-          .unwrap()
-          .catch((err) => {
-            console.error(err.message);
-            if (Router.pathname !== path.home()) {
-              Router.push(path.home());
-            }
-          });
+        if (!currentUser) {
+          dispatch(getIdTokenAndCurrentUser(user))
+            .unwrap()
+            .catch((err) => {
+              console.error(err.message);
+              if (Router.pathname !== path.home()) {
+                Router.push(path.home());
+              }
+            });
+        }
       } else {
         // When user is signed out
         dispatch(resetAuth());

@@ -49,7 +49,7 @@ const HomePage = () => {
 
   return (
     <>
-      <Header disableShadow={true} />
+      <Header currentUser={currentUser} disableShadow={true} />
       <Main>
         <Headline>
           Simple Kanban
