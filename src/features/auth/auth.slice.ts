@@ -1,3 +1,4 @@
+import axios, { AxiosError } from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/utils/redux/root";
 import {
@@ -31,17 +32,27 @@ export const signin = createAsyncThunk("auth/signin", async () => {
   const idToken = await userCred.user.getIdToken(true);
 
   let currentUser: InnerUser;
+
   try {
     const { data } = await getCurrentUser({ idToken });
     currentUser = data;
   } catch (err) {
-    console.log("err", err);
-
-    const { data } = await postSignup({
-      idToken,
-      username: userCred.user.displayName || "",
-    });
-    currentUser = data;
+    if (axios.isAxiosError(err)) {
+      const axiosErr = err as AxiosError;
+      if (axiosErr.response?.status === 404) {
+        // When the user sign in for the first time
+        const { data } = await postSignup({
+          idToken,
+          username: userCred.user.displayName || "",
+        });
+        currentUser = data;
+      } else {
+        throw Error(axiosErr.message);
+      }
+    } else {
+      const error = err as Error;
+      throw Error(error.message);
+    }
   }
 
   return { currentUser, idToken };
