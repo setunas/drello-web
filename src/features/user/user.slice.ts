@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/utils/redux/root";
 import { signin, signout } from "src/features/auth/auth.slice";
-import { getUser } from "src/features/user/user.api";
+import { getCurrentUser } from "src/features/user/user.api";
 import { User } from "src/features/user/user.g";
 
 interface UserState {
@@ -15,7 +15,7 @@ const initialState: UserState = {
 export const getCurrentUserByIdToken = createAsyncThunk(
   "user/getCurrentUserByIdToken",
   async (idToken: string) => {
-    return await getUser({ idToken });
+    return await getCurrentUser({ idToken });
   }
 );
 

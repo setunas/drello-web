@@ -7,7 +7,7 @@ import {
   User,
   signOut,
 } from "firebase/auth";
-import { getUser } from "src/features/user/user.api";
+import { getCurrentUser } from "src/features/user/user.api";
 import { User as InnerUser } from "src/features/user/user.g";
 import { getCurrentUserByIdToken } from "../user/user.slice";
 import { postSignup } from "./signup.api";
@@ -32,10 +32,11 @@ export const signin = createAsyncThunk("auth/signin", async () => {
 
   let currentUser: InnerUser;
   try {
-    const { data } = await getUser({ idToken });
+    const { data } = await getCurrentUser({ idToken });
     currentUser = data;
   } catch (err) {
-    // Should fix this code later. Not good to use all errors of try-catch as a conjunction.
+    console.log("err", err);
+
     const { data } = await postSignup({
       idToken,
       username: userCred.user.displayName || "",
